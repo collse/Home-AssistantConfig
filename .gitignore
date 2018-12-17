@@ -11,6 +11,7 @@ OZW_Log.txt
 home-assistant.*
 home-assistant_*
 *.db-journal
+*~
 lib
 deps
 tts
