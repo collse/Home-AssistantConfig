@@ -64,6 +64,7 @@ I have Home Assistant installed on an Odroid XU4 with Ubuntu 17.10 using an Aeon
 * Samsung Wireless Audio WAM270 | <a href="http://www.samsung.com/uk/audio-video/multiroom-link-mate-wam270/" target="_blank">Link</a>
 * Sensative Strips SENE1110 (Z-Wave) | <a href="https://www.amazon.co.uk/Sensative-SENE1110-Strips-Guard-Invisible/dp/B01CEZTUOU" target="_blank">Link</a>
 * Speedtest
+* Ubiquiti Controller / APs | <a href="https://www.ubnt.com" target="_blank">Link</a>
 * Weather Underground
 * Xiaomi Mi Robot Roborock Vacuum S50 2nd Gen | <a href="https://www.amazon.co.uk/Xiaomi-MI-Vacuum-Cleaner-2-Generation-White/dp/B077SJKSF6/"  target="_blank">Link</a>
 * Yale Conexis L1 Smart Door Lock | <a href="https://www.amazon.co.uk/Yale-Conexis-Smart-Door-Lock/dp/B01N78HJKV/" target="_blank">Link</a>
