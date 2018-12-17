@@ -1,0 +1,53 @@
+# Example customization
+homeassistant:
+
+
+emulated_hue:
+  listen_port: 80
+  host_ip: !secret hass_ip
+  expose_by_default: false
+  exposed_domains:
+    - script
+    - switch
+    - light
+    - camera
+    - group
+  entities: 
+    switch.kitchen_dining:
+      name: "Dining lights"
+      hidden: false
+    switch.kitchen_main:
+      name: "Kitchen lights"
+      hidden: false
+    switch.livingroom_front:
+      name: "Front"
+      hidden: false
+    switch.livingroom_rear:
+      name: "Rear"
+      hidden: false
+    switch.entrance_inside:
+      name: "Hall light"
+      hidden: false
+    switch.entrance_outside:
+      name: "Outside light"
+      hidden: false
+    light.landing_spot_1:
+      hidden: true
+    light.landing_spot_2:
+      hidden: true
+    light.landing_spot_3:
+      hidden: true
+    light.landing_spot_4:
+      hidden: true
+    light.corner_lamp_1:
+      hidden: true
+    light.corner_lamp_2:
+      hidden: true
+    light.corner_lamp_3:
+      hidden: true
+    light.color_temperature_light_1:
+      hidden: true
+    light.color_temperature_light_2:
+      hidden: true
+    light.color_temperature_light_3:
+      hidden: true

@@ -1,0 +1,16 @@
+###############################################################################
+#
+# MQTT Integration
+#
+###############################################################################
+
+### mqtt
+
+mqtt:
+   broker: !secret mqtt_broker
+   port: !secret mqtt_port
+   client_id: home-assistant
+   username: !secret mqtt_username
+   password: !secret mqtt_password
+   discovery: yes
+   discovery_prefix: !secret mqttbus

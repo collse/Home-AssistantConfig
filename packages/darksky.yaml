@@ -1,0 +1,29 @@
+group:
+###############################################################################
+# Groups  
+############################################################################### 
+
+
+  darksky:
+    name: Darksky Weather
+    view: no
+    entities:
+      - sensor.dark_sky_summary
+      - sensor.dark_sky_icon
+      - sensor.dark_sky_apparent_temperature
+      - sensor.dark_sky_temperature
+      - sensor.dark_sky_wind_speed
+      - sensor.dark_sky_wind_bearing
+      - sensor.dark_sky_nearest_storm_distance
+
+sensor:
+  - platform: darksky
+    api_key: !secret darksky
+    monitored_conditions:
+      - summary
+      - icon
+      - nearest_storm_distance
+      - temperature
+      - wind_speed
+      - apparent_temperature
+      - wind_bearing

@@ -1,0 +1,37 @@
+homeassistant:
+  customize:
+    sensor.ender_3_pro_current_state:
+      hidden: false
+
+group:
+  card_octoprint:
+    name: OctoPrint Ender 3 Pro
+    view: no
+    entities:
+    - sensor.ender_3_pro_current_state
+    - binary_sensor.ender_3_pro_printing
+    - binary_sensor.ender_3_pro_printing_error
+    - sensor.ender_3_pro_target_tool0_temp
+    - sensor.ender_3_pro_actual_tool0_temp
+    - sensor.ender_3_pro_target_bed_temp
+    - sensor.ender_3_pro_actual_bed_temp
+    - sensor.ender_3_pro_job_percentage
+    - sensor.ender_3_pro_time_elapsed
+    - sensor.ender_3_pro_time_remaining
+    - camera.octoprint
+
+octoprint:
+  - host: !secret octoprint
+    api_key: !secret octoprintkey
+    name: Ender 3 Pro
+    port: 80
+    ssl: no
+    bed: true
+    number_of_tools: 1
+
+camera:
+  - platform: mjpeg
+    name: OctoPrint
+    still_image_url: !secret still_image
+    mjpeg_url: !secret mjpeg
+    

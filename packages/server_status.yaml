@@ -1,0 +1,354 @@
+###############################################################################
+#
+# Server Status
+#
+###############################################################################
+# Dependencies / Glances - https://nicolargo.github.io/glances/
+###############################################################################
+homeassistant:
+  customize:
+
+    switch.pihole:
+      friendly_name: Pi-Hole
+      entity_picture: /local/pihole.png
+      
+    sensor.external_ip:
+      friendly_name: External IP
+      icon: mdi:earth
+      
+    sensor.ha_uptime:
+      friendly_name: Home Assistant uptime
+      icon: mdi:timer
+      
+    sensor.server_uptime:
+      friendly_name: Server uptime
+      icon: mdi:timer
+      
+    sensor.core_0_temperature:
+      friendly_name: Core 0 Temperature
+      icon: mdi:thermometer
+      hidden: true
+
+    sensor.core_1_temperature:
+      friendly_name: Core 1 Temperature
+      icon: mdi:thermometer
+      hidden: true
+      
+    sensor.glances_disk_used:
+      hidden: true
+
+    sensor.glances_ram_used:
+      hidden: true
+
+#    sensor.ha_version:
+#      friendly_name: Home Assistant Version
+
+    sensor.glances_cpu_load:
+      friendly_name: CPU Load
+      icon: mdi:desktop-tower
+      
+    sensor.glances_disk_overview:
+      friendly_name: Disk
+      icon: mdi:harddisk
+      
+    sensor.disk_temperature:
+      friendly_name: Disk Temperature
+      hidden: false
+      icon: mdi:thermometer
+      
+    sensor.glances_ram_overview:
+      friendly_name: RAM
+      icon: mdi:chip
+      
+    sensor.glances_linux_distro:
+      friendly_name: Linux Distro
+      icon: mdi:ubuntu
+      
+    sensor.current_version:
+      hidden: true
+      
+    sensor.glances_disk_free:
+      hidden: true
+      
+    sensor.glances_disk_use:
+      hidden: true
+      
+    sensor.glances_ram_free:
+      hidden: true
+      
+    sensor.glances_ram_use:
+      hidden: true
+      
+    sensor.glances_disk_total:
+      hidden: true
+      
+    sensor.glances_ram_total:
+      hidden: true
+
+    sensor.ha_github_version:
+      friendly_name: "GitHub Version"
+      icon: mdi:github-box
+
+    sensor.ha_pypi_version:
+      friendly_name: "PyPi Version"
+      icon: mdi:language-python
+
+    sensor.ha_version:
+      friendly_name: "Installed Version"
+      icon: mdi:settings-box
+
+    sensor.time:
+      friendly_name: "System Time"
+      icon: mdi:clock
+      
+    sensor.pi_temperature:
+      entity_picture: /local/raspberry-pi.png
+#      icon: mdi:oil-temperature
+
+    sensor.internet:
+      icon: mdi:router-wireless
+
+
+### STATE CARD
+
+group:
+  server_status:
+    name: Server Status
+    control: hidden
+    entities:
+      - sensor.internet
+      - sensor.external_ip
+      - sensor.glances_cpu_load
+#      - sensor.core_0_temperature
+#      - sensor.core_1_temperature
+      - sensor.glances_disk_overview
+      - sensor.glances_ram_overview
+#      - sensor.glances_disk_used
+#      - sensor.glances_disk_total
+#      - sensor.glances_ram_used
+#      - sensor.glances_ram_total
+#      - sensor.glances_cpu_temp
+      - sensor.server_uptime
+      - sensor.ha_uptime
+      - sensor.ha_github_version
+      - sensor.ha_pypi_version
+      - sensor.ha_version
+      - sensor.installed_version
+      - sensor.custom_component_tracker
+      - sensor.custom_card_tracker
+      - sensor.custom_python_script_tracker
+      - sensor.pi_temperature
+      - weblink.release_log
+      - weblink.glances
+      - weblink.pihole_management
+      - sensor.glances_linux_distro
+
+
+#  restarts:
+#    name: Restarts
+#    control: hidden
+#    entities:
+#      - sensor.this_week
+#      - sensor.this_month
+#      - sensor.all_time
+
+weblink:
+  entities:
+    - name: release_log
+      url: https://github.com/home-assistant/home-assistant/releases
+    - name: glances
+      url: !secret glances_url
+      icon: mdi:biohazard
+    - name: pi-hole_management
+      url: !secret pihole_url
+      icon: mdi:verified
+
+sensor:
+
+
+  - platform: command_line
+    name: Internet
+    command: ping -W 1 -c 1 8.8.8.8 > /dev/null 2>&1 && echo success || echo fail
+    device_class: connectivity
+    payload_on: "success"
+    payload_off: "fail"
+
+  - platform: rest
+    name: ha_github_version
+    resource: 'https://api.github.com/repos/home-assistant/home-assistant/releases/latest'
+    headers:
+      accept: application/vnd.github.v3+json
+      content-type: application/json
+      user-agent: home-assistant/rest-sensor
+    value_template: >-
+      {{ value_json.tag_name }}
+    scan_interval: 360
+
+  - platform: rest
+    name: ha_pypi_version
+    resource: 'https://pypi.python.org/pypi/homeassistant/json'
+    value_template: >-
+      {{ value_json.info.version }}
+    scan_interval: 3650
+
+### versions
+  - platform: command_line
+    command: python3 -c "import requests; print(requests.get('https://pypi.python.org/pypi/homeassistant/json').json()['info']['version'])"
+    name: Current Version
+
+  - platform: command_line
+    name: Installed Version
+    hidden: true
+    command: /srv/homeassistant/bin/hass --version
+
+### CUSTOM HA/Version
+
+  - platform: template
+    sensors:
+      ha_version:
+        value_template: "{%- if states.sensor.current_version.state == states.sensor.installed_version.state-%}{{states.sensor.installed_version.state}} {% else %}{{states.sensor.current_version.state}} Available{% endif%}"
+        icon_template: >-
+          {% if states.sensor.current_version.state == states.sensor.installed_version.state %}
+            mdi:checkbox-marked
+          {% else %}
+            mdi:checkbox-blank-outline
+          {% endif %}
+
+### custom linux version
+  - platform: command_line
+    command: curl -X GET http://localhost:61208/api/2/system
+    name: 'glances_linux_distro'
+    value_template: '{{ value_json.linux_distro }}'
+    scan_interval: 600
+#    scan_interval: 604800
+
+### uptime
+
+  - platform: command_line
+    name: 'HA Uptime'
+    command: echo "$(($(date +%s) - $(date -d "$(head -n1 /home/homeassistant/.homeassistant/home-assistant.log | cut -d' ' -f-2)" +%s)))"
+    scan_interval: 720
+    value_template: >-
+      {% set uptime = value | int %}
+      {% set seconds = uptime % 60 %}
+      {% set minutes = ((uptime % 3600) / 60) | int %}
+      {% set hours = ((uptime % 86400) / 3600) | int %}
+      {% set days = (uptime / 86400) | int %}
+      {%- if days > 0 -%}
+        {%- if days == 1 -%}
+          1 day
+        {%- else -%}
+          {{ days }} days
+        {%- endif -%}
+        {{ ', ' }}
+      {%- endif -%}
+      {{ '%02d' % hours }}:{{ '%02d' % minutes }}
+
+  - platform: command_line
+    command: curl -X GET http://localhost:61208/api/2/uptime
+    name: 'Server Uptime'
+    value_template: '{{ value[1:-1] }}'
+#    scan_interval: 30
+    scan_interval: 900
+
+### external ip
+
+  - platform: rest
+    resource: https://api.ipify.org/?format=json
+#    resource: http://ip.jsontest.com
+    name: external_ip
+    value_template: '{{ value_json.ip }}'
+    scan_interval: 300
+
+###### CPU & HDD TEMP
+
+#  - platform: command_line
+#    command: sudo hddtemp /dev/sd*
+#    name: 'Disk Temperature'
+#    value_template: '{{ value[23:-87] }}'
+#    scan_interval: 240
+
+  - platform: command_line
+    command: curl -X GET http://localhost:61208/api/2/sensors
+    name: "Core 0 Temperature"
+    value_template: "{% for item in value_json if item.label == 'Core 0' %} {{ item.value }} {% endfor %}°C"
+#    value_template: '{{ value_json[0].value }}°C'
+    scan_interval: 300
+
+  - platform: command_line
+    command: curl -X GET http://localhost:61208/api/2/sensors
+    name: "Core 1 Temperature"
+    value_template: "{% for item in value_json if item.label == 'Core 1' %} {{ item.value }} {% endfor %}°C"
+#    value_template: '{{ value_json[0].value }}°C'
+    scan_interval: 350
+
+### glances integration
+
+  - platform: glances
+    host: localhost
+    resources:
+#      - 'cpu_temp'
+      - 'disk_free'
+      - 'disk_use'
+      - 'memory_use'
+      - 'memory_free'
+#panel_iframe:
+#  glances:
+#    title: System Monitor
+#    icon: mdi:biohazard
+#    url: !secret glances_url
+
+#  - platform: systemmonitor
+#    resources:
+#      - type: disk_free
+#        arg: /home/homeassistant/.homeassistant
+### custom hdd display
+
+  - platform: template
+    sensors:
+      glances_disk_overview:
+        value_template: "{{states.sensor.glances_disk_used.state|float}} GB / {{(states.sensor.glances_disk_total.state|int/1024/1024/1024)|round(0)}} GB"
+
+  - platform: command_line
+    command: curl -X GET http://localhost:61208/api/2/fs
+    name: 'glances_disk_total'
+    value_template: '{{ value_json[0].size }}'
+#    scan_interval: 30
+    scan_interval: 604800
+
+### custom ram display
+
+  - platform: template
+    sensors:
+      glances_ram_overview:
+        value_template: "{{states.sensor.glances_ram_used.state|int}} MB / {{(states.sensor.glances_ram_total.state|int/1024/1024+1)|round(0)}} MB"
+
+  - platform: command_line
+    command: curl -X GET http://localhost:61208/api/2/mem/total
+    name: 'glances_ram_total'
+    value_template: '{{ value_json.total }}'
+#    scan_interval: 30
+    scan_interval: 604800
+
+### custom cpu load
+
+  - platform: command_line
+    command: curl -X GET http://localhost:61208/api/2/load
+    name: 'glances_cpu_load'
+    value_template: '{{ value_json.min5 }} %'
+#    scan_interval: 30
+    scan_interval: 280
+    
+#  - platform: systemmonitor
+#    resources:
+#      - type: disk_use_percent
+#        arg: /
+#      - type: disk_free
+#        arg: /
+#      - type: memory_free
+#      - type: memory_use_percent
+#      - type: memory_use
+#      - type: processor_use
+#      - type: last_boot
+#      - type: since_last_boot
+#      - type: load_1m

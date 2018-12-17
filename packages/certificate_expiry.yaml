@@ -1,0 +1,26 @@
+###############################################################################
+#
+# Certificate Expiry Check
+#
+###############################################################################
+homeassistant:
+  customize:
+  
+    sensor.ssl_certificate_expiry:
+      icon: mdi:certificate
+
+group:
+  card_Cert:
+    name: Certificate Validity
+    view: no
+    entities:
+      - sensor.ssl_certificate_expiry
+      - sensor.ssl_cert_expiry
+
+sensor:
+  - platform: command_line
+    name: SSL Certificate Expiry
+    icon: mdi:certificate
+    unit_of_measurement: days
+    scan_interval: 120
+    command: !secret certcheck

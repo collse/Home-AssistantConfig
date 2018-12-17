@@ -1,0 +1,243 @@
+homeassistant:
+  customize:
+    group.people_present:
+      order: 1
+    group.server_status:
+      order: 2
+    group.speedtest:
+      order: 3
+    group.card_cert:
+      order: 4
+    group.ads_blocked:
+      order: 5
+    group.qnap_view:
+      order: 50
+    group.card_qnap419:
+      order: 52
+    group.card_qnap470:
+      order: 51
+    group.card_motion:
+      order: 9
+    group.card_temp:
+      order: 10
+    group.card_lux:
+      order: 11
+    group.ring_doorbell:
+      order: 12
+    group.card_entrance:
+      order: 13
+    group.hall_sensors:
+      order: 14
+    group.downstairs_sensors:
+      order: 15
+    group.livingroom_sensors:
+      order: 16
+    group.living_outlets:
+      order: 17
+    group.dining_sensors:
+      order: 18
+    group.landing_sensors:
+      order: 19
+    group.office_sensors:
+      order: 20
+#    group.office_outlets:
+#      order: 21
+    group.bedroom_outlets:
+      order: 22
+    group.card_bedroom:
+      order: 23
+    group.card_cam:
+      order: 6
+    group.radio:
+      order: 25
+    group.weather:
+      order: 26
+    group.yahoo:
+      order: 27
+    group.all_lights:
+      order: 8
+    group.all_switches:
+      order: 7
+    group.all_automations:
+      order: 30
+    group.all_scripts:
+      order: 31
+
+group:
+
+#####################################
+#
+#  groups
+#
+#####################################
+
+  mydefault_view:
+    view: yes
+    icon: mdi:home
+    entities:
+      - group.people_present
+      - group.ads_blocked
+      - group.speedtest
+      - group.all_switches
+      - group.all_lights
+      - group.card_motion
+      - group.card_temp
+      - group.card_lux
+      - group.card_entrance
+      - group.card_switches
+      - group.all_automations
+      - group.card_active_media_players
+
+  card_bedroom:
+    name: Bedroom
+    view: no
+    entities:
+      - light.bedroom_bloom_k
+      - light.bedroom_bloom_s
+      - light.bedroom_lightstrip
+      - switch.bedroom_tv_outlet
+      - sensor.bedroom_tv_outlet_consumption
+      - sensor.bedroom_tv_outlet_usage
+      
+  card_switches:
+    name: Z-Wave Switches
+    view: no
+    entities:
+    - switch.alarm_siren_switch
+    - switch.entrance_outside
+    - switch.entrance_inside
+    - switch.livingroom_front
+    - switch.livingroom_rear
+    - switch.kitchen_main
+    - switch.kitchen_dining
+    
+      
+  card_picore:
+    name: piCore Player
+    view: no
+    entities:
+      - media_player.livingroom
+      - media_player.office_2
+
+  card_samsung:
+    name: Samsung Multiroom
+    view: no
+    entities:
+      - media_player.samsung_link_mate
+      - media_player.samsung_wireless_audio_hwj650
+      - media_player.samsung_wireless_audio_spkwam3500
+      - media_player.samsung_wireless_audio_spkwam3500_2
+      - media_player.samsung_wireless_audio_spkwam6500
+      - media_player.samsung_wireless_audio_spkwam6500_2
+      - media_player.tv_ue40mu6470
+
+  card_chromecast:
+    name: Google Chromecast
+    view: no
+    entities:
+      - media_player.shield
+      - media_player.shield_2
+      - media_player.shield_android_tves192168115
+      - media_player.shield_android_tves192168115_4
+
+  card_active_media_players:
+    name: Active Media Players
+    view: no
+    entities:
+      - sensor.media_players_active
+
+      
+#####################################
+#
+#  Views
+#
+#####################################
+
+  view.bedroom:
+    name: Bedroom
+    control: hidden
+    view: yes
+    entities:
+      - light.bedroom_bloom_k
+      - light.bedroom_bloom_s
+      - light.bedroom_lightstrip
+      - group.bedroom_outlets
+      
+  view.office:
+    name: Office
+    view: yes
+    entities:
+      - light.office_light
+      - group.office_sensors
+      - group.office_monitor_outlet
+      - camera.yi_cam
+      - camera.yi_denzil
+
+  view.hall:
+    name: Hall
+    control: hidden
+    view: yes
+    entities:
+      - light.upstairs_light
+      - light.landing_spot_1
+      - light.landing_spot_2
+      - light.landing_spot_3
+      - light.landing_spot_4
+      - group.hall_sensors
+      - group.landing_sensors
+      - group.downstairs_sensors
+      - switch.entrance_outside
+      - switch.entrance_inside
+      - camera.hallway
+      - camera.landing
+
+  view.Livingroom:
+    name: Livingroom
+    control: hidden
+    view: yes
+    entities:
+      - light.livingroom_light
+      - light.corner_lamp_1
+      - light.corner_lamp_2
+      - light.corner_lamp_3
+      - light.color_temperature_light_1
+      - light.color_temperature_light_2
+      - light.color_temperature_light_3
+      - switch.fan_dyson_desk_power
+      - switch.fan_dyson_desk_rotation
+      - switch.fan_dyson_desk_speed
+      - switch.fan_dyson_desk_timer
+      - group.livingroom_sensors
+      - group.living_outlets
+#      - input_boolean.livingroom_tv
+#      - input_boolean.block_tv_lights
+      - switch.livingroom_front
+      - switch.livingroom_rear
+
+  view.Kitchen:
+    name: Kitchen
+    control: hidden
+    view: yes
+    entities:
+      - group.kitchen_sensors
+      - group.dining_sensors
+      - switch.kitchen_main
+      - switch.kitchen_dining
+      - group.hot_tub_outlet
+      - camera.kitchen
+      
+      
+  view_samsung_media:
+    name: Multiroom
+    view: yes
+    entities:
+      - group.card_samsung
+      - group.alexa_tts
+      - group.card_chromecast
+      - group.card_picore
+
+  view_octoprint:
+    name: Octoprint
+    view: yes
+    entities:
+      - group.card_octoprint

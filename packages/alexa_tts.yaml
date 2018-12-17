@@ -1,0 +1,148 @@
+
+
+#####################################################################
+#    @package          :     alexa_tts
+#    @description      :     alexa_tts settings
+#####################################################################
+homeassistant:
+  customize:
+
+    ################################################
+    ## Input Text
+    ################################################
+    input_text.alexa_tts:
+      icon: mdi:textbox
+
+
+    ################################################
+    ## Input Select
+    ################################################
+    input_select.alexa:
+      icon: mdi:format-list-bulleted
+
+
+    ################################################
+    ## Input Number
+    ################################################
+    input_number.alexa_volume:
+      icon: mdi:volume-high
+
+
+#####################################################################
+### Input Text
+#####################################################################
+input_text:
+  alexa_tts:
+    name: Alexa TTS
+    initial: Hello
+
+
+#####################################################################
+### Input Number
+#####################################################################
+input_number:
+  alexa_volume:
+    name: Alexa Volume
+    initial: 4
+    min: 1
+    max: 10
+    step: 1
+
+
+#####################################################################
+### Input Select
+#####################################################################
+input_select:
+  alexa:
+    name: Alexa
+    options:
+      - None
+      - Office
+      - Living Room
+      - Dining
+      - Kitchen
+      - Bedroom
+
+    initial: None
+    icon: mdi:target
+
+group:
+
+#####################################
+#
+#  groups
+#
+#####################################
+
+ alexa_tts:
+    name: Alexa TTS
+    view: no
+    entities: 
+      - input_number.alexa_volume
+      - input_text.alexa_tts
+      - input_select.alexa
+      - media_player.echo_show_livingroom
+      - media_player.echo_spot_bedroom
+      - media_player.echo_kitchen
+      - media_player.echo_show_dining
+      - media_player.echo_spot_office
+      - media_player.bedroom_fire_tv_stick
+      - media_player.office_fire_tv_stick
+      - media_player.office_fire_tv_stick_spare
+      - media_player.downstairs
+      - !secret media_alexa_apps
+      - !secret firetablet
+      - !secret reverbai
+      - media_player.this_device
+
+#####################################################################
+### Automation
+#####################################################################
+automation:
+  ## Announce what is typed as input
+  - alias: Alexa TTS
+    trigger:
+      platform: state
+      entity_id: input_select.alexa
+    action:
+      - service: media_player.volume_set
+        data_template:
+          entity_id: >
+            {% if is_state('input_select.alexa', 'Living Room') %}
+              media_player.echo_show_livingroom
+            {% elif is_state('input_select.alexa', 'Bedroom') %}
+              media_player.echo_spot_bedroom
+            {% elif is_state('input_select.alexa', 'Kitchen') %}
+              media_player.echo_kitchen
+            {% elif is_state('input_select.alexa', 'Dining') %}
+              media_player.echo_show_dining
+            {% elif is_state('input_select.alexa', 'Office') %}
+              media_player.echo_spot_office
+            {% elif is_state('input_select.alexa', 'None') %}
+              false
+            {% endif %}
+          volume_level: '{{ states.input_number.alexa_volume.state | float /10 }}'
+      - service: media_player.alexa_tts
+        data_template:
+          entity_id: >
+            {% if is_state('input_select.alexa', 'Living Room') %}
+              media_player.echo_show_livingroom
+            {% elif is_state('input_select.alexa', 'Bedroom') %}
+              media_player.echo_spot_bedroom
+            {% elif is_state('input_select.alexa', 'Kitchen') %}
+              media_player.echo_kitchen
+            {% elif is_state('input_select.alexa', 'Dining') %}
+              media_player.echo_show_dining
+            {% elif is_state('input_select.alexa', 'Office') %}
+              media_player.echo_spot_office
+            {% elif is_state('input_select.alexa', 'None') %}
+              false
+            {% endif %}
+          message: "{{  states.input_text.alexa_tts.state }}"
+
+      - delay: '00:00:02'
+
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.alexa
+          option: None

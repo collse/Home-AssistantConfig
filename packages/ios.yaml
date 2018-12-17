@@ -1,0 +1,38 @@
+homeassistant:
+  customize:
+    !secret his_device_hatracker:
+      friendly_name: !secret ha_tracker
+      icon: mdi:account
+      
+    !secret his_device:
+      icon: mdi:account
+
+    !secret her_device:
+      icon: mdi:account
+
+group:
+
+#####################################
+#
+#  groups
+#
+#####################################
+
+  devices_present:
+    name: Device Monitoring
+    view: no
+    entities:
+      - !secret his_device
+      - !secret his_device_hatracker
+      - !secret his_device_sensor
+      - !secret his_device_battery
+      - sensor.ipad_mini_2_battery_state
+      - sensor.ipad_mini_2_battery_level
+      - !secret her_device
+      
+  people_present:
+    name: Currently @Home
+    view: no
+    entities:
+      - !secret his_device
+      - !secret her_device

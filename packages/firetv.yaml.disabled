@@ -1,0 +1,13 @@
+#
+# requires firetv-server -c /path/to/firetv_conf.yaml to start the firetv server to find specified devices - see firetv_conf_sample.yaml
+#
+#
+
+media_player:
+  - platform: firetv
+    device: bedroom
+    name: Amazon Fire TV Bedroom
+
+  - platform: firetv
+    device: office
+    name: Amazon Fire TV Office

@@ -1,0 +1,43 @@
+homeassistant:
+  customize:
+
+###############################################################################
+#
+# renaming entities
+#
+###############################################################################
+
+
+    sensor.corner_lamp_sensor:
+      device_class: light
+      hidden: true
+
+    sensor.landing_light_sensor:
+#      icon: mdi:lightbulb
+      device_class: light
+      hidden: true
+      
+sensor:
+  - platform: template
+    sensors:
+      corner_lamp_sensor:
+        value_template: >-  
+          {% if is_state("group.corner_lamp", "on") %}
+            On
+          {% elif is_state("group.corner_lamp", "off") %}
+            Off
+          {% else %}
+            Disconnected
+          {% endif %}
+          
+  - platform: template
+    sensors:
+      landing_light_sensor:
+        value_template: >-  
+          {% if is_state("group.landing_lights", "on") %}
+            On
+          {% elif is_state("group.landing_lights", "off") %}
+            Off
+          {% else %}
+            Disconnected
+          {% endif %}

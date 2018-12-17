@@ -1,0 +1,107 @@
+###########################
+###
+### entity icons
+###
+###########################
+
+'automation.*':
+  icon: mdi:arrow-right-drop-circle
+
+'switch.*_outlet':
+  icon: mdi:mdi:power-socket
+
+'switch.kitchen*':
+  icon: mdi:lightbulb
+
+'switch.entrance*':
+  icon: mdi:lightbulb
+  
+'switch.livingroom*':
+  icon: mdi:lightbulb
+
+'switch.livingroom_tv_outlet':
+  icon: mdi:power-socket
+
+'sensor.*_usage':
+  icon: mdi:mdi:gauge-full
+
+'sensor.*_consumption':
+  icon: mdi:mdi:gauge
+
+'binary_sensor.*_motion':
+  device_class: motion
+
+'binary_sensor.ring_*_motion':
+  device_class: motion
+
+'binary_sensor.entrance_door':
+  device_class: door
+  
+'binary_sensor.patio_door':
+  device_class: door
+  
+'sensor.downstairs_motion':
+  device_class: motion
+
+###########################
+###
+### hide unwanted entities
+###
+###########################
+
+'sensor.*_tank_capacity*':
+  hidden: true
+
+'sensor.*_sourcenode*':
+  hidden: true
+   
+'sensor.*_seismic*':
+  hidden: true
+   
+'sensor.*_alarm*':
+  hidden: true
+   
+'sensor.*_general*':
+  hidden: true
+
+'sensor.*_burglar*':
+  hidden: true
+  
+'binary_sensor.downstairs_motion2':
+  hidden: true
+  
+'sensor.*_type':
+  hidden: true
+  
+'sensor.*_level':
+  hidden: true
+  
+'sensor.*_current*':
+  hidden: true
+
+'sensor.*_previous*':
+  hidden: true
+  
+'sensor.*_voltage*':
+  hidden: true
+
+'sensor.*dew*':
+  hidden: true
+
+'sensor.*_access_control':
+  hidden: true
+
+#'switch.entrance_switch':
+#  hidden: true
+ 
+#'switch.kitchen_switch':
+#  hidden: true
+
+#'switch.livingroom_switch':
+#  hidden: true
+
+'sensor.custom_card_tracker':
+  hidden: true
+ 
+'sensor.custom_component_tracker':
+  hidden: true

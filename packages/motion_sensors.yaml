@@ -1,0 +1,1285 @@
+###############################################################################
+#
+#
+#
+###############################################################################
+homeassistant:
+  customize:
+
+###############################################################################
+#
+# renaming entities
+#
+###############################################################################
+# zwave
+
+
+
+# Downstairs
+
+    binary_sensor.downstairs_motion:
+      device_class: motion
+    sensor.downstairs_lux:
+      icon: mdi:brightness-7
+      unit_of_measurement: lux
+    sensor.downstairs_power_template:
+      friendly_name: Downstairs Sensor Battery Level
+
+# Hall
+
+    binary_sensor.hall_motion:
+      device_class: motion
+    sensor.hall_lux:
+      icon: mdi:brightness-7
+      unit_of_measurement: lux
+    sensor.hall_humidity:
+      icon: mdi:water-percent
+    binary_sensor.hall2_motion:
+      device_class: motion
+    sensor.hall2_lux:
+      icon: mdi:brightness-7
+      unit_of_measurement: lux
+    sensor.hall2_power_template:
+      friendly_name: Hall Sensor 2 Battery Level
+
+# Office
+
+    binary_sensor.office_motion:
+      device_class: motion
+    sensor.office_lux:
+      icon: mdi:brightness-7
+    sensor.office_power_template:
+      friendly_name: Office Sensor Battery Level
+    sensor.office_humidity:
+      icon: mdi:water-percent
+
+
+# Landing
+
+    binary_sensor.landing_motion:
+      device_class: motion
+    sensor.landing_lux:
+      icon: mdi:brightness-7
+    sensor.landing_power_template:
+      friendly_name: Landing Sensor Battery Level
+    binary_sensor.landing2_motion:
+      device_class: motion
+    sensor.landing2_lux:
+      icon: mdi:brightness-7
+      unit_of_measurement: lux
+    sensor.landing2_power_template:
+      friendly_name: Landing Sensor 2 Battery Level
+    binary_sensor.upstairs_motion:
+      friendly_name: Upstairs Motion
+      device_class: motion
+    sensor.upstairs_temperature:
+      friendly_name: Upstairs Temperature
+    sensor.upstairs_lux:
+      icon: mdi:brightness-7
+    sensor.upstairs_power_template:
+      friendly_name: Upstairs Sensor Battery Level
+
+# Livingroom
+
+    binary_sensor.livingroom_motion:
+      device_class: motion
+    sensor.livingroom_lux:
+      icon: mdi:brightness-7
+      unit_of_measurement: lux
+    sensor.livingroom_power_template:
+      friendly_name: Livingroom Sensor Battery Level
+
+# Dining
+
+    binary_sensor.dining_motion:
+      device_class: motion
+    sensor.dining_lux:
+      icon: mdi:brightness-7
+      unit_of_measurement: lux
+    sensor.dining_power_template:
+      friendly_name: Dining Sensor Battery Level
+    sensor.dining_humidity:
+      icon: mdi:water-percent
+
+
+# hide Multi Sensor Xtra Stuff
+#
+# hidden in customize_glob
+
+group:
+###############################################################################
+# Groups  
+############################################################################### 
+
+
+  Downstairs_sensors:
+    name: Downstairs
+    entities:
+      - binary_sensor.downstairs_motion
+      - sensor.downstairs_temperature
+      - sensor.downstairs_lux
+      - sensor.downstairs_power_template
+
+  Hall_sensors:
+    name: Hall
+    entities:
+      - binary_sensor.entrance_door
+      - binary_sensor.hall_motion
+      - sensor.hall_temperature
+      - sensor.hall_lux
+      - sensor.hall_humidity
+      - sensor.hall_uv
+      - sensor.hall_power_template
+      - binary_sensor.hall2_motion
+      - sensor.hall2_lux
+      - sensor.hall2_power_template
+
+  Landing_sensors:
+    name: Landing
+    entities:
+      - binary_sensor.landing_motion
+      - sensor.landing_temperature
+      - sensor.landing_lux
+      - sensor.landing_power_template
+      - binary_sensor.landing2_motion
+      - sensor.landing2_lux
+      - sensor.landing2_power_template
+      - binary_sensor.upstairs_motion
+      - sensor.upstairs_temp
+      - sensor.upstairs_lux
+      - sensor.upstairs_power_template
+
+  Office_Sensors:
+    name: Office
+    entities:
+      - binary_sensor.office_motion
+      - sensor.office_temperature
+      - sensor.office_lux
+      - sensor.office_humidity
+      - sensor.office_uv
+      - sensor.office_power_template
+
+  Livingroom_sensors:
+    name: Livingroom
+    entities:
+      - binary_sensor.livingroom_motion
+      - sensor.livingroom_temperature
+      - sensor.livingroom_lux
+      - sensor.livingroom_power_template
+
+  Dining_Sensors:
+    name: Dining
+    entities:
+      - binary_sensor.patio_door
+      - binary_sensor.dining_motion
+      - sensor.dining_temperature
+      - sensor.dining_lux
+      - sensor.dining_humidity
+      - sensor.dining_uv
+      - sensor.dining_power_template
+      
+  card_motion:
+    name: Motion Sensors
+    view: no
+    entities:
+      - binary_sensor.hall_motion
+      - binary_sensor.hall2_motion
+      - binary_sensor.livingroom_motion
+      - binary_sensor.dining_motion
+      - binary_sensor.downstairs_motion
+      - binary_sensor.landing_motion
+      - binary_sensor.landing2_motion
+      - binary_sensor.office_motion
+      - binary_sensor.upstairs_motion
+
+
+  card_temp:
+    name: Room Temperatures
+    view: no
+    entities:
+      - sensor.hall_temperature
+      - sensor.livingroom_temperature
+      - sensor.dining_temperature
+      - sensor.downstairs_temperature
+      - sensor.landing_temperature
+      - sensor.office_temperature
+      - sensor.upstairs_temperature
+      
+  card_lux:
+    name: Room Light Levels
+    view: no
+    entities:
+      - sensor.hall_lux
+      - sensor.hall2_lux
+      - sensor.livingroom_lux
+      - sensor.dining_lux
+      - sensor.downstairs_lux
+      - sensor.landing_lux
+      - sensor.landing2_lux
+      - sensor.office_lux
+      - sensor.upstairs_lux
+
+sensor:
+
+###############################################################################
+# Sensors  
+############################################################################### 
+
+#  - platform: template
+#    sensors:
+#      office_temperature_sensor_adj:
+#        friendly_name: "Office Temperature Sensor (Adj)"
+#        unit_of_measurement: "c"
+#        value_template: >-
+#          {{ states.sensor.office_temperature.state | float - 1.5 }}
+#
+#  - platform: template
+#    sensors:
+#      hall_temperature_sensor_adj:
+#        friendly_name: "Hall Temperature Sensor (Adj)"
+#        unit_of_measurement: "c"
+#        value_template: >-
+#          {{ states.sensor.hall_temperature.state | float - 1.5 }}
+#
+#  - platform: template
+#    sensors:
+#      livingroom_temperature_sensor_adj:
+#        friendly_name: "Livingroom Temperature Sensor (Adj)"
+#        unit_of_measurement: "c"
+#        value_template: >-
+#          {{ states.sensor.livingroom_temperature.state | float + 0.3 }}
+#
+#  - platform: template
+#    sensors:
+#      dining_temperature_sensor_adj:
+#        friendly_name: "Dining Temperature Sensor (Adj)"
+#        unit_of_measurement: "c"
+#        value_template: >-
+#          {{ states.sensor.dining_temperature.state | float - 1.5 }}
+#          
+#  - platform: template
+#    sensors:
+#      downstairs_temperature_sensor_adj:
+#        friendly_name: "Downstairs Temperature Sensor (Adj)"
+#        unit_of_measurement: "c"
+#        value_template: >-
+#          {{ states.sensor.downstairs_temperature.state | float - 1.5 }}
+#          
+#  - platform: template
+#    sensors:
+#      landing_temperature_sensor_adj:
+#        friendly_name: "Landing Temperature Sensor (Adj)"
+#        unit_of_measurement: "c"
+#        value_template: >-
+#          {{ states.sensor.landing_temperature.state | float - 1.5 }}
+#
+#  - platform: template
+#    sensors:
+#      upstairs_temperature_sensor_adj:
+#        friendly_name: "Upstairs Temperature Sensor (Adj)"
+#        unit_of_measurement: "c"
+#        value_template: >-
+#          {{ states.sensor.upstairs_temperature.state | float - 1.5 }}
+
+
+  - platform: template
+    sensors:
+      dining_power_template:
+        value_template: "{{ (states.zwave.dining_sensor.attributes|default).battery_level|default|int('unknown') }}"
+        friendly_name: "Dining Sensor Battery Level"
+        unit_of_measurement: "%"
+        icon_template: >-
+          {% set battery_level = states('dining_power_template')|int('unknown')  %}
+            {% if battery_level == 'unknown' %}
+              mdi:battery-unknown
+            {% else %}
+              {% set battery_round = (battery_level|int / 10)|int * 10 %}
+              {% if battery_round >= 100 %}
+                mdi:battery
+              {% elif battery_round > 0 %}
+                mdi:battery-{{ battery_round }}
+              {% else %}
+                mdi:battery-alert
+              {% endif %}
+            {% endif %}
+
+  - platform: template
+    sensors:
+      landing_power_template:
+        value_template: "{{ (states.zwave.landing_sensor.attributes|default).battery_level|default|int('unknown') }}"
+        friendly_name: "Landing Sensor Battery Level"
+        unit_of_measurement: "%"
+        icon_template: >-
+          {% set battery_level = states('sensor.landing_power_template')|int('unknown')  %}
+            {% if battery_level == 'unknown' %}
+              mdi:battery-unknown
+            {% else %}
+              {% set battery_round = (battery_level|int / 10)|int * 10 %}
+              {% if battery_round >= 100 %}
+                mdi:battery
+              {% elif battery_round > 0 %}
+                mdi:battery-{{ battery_round }}
+              {% else %}
+                mdi:battery-alert
+              {% endif %}
+            {% endif %}
+
+
+  - platform: template
+    sensors:
+      landing2_power_template:
+        value_template: "{{ (states.zwave.landing_sensor2.attributes|default).battery_level|default|int('unknown') }}"
+        friendly_name: "Landing Sensor 2 Battery Level"
+        unit_of_measurement: "%"
+        icon_template: >-
+          {% set battery_level = states('sensor.landing2_power_template')|int('unknown')  %}
+            {% if battery_level == 'unknown' %}
+              mdi:battery-unknown
+            {% else %}
+              {% set battery_round = (battery_level|int / 10)|int * 10 %}
+              {% if battery_round >= 100 %}
+                mdi:battery
+              {% elif battery_round > 0 %}
+                mdi:battery-{{ battery_round }}
+              {% else %}
+                mdi:battery-alert
+              {% endif %}
+            {% endif %}
+
+  - platform: template
+    sensors:
+      office_power_template:
+        value_template: "{{ (states.zwave.office_sensor.attributes|default).battery_level|default|int('unknown') }}"
+        friendly_name: "Office Sensor Battery Level"
+        unit_of_measurement: "%"
+        icon_template: >-
+          {% set battery_level = states('sensor.office_power_template')|int('unknown')  %}
+            {% if battery_level == 'unknown' %}
+              mdi:battery-unknown
+            {% else %}
+              {% set battery_round = (battery_level|int / 10)|int * 10 %}
+              {% if battery_round >= 100 %}
+                mdi:battery
+              {% elif battery_round > 0 %}
+                mdi:battery-{{ battery_round }}
+              {% else %}
+                mdi:battery-alert
+              {% endif %}
+            {% endif %}
+
+  - platform: template
+    sensors:
+      downstairs_power_template:
+        value_template: "{{ (states.zwave.downstairs_sensor.attributes|default).battery_level|default|int('unknown') }}"
+        friendly_name: "Downstairs Sensor Battery Level"
+        unit_of_measurement: "%"
+        icon_template: >-
+          {% set battery_level = states('sensor.downstairs_power_template')|int('unknown')  %}
+            {% if battery_level == 'unknown' %}
+              mdi:battery-unknown
+            {% else %}
+              {% set battery_round = (battery_level|int / 10)|int * 10 %}
+              {% if battery_round >= 100 %}
+                mdi:battery
+              {% elif battery_round > 0 %}
+                mdi:battery-{{ battery_round }}
+              {% else %}
+                mdi:battery-alert
+              {% endif %}
+            {% endif %}
+
+  - platform: template
+    sensors:
+      hall_power_template:
+        value_template: "{{ (states.zwave.hall_sensor.attributes|default).battery_level|default|int('unknown') }}"
+        friendly_name: "Hall Sensor Battery Level"
+        unit_of_measurement: "%"
+        icon_template: >-
+          {% set battery_level = states('sensor.hall_power_template')|int('unknown')  %}
+            {% if battery_level == 'unknown' %}
+              mdi:battery-unknown
+            {% else %}
+              {% set battery_round = (battery_level|int / 10)|int * 10 %}
+              {% if battery_round >= 100 %}
+                mdi:battery
+              {% elif battery_round > 0 %}
+                mdi:battery-{{ battery_round }}
+              {% else %}
+                mdi:battery-alert
+              {% endif %}
+            {% endif %}
+
+  - platform: template
+    sensors:
+      hall2_power_template:
+        value_template: "{{ (states.zwave.hall_sensor2.attributes|default).battery_level|default|int('unknown') }}"
+        friendly_name: "Hall Sensor 2 Battery Level"
+        unit_of_measurement: "%"
+        icon_template: >-
+          {% set battery_level = states('sensor.hall2_power_template')|int('unknown')  %}
+            {% if battery_level == 'unknown' %}
+              mdi:battery-unknown
+            {% else %}
+              {% set battery_round = (battery_level|int / 10)|int * 10 %}
+              {% if battery_round >= 100 %}
+                mdi:battery
+              {% elif battery_round > 0 %}
+                mdi:battery-{{ battery_round }}
+              {% else %}
+                mdi:battery-alert
+              {% endif %}
+            {% endif %}
+
+  - platform: template
+    sensors:
+      upstairs_power_template:
+        value_template: "{{ (states.zwave.upstairs_sensor.attributes|default).battery_level|default|int('unknown') }}"
+        friendly_name: "Upstairs Sensor Battery Level"
+        unit_of_measurement: "%"
+        icon_template: >-
+          {% set battery_level = states('sensor.upstairs_power_template')|int('unknown')  %}
+            {% if battery_level == 'unknown' %}
+              mdi:battery-unknown
+            {% else %}
+              {% set battery_round = (battery_level|int / 10)|int * 10 %}
+              {% if battery_round >= 100 %}
+                mdi:battery
+              {% elif battery_round > 0 %}
+                mdi:battery-{{ battery_round }}
+              {% else %}
+                mdi:battery-alert
+              {% endif %}
+            {% endif %}
+
+  - platform: template
+    sensors:
+      livingroom_power_template:
+        value_template: "{{ (states.zwave.livingroom_sensor.attributes|default).battery_level|default|int('unknown') }}"
+        friendly_name: "Livingroom Sensor Battery Level"
+        unit_of_measurement: "%"
+        icon_template: >-
+          {% set battery_level = states('sensor.livingroom_power_template')|int('unknown')  %}
+            {% if battery_level == 'unknown' %}
+              mdi:battery-unknown
+            {% else %}
+              {% set battery_round = (battery_level|int / 10)|int * 10 %}
+              {% if battery_round >= 100 %}
+                mdi:battery
+              {% elif battery_round > 0 %}
+                mdi:battery-{{ battery_round }}
+              {% else %}
+                mdi:battery-alert
+              {% endif %}
+            {% endif %}
+
+
+automation:
+
+################################################
+## Automation
+################################################
+
+
+    ########################
+    ###
+    ### Office Motion Activated Lights
+    ###
+    ########################
+
+  - alias: Light - Office Light - Day - On
+    initial_state: False
+    trigger:
+      platform: state
+      entity_id: binary_sensor.office_motion
+      to: 'on'
+    condition:
+      condition: and
+      conditions:
+        - condition: numeric_state
+          entity_id: sensor.office_lux
+          below: 18
+        - condition: state
+          entity_id: light.office_light
+          state: 'off'
+        - condition: time
+          after: "06:30:00"
+          before: "22:00:00"
+    action:
+        service: homeassistant.turn_on
+        entity_id: light.office_light
+        data:
+          brightness: 254
+
+  - alias: Light - Office Light - Day - Off (wfh)
+    initial_state: False
+    trigger:
+      platform: state
+      entity_id: binary_sensor.office_motion
+      from: 'on'
+      to: 'off'
+      for:
+        seconds: 90
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: light.office_light
+          state: 'on'
+        - condition: numeric_state
+          entity_id: sensor.office_monitor_outlet_consumption
+          above: 40
+        - condition: time
+          after: "06:30:00"
+          before: "22:00:00"
+    action:
+      service: homeassistant.turn_off
+      entity_id: light.office_light
+      data:
+        transition: 5
+
+  - alias: Light - Office Light - Off
+    initial_state: False
+    trigger:
+      - platform: state
+        entity_id: sensor.office_lux
+      - platform: state
+        entity_id: light.office_light
+    condition:
+      condition: and
+      conditions:
+        - condition: numeric_state
+          entity_id: sensor.office_lux
+          above: 40
+        - condition: time
+          after: "06:30:00"
+          before: "22:00:00"
+    action:
+      service: homeassistant.turn_off
+      entity_id: light.office_light
+      data:
+        transition: 5
+        
+  - alias: Light - Office Light - Day - Off
+    initial_state: False
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.office_motion
+        to: 'off'
+        for:
+          seconds: 30
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: light.office_light
+          state: 'on'
+        - condition: numeric_state
+          entity_id: sensor.office_monitor_outlet_consumption
+          below: 40
+        - condition: time
+          after: "06:30:00"
+          before: "22:00:00"
+    action:
+      service: homeassistant.turn_off
+      entity_id: light.office_light
+      data:
+        transition: 5
+
+  - alias: Light - Office Light - Night - On
+    initial_state: False
+    trigger:
+      platform: state
+      entity_id: 
+      - binary_sensor.office_motion
+      to: 'on'
+    condition:
+      condition: and
+      conditions:
+        - condition: time
+          after: "22:00:00"
+          before: "06:30:00"
+    action:
+      service: homeassistant.turn_on
+      entity_id: light.office_light
+      data:
+        brightness: 127
+
+  - alias: Light - Office Light - Night - Off
+    initial_state: False
+    trigger:
+      platform: state
+      entity_id: binary_sensor.office_motion
+      from: 'on'
+      to: 'off'
+      for:
+        seconds: 30
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: light.office_light
+          state: 'on'
+        - condition: time
+          after: "22:00:00"
+          before: "06:30:00"
+    action:
+      service: homeassistant.turn_off
+      entity_id: light.office_light
+      data:
+        transition: 5
+
+
+    ########################
+    ###
+    ### Hall Motion Activated Lights
+    ###
+    ########################
+
+
+  - alias: Light - Hall Light - Day - On
+    initial_state: True
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.hall_motion
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.hall2_motion
+        to: 'on'
+      - platform: state
+        entity_id: sensor.downstairs_burlgar
+        to: '8'
+      - platform: state
+        entity_id: binary_sensor.entrance_door
+        to: 'on'
+    condition:
+      condition: and
+      conditions:
+        - condition: numeric_state
+          entity_id: sensor.downstairs_lux
+          below: 6
+        - condition: numeric_state
+          entity_id: sensor.hall2_lux
+          below: 7
+        - condition: state
+          entity_id: switch.entrance_inside
+          state: 'off'
+    action:
+        service: homeassistant.turn_on
+        entity_id: switch.entrance_inside
+
+  - alias: Light - Hall Light - Day - Off
+    initial_state: True
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.hall_motion
+        from: 'on'
+        to: 'off'
+        for:
+          seconds: 30
+      - platform: state
+        entity_id: binary_sensor.hall2_motion
+        from: 'on'
+        to: 'off'
+        for:
+          seconds: 30
+      - platform: state
+        entity_id: binary_sensor.entrance_door
+        from: 'on'
+        to: 'off'
+        for:
+          seconds: 30
+      - platform: state
+        entity_id: binary_sensor.downstairs_motion
+        from: 'on'
+        to: 'off'
+        for:
+          seconds: 30
+    condition:
+      condition: and
+      conditions:
+      - condition: state
+        entity_id: binary_sensor.entrance_door
+        state: 'off'
+        for:
+          seconds: 10
+      - condition: state
+        entity_id: binary_sensor.downstairs_motion
+        state: 'off'
+        for:
+          seconds: 10
+      - condition: state
+        entity_id: binary_sensor.hall_motion
+        state: 'off'
+        for:
+          seconds: 10
+      - condition: state
+        entity_id: binary_sensor.hall2_motion
+        state: 'off'
+        for:
+          seconds: 10
+    action:
+        service: homeassistant.turn_off
+        entity_id: switch.entrance_inside
+
+
+    ########################
+    ###
+    ### Upstairs On
+    ###
+    ########################
+
+
+  - alias: Light - Upstairs - On
+    initial_state: True
+    trigger:
+      - platform: state
+        entity_id:
+          - binary_sensor.upstairs_motion
+        to: 'on'
+      - platform: state
+        entity_id: 
+          - binary_sensor.landing2_motion
+        to: 'on'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: light.upstairs_light
+          state: 'off'
+        - condition: numeric_state
+          entity_id: sensor.upstairs_lux
+          below: 5
+        - condition: time
+          after: "06:30:00"
+          before: "22:00:00"
+    action:
+      service: homeassistant.turn_on
+      entity_id: 
+        - light.upstairs_light
+      data:
+        brightness: 127
+
+
+    ########################
+    ###
+    ### Landing On
+    ###
+    ########################
+
+
+  - alias: Light - Landing - Day On
+    initial_state: True
+    trigger:
+      - platform: state
+        entity_id: 
+          - binary_sensor.landing_motion
+          - binary_sensor.landing2_motion
+          - binary_sensor.downstairs_motion
+        to: 'on'
+    condition:
+      condition: and
+      conditions:
+        - condition: time
+          after: "06:30:00"
+          before: "20:30:00"
+        - condition: numeric_state
+          entity_id: sensor.landing_lux
+          below: 5
+        - condition: or
+          conditions:
+          - condition: state
+            entity_id: light.landing_spot_1
+            state: 'off'
+          - condition: state
+            entity_id: light.landing_spot_2
+            state: 'off'
+          - condition: state
+            entity_id: light.landing_spot_3
+            state: 'off'
+          - condition: state
+            entity_id: light.landing_spot_4
+            state: 'off'
+    action:
+      service: homeassistant.turn_on
+      entity_id: 
+        - group.landing_lights
+#        - light.landing_spot_1
+#        - light.landing_spot_2
+#        - light.landing_spot_3
+#        - light.landing_spot_4
+      data:
+        brightness: 254
+
+
+    ########################
+    ###
+    ### Landing & Upstairs Off
+    ###
+    ########################
+
+
+  - alias: Light - Upstairs - Off
+    initial_state: True
+    trigger:
+      - platform: state
+        entity_id: 
+          - binary_sensor.landing2_motion
+        from: 'on'
+        to: 'off'
+        for:
+          seconds: 30
+      - platform: state
+        entity_id: binary_sensor.upstairs_motion
+        from: 'on'
+        to: 'off'
+        for:
+          seconds: 30
+    condition:
+      condition: and
+      conditions:
+        - condition: time
+          after: "06:30:00"
+          before: "20:30:00"
+        - condition: state
+          entity_id: binary_sensor.landing2_motion
+          state: 'off'
+        - condition: state
+          entity_id: binary_sensor.upstairs_motion
+          state: 'off'
+    action:
+      service: homeassistant.turn_off
+      entity_id: 
+        - light.upstairs_light
+      data:
+        transition: 2
+        
+
+  - alias: Light - Landing - Off
+    initial_state: True
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.downstairs_motion
+        from: 'on'
+        to: 'off'
+        for:
+          seconds: 30
+      - platform: state
+        entity_id: binary_sensor.landing_motion
+        from: 'on'
+        to: 'off'
+        for:
+          seconds: 30
+      - platform: state
+        entity_id: binary_sensor.landing2_motion
+        from: 'on'
+        to: 'off'
+        for:
+          seconds: 30
+    condition:
+      condition: and
+      conditions:
+        - condition: time
+          after: "06:30:00"
+          before: "20:30:00"
+        - condition: state
+          entity_id: binary_sensor.downstairs_motion
+          state: 'off'
+        - condition: state
+          entity_id: binary_sensor.landing_motion
+          state: 'off'
+        - condition: state
+          entity_id: binary_sensor.landing2_motion
+          state: 'off'
+    action:
+      - service: homeassistant.turn_off
+        entity_id:
+          - group.landing_lights
+#          - light.landing_spot_2
+#          - light.landing_spot_3
+#      - delay: 00:00:05
+#      - service: homeassistant.turn_off
+#        entity_id: 
+#          - light.landing_spot_1
+#          - light.landing_spot_4
+#      - delay: 00:00:05
+
+
+    ########################
+    ###
+    ### Landing Night On
+    ###
+    ########################
+
+
+  - alias: Light - Landing - Night On
+    initial_state: True
+    trigger:
+      - platform: state
+        entity_id: 
+          - binary_sensor.landing_motion
+          - binary_sensor.landing2_motion
+        to: 'on'
+      - platform: state
+        entity_id: 
+          - binary_sensor.downstairs_motion
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.upstairs_motion
+        to: 'on'
+    condition:
+      condition: and
+      conditions:
+        - condition: time
+          after: "20:30:00"
+          before: "06:30:00"
+        - condition: or
+          conditions:
+          - condition: state
+            entity_id: light.landing_spot_1
+            state: 'off'
+          - condition: state
+            entity_id: light.landing_spot_2
+            state: 'off'
+          - condition: state
+            entity_id: light.landing_spot_3
+            state: 'off'
+          - condition: state
+            entity_id: light.landing_spot_4
+            state: 'off'
+    action:
+      service: homeassistant.turn_on
+      entity_id: 
+        - group.landing_lights
+#        - light.landing_spot_1
+#        - light.landing_spot_2
+#        - light.landing_spot_3
+#        - light.landing_spot_4
+      data:
+        brightness: 16
+
+
+    ########################
+    ###
+    ### Landing Night Off
+    ###
+    ########################
+
+
+  - alias: Light - Landing - Night Off
+    initial_state: True
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.downstairs_motion
+        from: 'on'
+        to: 'off'
+        for:
+          seconds: 30
+      - platform: state
+        entity_id: binary_sensor.landing_motion
+        from: 'on'
+        to: 'off'
+        for:
+          seconds: 30
+      - platform: state
+        entity_id: binary_sensor.landing2_motion
+        from: 'on'
+        to: 'off'
+        for:
+          seconds: 30
+      - platform: state
+        entity_id: binary_sensor.upstairs_motion
+        from: 'on'
+        to: 'off'
+        for:
+          seconds: 30
+    condition:
+      condition: and
+      conditions:
+        - condition: time
+          after: "20:30:00"
+          before: "06:30:00"
+        - condition: state
+          entity_id: binary_sensor.downstairs_motion
+          state: 'off'
+        - condition: state
+          entity_id: binary_sensor.landing_motion
+          state: 'off'
+        - condition: state
+          entity_id: binary_sensor.landing2_motion
+          state: 'off'
+        - condition: state
+          entity_id: binary_sensor.upstairs_motion
+          state: 'off'
+    action:
+      - service: homeassistant.turn_off
+        entity_id:
+          - group.landing_lights
+#          - light.landing_spot_2
+#          - light.landing_spot_3
+#      - delay: 00:00:10
+#      - service: homeassistant.turn_off
+#       entity_id: 
+#         - light.landing_spot_1
+#         - light.landing_spot_4
+      - delay: 00:00:10
+      - service: homeassistant.turn_off
+        entity_id: 
+          - light.upstairs_light
+
+
+    ########################
+    ###
+    ### TV Light Automation
+    ###
+    ########################
+
+  - alias: TV Light Override On
+    initial_state: true
+    trigger:
+      - platform: state
+        entity_id: switch.livingroom_front
+        to: 'on'
+      - platform: state
+        entity_id: switch.livingroom_rear
+        to: 'on'
+    action:
+      - service: homeassistant.turn_on
+        entity_id: input_boolean.block_tv_lights
+
+
+  - alias: TV Light Override Off
+    initial_state: true
+    trigger:
+      - platform: state
+        entity_id: switch.livingroom_front
+        to: 'off'
+      - platform: state
+        entity_id: switch.livingroom_rear
+        to: 'off'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: input_boolean.livingroom_tv
+          state: 'on'
+        - condition: state
+          entity_id: input_boolean.block_tv_lights
+          state: 'on'
+    action:
+      - service: homeassistant.turn_off
+        entity_id: input_boolean.block_tv_lights
+        
+  - alias: Light Override Off
+    initial_state: true
+    trigger:
+      - platform: state
+        entity_id: switch.livingroom_front
+        to: 'off'
+      - platform: state
+        entity_id: switch.livingroom_rear
+        to: 'off'
+    action:
+      - service: homeassistant.turn_off
+        entity_id: input_boolean.block_tv_lights
+
+
+  - alias: Light - TV - Is - On
+    initial_state: true
+    trigger:
+      - platform: state
+        entity_id: sensor.livingroom_tv_outlet_consumption
+    condition:
+      condition: and
+      conditions:
+        - condition: numeric_state
+          entity_id: sensor.livingroom_tv_outlet_consumption
+          above: 65
+        - condition: state
+          entity_id: input_boolean.block_tv_lights
+          state: 'off'
+        - condition: or
+          conditions:
+          - condition: state
+            entity_id: !secret tracker1
+            state: 'home'
+          - condition: state
+            entity_id: !secret tracker2
+            state: 'home'
+        - condition: or
+          conditions:
+            - condition: numeric_state
+              entity_id: sensor.livingroom_lux
+              below: 5
+            - condition: state
+              entity_id: switch.livingroom_rear
+              state: 'on'
+            - condition: state
+              entity_id: switch.livingroom_front
+              state: 'on'
+    action:
+      - service: homeassistant.turn_on
+        entity_id: 
+          - light.corner_lamp_1
+          - light.corner_lamp_2
+          - light.corner_lamp_3
+          - light.color_temperature_light_1
+          - light.color_temperature_light_2
+          - light.color_temperature_light_3
+        data:
+          brightness: 50
+          transition: 2
+      - service: homeassistant.turn_off
+        entity_id: 
+          - switch.livingroom_rear
+          - switch.livingroom_front
+      - service: homeassistant.turn_on
+        entity_id: 
+          - input_boolean.livingroom_tv
+          
+
+  - alias: Light - TV - Is - Off
+    initial_state: true
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.livingroom_tv_outlet_consumption
+        below: 60
+        for:
+          seconds: 10
+      - platform: state
+        entity_id: switch.livingroom_rear
+        to: 'on'
+      - platform: state
+        entity_id: switch.livingroom_front
+        to: 'on'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: light.corner_lamp_1
+          state: 'on'
+        - condition: state
+          entity_id: light.corner_lamp_2
+          state: 'on'
+        - condition: state
+          entity_id: light.corner_lamp_3
+          state: 'on'
+        - condition: state
+          entity_id: light.color_temperature_light_1
+          state: 'on'
+        - condition: state
+          entity_id: light.color_temperature_light_2
+          state: 'on'
+        - condition: state
+          entity_id: light.color_temperature_light_3
+          state: 'on'
+        - condition: state
+          entity_id: input_boolean.livingroom_tv
+          state: 'on'
+        - condition: state
+          entity_id: input_boolean.block_tv_lights
+          state: 'off'
+        - condition: state
+          entity_id: switch.livingroom_rear
+          state: 'off'
+        - condition: state
+          entity_id: switch.livingroom_front
+          state: 'off'
+        - condition: or
+          conditions:
+            - condition: numeric_state
+              entity_id: sensor.livingroom_tv_outlet_consumption
+              below: '30'
+            - condition: numeric_state
+              entity_id: sensor.livingroom_lux
+              above: 8
+    action:
+      - service: homeassistant.turn_off
+        entity_id: 
+          - light.corner_lamp_1
+          - light.corner_lamp_2
+          - light.corner_lamp_3
+          - light.color_temperature_light_1
+          - light.color_temperature_light_2
+          - light.color_temperature_light_3
+        data:
+          transition: 5
+      - service: homeassistant.turn_on
+        entity_id:
+          - switch.livingroom_front
+      - delay: 00:00:01
+      - service: homeassistant.turn_off
+        entity_id: 
+          - input_boolean.livingroom_tv
+      - delay: 00:02:00
+      - service: homeassistant.turn_off
+        entity_id: 
+          - switch.livingroom_front
+
+
+  - alias: Light - TV - Lights - Off
+    initial_state: true
+    trigger:
+      - platform: state
+        entity_id: input_boolean.block_tv_lights
+        to: 'on'
+      - platform: state
+        entity_id: sensor.livingroom_motion
+        to: 'off'
+        for:
+          minutes: 90
+    action:
+      - service: homeassistant.turn_off
+        entity_id: 
+          - light.corner_lamp_1
+          - light.corner_lamp_2
+          - light.corner_lamp_3
+          - light.color_temperature_light_1
+          - light.color_temperature_light_2
+          - light.color_temperature_light_3
+        data:
+          transition: 2
+
+  - alias: Light - Livingroom - Lights - Off
+    initial_state: true
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.livingroom_lux
+        above: 20
+        for:
+          seconds: 10
+      - platform: state
+        entity_id: sensor.livingroom_motion
+        to: 'off'
+        for:
+          minutes: 60
+    condition:
+      condition: and
+      conditions:
+        - condition: numeric_state
+          entity_id: sensor.livingroom_lux
+          above: 20
+        - condition: state
+          entity_id: input_boolean.block_tv_lights
+          state: 'off'
+    action:
+      - service: homeassistant.turn_off
+        entity_id: 
+          - switch.livingroom_front
+          - switch.livingroom_rear
+          - light.corner_lamp_1
+          - light.corner_lamp_2
+          - light.corner_lamp_3
+          - light.color_temperature_light_1
+          - light.color_temperature_light_2
+          - light.color_temperature_light_3
+
+
+input_boolean:
+  block_tv_lights:
+    name: Block TV Lights
+    initial: off
+  livingroom_tv:
+    name: Living Room TV
+    initial: off
+
+

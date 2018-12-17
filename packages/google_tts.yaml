@@ -1,0 +1,11 @@
+###############################################################################
+#
+# TextToSpeech Integration
+#
+###############################################################################
+
+tts:
+ - platform: google
+   cache: true
+   cache_dir: /home/homeassistant/.homeassistant/tts
+   time_memory: 300

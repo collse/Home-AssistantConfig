@@ -1,0 +1,79 @@
+###############################################################################
+#
+# QNAP Monitoring
+#
+###############################################################################
+
+group:
+
+
+###  groups
+
+  qnap_view:
+    name: QNAP Stats
+    view: yes
+    entities:
+      - group.card_qnap470
+      - group.card_qnap419
+
+  card_qnap470:
+    name: QNAP 470 Pro Stats
+    view: no
+    entities:
+      - sensor.qnap470pro_status
+      - sensor.qnap470pro_system_temperature
+      - sensor.qnap470pro_cpu_temperature
+      - sensor.qnap470pro_cpu_usage
+      - sensor.qnap470pro_memory_usage
+      - sensor.qnap470pro_volume_used_datavol1
+      - sensor.qnap470pro_network_up_eth0
+      - sensor.qnap470pro_network_down_eth0
+      - sensor.qnap470pro_network_up_eth1
+      - sensor.qnap470pro_network_down_eth1
+      
+  card_qnap419:
+    name: QNAP 419 Pii Stats
+    view: no
+    entities:
+      - sensor.qnap419pii_status
+      - sensor.qnap419pii_system_temperature
+      - sensor.qnap419pii_cpu_temperature
+      - sensor.qnap419pii_cpu_usage
+      - sensor.qnap419pii_memory_usage
+      - sensor.qnap419pii_volume_used_volume_1
+      - sensor.qnap419pii_network_up_eth0
+      - sensor.qnap419pii_network_down_eth0
+      - sensor.qnap419pii_network_up_eth1
+      - sensor.qnap419pii_network_down_eth1
+    
+### sensors
+
+sensor:
+  - platform: qnap
+    host: !secret qnap470
+    username: !secret qnap_user
+    password: !secret qnap_pass
+    timeout: 30
+    monitored_conditions:
+      - status
+      - system_temp
+      - cpu_temp
+      - cpu_usage
+      - memory_percent_used
+      - network_tx
+      - network_rx
+      - volume_percentage_used
+  - platform: qnap
+    host: !secret qnap419
+    username: !secret qnap_user
+    password: !secret qnap_pass
+    timeout: 30
+    monitored_conditions:
+      - status
+      - system_temp
+      - cpu_temp
+      - cpu_usage
+      - memory_percent_used
+      - network_tx
+      - network_rx
+      - volume_percentage_used

@@ -1,0 +1,124 @@
+arlo:
+  username: !secret arlo_hass
+  password: !secret arlo_pass
+
+
+sensor:
+  - platform: arlo
+#    monitored_conditions:
+#      - captured_today
+#      - last_capture
+#      - total_cameras
+#      - battery_level
+#      - signal_strength
+      
+camera:
+  - platform: arlo
+    ffmpeg_arguments: '-pred 1 -q:v 2'
+
+
+automation:
+    - alias: Enable Arlo upon HA start'
+      initial_state: 'on'
+      trigger:
+        platform: homeassistant
+        event: start
+      action:
+        service: camera.enable_motion_detection
+        entity_id: 
+          - camera.denzil
+          - camera.kitchen
+          - camera.landing
+          - camera.hallway
+          
+#    - alias: Arlo - Activate cameras when leaving
+#      trigger:
+#        platform: state
+#        entity_id: group.people_present
+#        from: home
+#        to: not_home
+#      action:
+#        - service: alarm_control_panel.alarm_arm_away
+#          entity_id: 
+#            - alarm_control_panel.base
+#        - service: alarm_control_panel.alarm_arm_away
+#          entity_id: 
+#            - alarm_control_panel.nursery
+
+
+#    - alias: Arlo - Disable cameras when arriving
+#      trigger:
+#        platform: state
+#        entity_id: group.people_present
+#        from: not_home
+#        to: home
+#      action:
+#        - service: alarm_control_panel.alarm_disarm
+#          entity_id: 
+#            - alarm_control_panel.base
+#        - service: alarm_control_panel.alarm_disarm
+#          entity_id: 
+#            - alarm_control_panel.nursery
+
+      
+group:
+
+#####################################
+#
+#  groups
+#
+#####################################
+
+  Arlo:
+    name: Arlo
+    view: no
+    entities: 
+      - alarm_control_panel.base
+      - alarm_control_panel.nursery
+      - sensor.arlo_cameras
+      
+      - sensor.battery_level_kitchen
+      - sensor.captured_today_kitchen
+      - camera.kitchen
+      - sensor.last_kitchen
+      - sensor.signal_strength_kitchen
+      
+      - sensor.battery_level_hallway
+      - sensor.captured_today_hallway
+      - camera.hallway
+      - sensor.last_hallway
+      - sensor.signal_strength_hallway
+      
+      - sensor.battery_level_landing
+      - sensor.captured_today_landing
+      - camera.landing
+      - sensor.last_landing
+      - sensor.signal_strength_landing
+      - sensor.battery_level_nursery
+      - sensor.captured_today_nursery
+      - camera.nursery
+      - sensor.last_nursery
+      - sensor.signal_strength_nursery
+      - sensor.temperature_nursery
+      - sensor.air_quality_nursery
+      - sensor.humidity_nursery
+
+#####################################
+#
+#  Views
+#
+#####################################
+
+  view.Arlo:
+    name: Arlo
+    control: hidden
+    view: yes
+    entities: 
+      - group.arlo
+      - group.ring_doorbell
+      
+
+
+
+
+

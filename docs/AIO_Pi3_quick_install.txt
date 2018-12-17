@@ -1,0 +1,41 @@
+Home Assistant quick install via A-in-One-Installer
+
+1) Download RASPBIAN JESSIE LITE from https://www.raspberrypi.org/downloads/raspbian/
+
+2) Follow the Raspian installation guide: https://www.raspberrypi.org/documentation/installation/installing-images/README.md
+
+3) Once you have installed Raspian and your Raspberry Pi is at its login screen, login with the following credentials:
+
+User: pi
+password: raspberry
+
+4) Change the default password for user ‘pi’
+
+5) # passwd
+
+6) Now - fully update the raspberry pi
+
+# sudo apt-get update
+# sudo apt-get upgrade
+
+7) after this has completed use the AIO installer, follow the install here https://home-assistant.io/docs/installation/raspberry-pi-all-in-one/
+
+8) The process can take a while but once your Raspberry Pi reboots (roughly after 30minutes) it will start and Home Assistant will start at reboot but will be compiling additional components (zwave etc - dont worry) - this can take some time up to 20 minutes or more
+
+9) Once this has completed and you can access the Home Assistant web interface connect to your Pi via SSH using the user: pi / your_password
+
+10) change to your homeasistant user:
+# sudo su -s /bin/bash homeassistant
+
+11) change to the homeassistant environment
+# source /srv/homeassistant/homeassistant_venv/bin/activate
+
+12) now upgrade all pip components:
+# pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U
+
+13) when this process completes reboot your pi
+
+# exit
+pi@# sudo shutdown -r now
+
+Done - when you pi has restarted you are all updated and good to go

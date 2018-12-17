@@ -1,0 +1,111 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: !secret home_elevation
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: !secret home_timezone
+  customize_glob: !include customize_glob.yaml  
+  packages: !include_dir_named packages
+  auth_providers:
+   - type: homeassistant
+   # uncomment this to enable backwards compatible API password support
+   - type: legacy_api_password
+   
+   
+panel_iframe:
+  configurator:
+    title: Configurator
+    icon: mdi:wrench
+    url: !secret configurator_url
+  editor:
+    title: Editor
+    url: !secret httpeditor_url #IP to your home assistant
+    icon: mdi:book-open
+# Show links to resources in log and frontend
+#introduction:
+
+# Enables the frontend
+frontend:
+  javascript_version: latest
+#frontend:
+
+# Enables configuration UI
+config:
+
+api:
+  api_password: !secret api_password
+
+http:
+  # Uncomment this to add a password (recommended!)
+  api_password: !secret api_password
+  # Uncomment this if you are using SSL or running in Docker etc
+  base_url: !secret httpbase_url
+  ssl_certificate: !secret ssl_certificate
+  ssl_key: !secret ssl_key
+  server_port: !secret server_port
+# Checks for available updates
+updater:
+
+# Discover some devices automatically
+discovery:
+  ignore:
+    - samsung_tv
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time.
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables support for tracking state changes over time.
+recorder:
+  # Delete events and states older than 7 days
+  purge_interval: 1
+  purge_keep_days: 3
+  db_url: sqlite:///home/homeassistant/.homeassistant/home-assistant_v2.db
+#  db_url: !secret sql_url
+
+#logger:
+#  default: debug
+
+# Track the sun
+sun:
+
+# ios
+ios:
+
+# enable Z-Wave stick
+zwave:
+  usb_path: /dev/ttyACM0
+  network_key: !secret network_key
+#  debug: true
+#config_path: /srv/homeassistant/homeassistant_venv/lib/python3.4/site-packages/libopenzwave-0.3.3-py3.4-linux-armv7l.egg/config
+
+#zigbee:
+#  device: /dev/ttyUSB1
+#  baud: 115200
+
+script: !include scripts.yaml
+
+custom_updater:
+  show_installable: True
+  hide_sensor: True
+  track:
+    - components
+    - cards
+    - python_scripts
+#  track: both
+  
+
+alarm_control_panel:
+  - platform: arlo
+#    home_mode_name: "Armed_Home"

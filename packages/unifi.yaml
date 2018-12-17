@@ -1,0 +1,8 @@
+device_tracker:
+  - platform: unifi
+    host: !secret unifi
+    username: !secret unifitracker
+    password: !secret unifipswd
+    verify_ssl: false
+    ssid_filter:
+      - 'FASTZONE'

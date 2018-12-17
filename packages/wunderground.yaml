@@ -1,0 +1,38 @@
+###############################################################################
+#
+# Weather Underground
+#
+###############################################################################
+group:
+  weather:
+    name: Weather Conditions
+    entities:
+      - sun.sun
+      - sensor.pws_temp_high_record_c
+      - sensor.pws_temp_high_1d_c
+      - sensor.pws_temp_c
+      - sensor.pws_temp_low_1d_c
+      - sensor.pws_precip_1d
+      - sensor.pws_precip_1d_mm
+      - sensor.pws_wind_kph
+      - sensor.pws_wind_1d_kph
+      - sensor.pws_weather_1d_metric
+      - sensor.pws_temp_low_record_c
+      - sensor.pws_alerts
+
+### sensor
+
+sensor:
+  - platform: wunderground
+    api_key: !secret wu-apikey
+    monitored_conditions:
+      - alerts
+      - temp_high_record_c
+      - temp_high_1d_c
+      - temp_c
+      - temp_low_1d_c
+      - temp_low_record_c
+      - precip_1d
+      - precip_1d_mm
+      - wind_kph
+      - wind_1d_kph

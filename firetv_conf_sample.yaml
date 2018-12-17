@@ -1,0 +1,9 @@
+#
+# start: firetv-server -c /path/to/this/config
+#
+
+devices:
+  bedroom:
+    host: x.x.x.x:5555
+  office:
+    host: x.x.x.x:5555

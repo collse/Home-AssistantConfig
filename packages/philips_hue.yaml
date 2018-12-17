@@ -1,0 +1,111 @@
+#homeassistant:
+#  customize:
+
+###############################################################################
+#
+# renaming entities
+#
+###############################################################################
+
+
+
+group:
+###############################################################################
+# Groups  
+############################################################################### 
+
+
+  Corner_Lamp:
+    name: Corner Lamp
+    view: no
+    entities:
+      - light.corner_lamp_1
+      - light.corner_lamp_2
+      - light.corner_lamp_3
+
+  Floor_Lamp:
+    name: Floor Lamp
+    view: no
+    entities:
+      - light.color_temperature_light_1
+      - light.color_temperature_light_2
+      - light.color_temperature_light_3
+
+  Landing_lights:
+    name: Landing Lights
+    view: no
+    entities:
+      - light.landing_spot_1
+      - light.landing_spot_2
+      - light.landing_spot_3
+      - light.landing_spot_4
+
+
+  Lights:
+    name: Lights
+    view: no
+    entities:
+      - light.bedroom_bloom_k
+      - light.bedroom_bloom_s
+      - light.corner_lamp_1
+      - light.corner_lamp_2
+      - light.corner_lamp_3
+      - light.landing_spot_1
+      - light.landing_spot_2
+      - light.landing_spot_3
+      - light.landing_spot_4
+      - light.color_temperature_light_1
+      - light.color_temperature_light_2
+      - light.color_temperature_light_3
+      - light.office_light
+      - light.upstairs_light
+
+
+  all_ground_floor_lights:
+    name: All Ground Floor Lights
+    view: no
+    entities:
+      - light.corner_lamp_1
+      - light.corner_lamp_2
+      - light.corner_lamp_3
+      - light.livingroom_floor_lamp
+      - switch.kitchen_switch_main
+      - switch.kitchen_switch_dining
+      - switch.entrance_switch_inside
+      - switch.entrance_switch_outside
+      - switch.livingroom_switch_rear
+      - switch.livingroom_switch_front
+      
+
+  all_1st_floor_lights:
+    name: All 1st Floor Lights
+    view: no
+    entities:
+      - light.landing_spot_1
+      - light.landing_spot_2
+      - light.landing_spot_3
+      - light.landing_spot_4
+      - light.office_light
+      - light.upstairs_light
+
+  all_2nd_floor_lights:
+    name: All 2nd Floor Lights
+    view: no
+    entities:
+      - light.bedroom_bloom_k
+      - light.bedroom_bloom_s
+      - light.upstairs_light
+
+      
+###############################################################################
+#
+# Philips HUE Integration
+#
+###############################################################################
+
+hue:
+  bridges:
+    - host: !secret hue_bridge
+      filename: phue.conf
+      allow_unreachable: true
+      allow_hue_groups: false

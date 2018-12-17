@@ -1,0 +1,95 @@
+###############################################################################
+#
+# Notifications via PushService and TextToSpeech
+#
+###############################################################################
+automation:
+
+  - alias: Alarm - Home (Motion)
+    initial_state: False
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.entrance_door
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.hall_motion
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.hall2_motion
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.downstairs_motion
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.landing_motion
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.upstairs_motion
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.landing2_motion
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.dining_motion
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.patio_door
+        to: 'on'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: !secret tracker1
+          state: 'not_home'
+        - condition: state
+          entity_id: !secret tracker2
+          state: 'not_home'
+    action:
+      service: !secret notify_service
+      data:
+        message: "Something happened at home while nobody is in!"
+
+  - alias: Alarm - Doorbell Ring
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.ring_front_door_ding
+        to: 'on'
+    action:
+      service: !secret notify_service
+      data:
+        message: "Someone is at the front door!"
+
+
+  - alias: Alarm - Backyard Motion
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.ring_backyard_motion
+        to: 'on'
+    action:
+      service: !secret notify_service
+      data:
+        message: "There is motion in the backyard!"
+
+
+### TTS notifications
+
+  - alias: "TTS Notification"
+    initial_state: False
+    trigger:
+      platform: state
+      entity_id: binary_sensor.hall_motion
+      from: 'off'
+      to: 'on'
+    action:
+      service: tts.google_say
+      data_template:
+        entity_id: media_player.volumio_tts
+        message: >
+          {% if now().strftime("%H")|int < 12 %}
+          Good morning.
+          {% elif now().strftime("%H")|int < 18 %}
+          Good afternoon.
+          {% else %}
+          Good evening.
+          {% endif %}
+          The {{ trigger.to_state.attributes.friendly_name }} sensor shows activity!

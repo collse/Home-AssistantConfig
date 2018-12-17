@@ -1,0 +1,59 @@
+homeassistant:
+
+  customize:
+
+     switch.fan_dyson_desk_power:
+       icon: mdi:fan
+       assumed_state: false
+
+     switch.fan_dyson_desk_rotation:
+       assumed_state: false
+       icon: mdi:rotate-3d
+       initial_state: off
+    
+     switch.fan_dyson_desk_speed:
+       icon: mdi:play-speed 
+       initial_state: off
+
+     switch.fan_dyson_desk_timer:
+       icon: mdi:timer
+       initial_state: off
+
+switch:
+  - platform: broadlink
+    host: !secret broadlink_rm2
+    mac: !secret broadlink_rm2_mac
+    type: rm2_pro_plus
+    timeout: 15
+    switches:
+      #Dyson :
+      fan_dyson_desk_power:
+        friendly_name: "Dyson Desk Fan Power"
+        command_on: 'JgAkAEcdGTQYHBcdFzUYHBkaFxwXHhccGBwXHRccFx0XHBccFwANBQAAAAA=='
+        command_off: 'JgAkAEcdGTQYHBcdFzUYHBkaFxwXHhccGBwXHRccFx0XHBccFwANBQAAAAA=='
+      fan_dyson_desk_speed:
+        friendly_name: "Dyson Desk Fan Speed (Up/Down)"
+        command_on: 'JgBIAEkcGTQZGhkbGTMZGxkaGRoZHBc2FxwZNBkaGDUZGhkzFwAMwkcdFzYXHRccFzYXHBccFxwXHhc2Fx0XNRcdFzUXHBc1FwANBQ=='
+        command_off: 'JgBIAEcdFzYXHRccFzYXHBccFxwXNxc2FzYXNhc1FzUYNRccFwANAEcdFzYYHBcdFzUXHRccFxwXNxc2FzUYNRc2FzUXNRccFwANBQ=='
+      fan_dyson_desk_rotation:
+        friendly_name: "Dyson Desk Fan Rotation (On/Off)"
+        command_on: 'JgBIAEgdFzYXHBgcFzYXHBccFxwXNxcdFzUYHBc2FxwXHBccFwAM4UcdFzYXHRccGDUXHBccFxwXNxcdFzYXHRc1FxwXHBgbFwANBQ=='
+        command_off: 'JgBIAEgdFzYXHBgcFzYXHBccFxwXNxcdFzUYHBc2FxwXHBccFwAM4UcdFzYXHRccGDUXHBccFxwXNxcdFzYXHRc1FxwXHBgbFwANBQ=='
+      fan_dyson_desk_timer:
+        friendly_name: "Dyson Desk Fan Timer (Up/Down)"
+        command_on: 'JgBIAEgdFzYXHRccFzYXHBccFxwXHhc2FzYXNRc2FxwXHBc1FwAMr0cdGDUYHBcdFzUXHRccFxsYHRc2GDUXNhc1GBwXHBc1FwANBQ=='
+        command_off: 'JgBIAEcdFzYXHRcdGDQZGhkaGBsXNxk0Fx0XHRc1FzYXNRccFwAMqEcdFzYXHRkbFzUZGhgbGBsYNhc2GBwZGxc1FzYXNRccFwANBQ=='
+#      fan_dyson_desk_rotation:
+#        friendly_name: "Dyson Desk Rotation"
+#        command_on: ''
+#        command_off: ''
+
+
+# Speed up JgBIAEobGTQZGxkaGTQZGhkaGRoZHBk0GTQZMxozGRoaGRoyGgAMrUoaGjMaGhoaGTMaGhkaGRoZHBk0GTMaMxozGRoZGhoyGgANBQ
+# Speed down JgBIAEkbGjMaGhkbGTMaGRoaGRkaNBoaGjMaGhkzGhoZGhkaGQAM30obGTQZGhoaGTMaGhkaGRoZNRkbGTQZGhozGRoaGRoZGgANBQ
+# Roation JgBIAEobGTQZGxkaGjMZGhkaGhkZNRk0GjMZNBkzGjMZMxkaGQANAEoaGjMaGhkbGTMaGhkaGRoZNBo0GTMaMxozGTMaMhoZGgANBQ
+# time up JgBIAEobGTQZGhoaGTQZGhkaGRoZHBk0GRsZMxoaGTMaGRoyGgAMv0obGTQZGxkaGjMZGhkaGhkZHBk0GRsZMxoaGTMaGRoyGgANBQ
+# timer down JgAkAEcdFzYXHRcdFzUXHRccFxwXHRgcGBwXHRccFx0XHBccFwANBQAAAAA
+
+
+

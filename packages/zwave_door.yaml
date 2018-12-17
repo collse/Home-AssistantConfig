@@ -1,0 +1,157 @@
+###############################################################################
+#
+# Zwave Door Sensor
+#
+###############################################################################
+homeassistant:
+#  customize:
+
+
+###############################################################################
+#
+# renaming entities
+#
+###############################################################################
+
+
+
+group:
+  card_entrance:
+    name: Door Sensor
+    view: no
+    entities:
+      - lock.front_door
+      - sensor.front_door_status
+      - sensor.front_door_lock_power_template
+      - binary_sensor.ring_front_door_motion
+      - binary_sensor.ring_front_door_ding
+      - binary_sensor.entrance_door
+      - sensor.door_contact_power_template
+      - binary_sensor.patio_door
+      - sensor.patio_contact_power_template
+
+### sensor
+
+sensor:
+  - platform: template
+    sensors:
+      door_contact_power_template:
+        value_template: "{{ (states.zwave.entrance_door_sensor.attributes|default).battery_level|default|int('unknown') }}"
+        friendly_name: "Entrance Door Battery Level"
+        unit_of_measurement: "%"
+        icon_template: >-
+          {% set battery_level = states('sensor.door_contact_power_template')|int('unknown')  %}
+            {% if battery_level == 'unknown' %}
+              mdi:battery-unknown
+            {% else %}
+              {% set battery_round = (battery_level|int / 10)|int * 10 %}
+              {% if battery_round >= 100 %}
+                mdi:battery
+              {% elif battery_round > 0 %}
+                mdi:battery-{{ battery_round }}
+              {% else %}
+                mdi:battery-alert
+              {% endif %}
+            {% endif %}
+            
+  - platform: template
+    sensors:
+      patio_contact_power_template:
+        value_template: "{{ (states.zwave.patio_door_sensor.attributes|default).battery_level|default|int('unknown') }}"
+        friendly_name: "Patio Door Battery Level"
+        unit_of_measurement: "%"
+        icon_template: >-
+          {% set battery_level = states('sensor.patio_contact_power_template')|int('unknown')  %}
+            {% if battery_level == 'unknown' %}
+              mdi:battery-unknown
+            {% else %}
+              {% set battery_round = (battery_level|int / 10)|int * 10 %}
+              {% if battery_round >= 100 %}
+                mdi:battery
+              {% elif battery_round > 0 %}
+                mdi:battery-{{ battery_round }}
+              {% else %}
+                mdi:battery-alert
+              {% endif %}
+            {% endif %}
+            
+            
+  - platform: template
+    sensors:
+      front_door_lock_power_template:
+        value_template: "{{ (states.zwave.yale_conexis_l1_sdl1000ch.attributes|default).battery_level|default|int('unknown') }}"
+        friendly_name: "Front Door Lock Battery Level"
+        unit_of_measurement: "%"
+        icon_template: >-
+          {% set battery_level = states('sensor.patio_contact_power_template')|int('unknown')  %}
+            {% if battery_level == 'unknown' %}
+              mdi:battery-unknown
+            {% else %}
+              {% set battery_round = (battery_level|int / 10)|int * 10 %}
+              {% if battery_round >= 100 %}
+                mdi:battery
+              {% elif battery_round > 0 %}
+                mdi:battery-{{ battery_round }}
+              {% else %}
+                mdi:battery-alert
+              {% endif %}
+            {% endif %}
+            
+#  - platform: template
+#    sensors:
+#      front_door_status:
+#          value_template: >-
+#            {%- if is_state("sensor.assa_abloy_yale_conexis_l1_sdl1000ch_alarm_type", "144") -%}
+#              {%- if is_state("sensor.assa_abloy_yale_conexis_l1_sdl1000ch_alarm_type", "1") -%}
+#                Mastercard
+#              {%- elif is_state("sensor.assa_abloy_yale_conexis_l1_sdl1000ch_alarm_type", "2") -%}
+#                Sev
+#              {%- elif is_state("sensor.assa_abloy_yale_conexis_l1_sdl1000ch_alarm_type", "3") -%}
+#                Karla
+#              {%- elif is_state("sensor.assa_abloy_yale_conexis_l1_sdl1000ch_alarm_type", "4") -%}
+#                Fourth Person
+#              {%- else -%}
+#                Unlocked by user {{ sensor.assa_abloy_yale_conexis_l1_sdl1000ch_alarm_type }}
+#              {%- endif %}
+#            {%- elif is_state("sensor.assa_abloy_yale_conexis_l1_sdl1000ch_alarm_type", "27") %}
+#              Auto-Relocked
+#            {%- elif is_state("sensor.assa_abloy_yale_conexis_l1_sdl1000ch_alarm_type", "21") %}
+#              Manual Lock
+#            {%- elif is_state("sensor.assa_abloy_yale_conexis_l1_sdl1000ch_alarm_type", "22") %}
+#              Manual Unlock
+#            {%- elif is_state("sensor.assa_abloy_yale_conexis_l1_sdl1000ch_alarm_type", "161") %}
+#              Tamper
+#            {%- else -%}
+#              Unknown Level {{ states.sensor.assa_abloy_yale_conexis_l1_sdl1000ch_alarm_type.state }} Type {{ states.sensor.assa_abloy_yale_conexis_l1_sdl1000ch_alarm_type.state }}
+#            {%- endif %}
+#          friendly_name: 'Front Door Status'
+          
+  - platform: template
+    sensors:
+      front_door_status:
+        entity_id: lock.front_door
+        value_template: >-
+          {% set lock_status = states.lock.front_door.attributes.lock_status %}
+          {% set lock_status = lock_status|replace('user 0', 'Master Key') %}
+          {% set lock_status = lock_status|replace('user 1', 'iPhone') %}
+          {% set lock_status = lock_status|replace('user 2', 'Sev Fob') %}
+          {% set lock_status = lock_status|replace('user 3', 'Karla') %}
+          {% set lock_status = lock_status|replace('user 4', 'Ann') %}
+          {{ lock_status }}
+        friendly_name: 'Front Door Status'
+
+automation:
+    - alias: Notify Door unlock
+      trigger:
+        platform: state
+#        entity_id: lock.front_door
+        entity_id: sensor.front_door_status
+      action:
+        service: !secret notify_service
+        data_template:
+#          target: james_op5
+          title: "Lock changed"
+          message: "Door {{trigger.to_state.state}} - {{trigger.to_state.attributes.lock_status}}"
+          data:
+            tag: "lock_status"
+
