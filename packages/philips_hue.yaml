@@ -68,13 +68,13 @@ group:
       - light.corner_lamp_1
       - light.corner_lamp_2
       - light.corner_lamp_3
-      - light.livingroom_floor_lamp
-      - switch.kitchen_switch_main
-      - switch.kitchen_switch_dining
-      - switch.entrance_switch_inside
-      - switch.entrance_switch_outside
-      - switch.livingroom_switch_rear
-      - switch.livingroom_switch_front
+      - group.floor_lamp
+      - switch.kitchen_main
+      - switch.kitchen_dining
+      - switch.entrance_inside
+      - switch.entrance_outside
+      - switch.livingroom_rear
+      - switch.livingroom_front
       
 
   all_1st_floor_lights:

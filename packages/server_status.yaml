@@ -101,10 +101,6 @@ homeassistant:
       friendly_name: "System Time"
       icon: mdi:clock
       
-    sensor.pi_temperature:
-      entity_picture: /local/raspberry-pi.png
-#      icon: mdi:oil-temperature
-
     sensor.internet:
       icon: mdi:router-wireless
 
@@ -137,7 +133,7 @@ group:
       - sensor.custom_component_tracker
       - sensor.custom_card_tracker
       - sensor.custom_python_script_tracker
-      - sensor.pi_temperature
+#      - sensor.pi_temperature
       - weblink.release_log
       - weblink.glances
       - weblink.pihole_management

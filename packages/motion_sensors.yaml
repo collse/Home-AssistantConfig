@@ -145,7 +145,7 @@ group:
       - sensor.landing2_lux
       - sensor.landing2_power_template
       - binary_sensor.upstairs_motion
-      - sensor.upstairs_temp
+      - sensor.upstairs_temperature
       - sensor.upstairs_lux
       - sensor.upstairs_power_template
 

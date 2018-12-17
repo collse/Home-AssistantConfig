@@ -34,7 +34,7 @@ group:
       - sensor.ring_front_door_last_ding
       - sensor.ring_front_door_last_motion
       - sensor.ring_front_door_last_activity
-      - binary_sensor.ring_backyard_ding
+#      - binary_sensor.ring_backyard_ding
       - binary_sensor.ring_backyard_motion
       - sensor.ring_backyard_battery
       - sensor.ring_backyard_volume
@@ -42,7 +42,7 @@ group:
       - sensor.ring_backyard_last_activity
       - sensor.ring_backyard_wifi_signal_category
       - sensor.ring_backyard_wifi_signal_strength
-      - binary_sensor.ring_pathway_ding
+#      - binary_sensor.ring_pathway_ding
       - binary_sensor.ring_pathway_motion
       - sensor.ring_pathway_battery
       - sensor.ring_pathway_volume

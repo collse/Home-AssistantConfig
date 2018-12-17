@@ -103,7 +103,7 @@ group:
     name: Z-Wave Switches
     view: no
     entities:
-    - switch.alarm_siren_switch
+#    - switch.alarm_siren_switch
     - switch.entrance_outside
     - switch.entrance_inside
     - switch.livingroom_front
@@ -112,33 +112,33 @@ group:
     - switch.kitchen_dining
     
       
-  card_picore:
-    name: piCore Player
-    view: no
-    entities:
-      - media_player.livingroom
-      - media_player.office_2
+#  card_picore:
+#    name: piCore Player
+#    view: no
+#    entities:
+#      - media_player.livingroom
+#      - media_player.office_2
 
-  card_samsung:
-    name: Samsung Multiroom
-    view: no
-    entities:
-      - media_player.samsung_link_mate
-      - media_player.samsung_wireless_audio_hwj650
-      - media_player.samsung_wireless_audio_spkwam3500
-      - media_player.samsung_wireless_audio_spkwam3500_2
-      - media_player.samsung_wireless_audio_spkwam6500
-      - media_player.samsung_wireless_audio_spkwam6500_2
-      - media_player.tv_ue40mu6470
+#  card_samsung:
+#    name: Samsung Multiroom
+#    view: no
+#    entities:
+#      - media_player.samsung_link_mate
+#      - media_player.samsung_wireless_audio_hwj650
+#      - media_player.samsung_wireless_audio_spkwam3500
+#      - media_player.samsung_wireless_audio_spkwam3500_2
+#      - media_player.samsung_wireless_audio_spkwam6500
+#      - media_player.samsung_wireless_audio_spkwam6500_2
+#      - media_player.tv_ue40mu6470
 
-  card_chromecast:
-    name: Google Chromecast
-    view: no
-    entities:
-      - media_player.shield
-      - media_player.shield_2
-      - media_player.shield_android_tves192168115
-      - media_player.shield_android_tves192168115_4
+#  card_chromecast:
+#    name: Google Chromecast
+#    view: no
+#    entities:
+#      - media_player.shield
+#     - media_player.shield_2
+#     - media_player.shield_android_tves192168115
+#     - media_player.shield_android_tves192168115_4
 
   card_active_media_players:
     name: Active Media Players

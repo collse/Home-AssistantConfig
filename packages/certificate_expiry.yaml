@@ -15,7 +15,6 @@ group:
     view: no
     entities:
       - sensor.ssl_certificate_expiry
-      - sensor.ssl_cert_expiry
 
 sensor:
   - platform: command_line
