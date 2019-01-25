@@ -69,18 +69,19 @@ group:
   Ads Blocked:
     entities:
       - switch.pihole
+      - weblink.pi_hole_management
       - sensor.pi_hole_version
       - sensor.pihole_version_latest
-      - sensor.pihole_version_current
-      - sensor.pihole_ads_blocked_today
-      - sensor.pihole_ads_percentage_blocked_today
-      - sensor.pihole_dns_queries_cached
-      - sensor.pihole_dns_queries_forwarded
-      - sensor.pihole_dns_queries_today
-      - sensor.pihole_dns_unique_clients
-      - sensor.pihole_seen_clients
-      - sensor.pihole_dns_unique_domains
-      - sensor.pihole_domains_blocked
+      - sensor.pi_hole_version_current
+      - sensor.pi_hole_ads_blocked_today
+      - sensor.pi_hole_ads_percentage_blocked_today
+      - sensor.pi_hole_dns_queries_cached
+      - sensor.pi_hole_dns_queries_forwarded
+      - sensor.pi_hole_dns_queries_today
+      - sensor.pi_hole_dns_unique_clients
+      - sensor.pi_hole_seen_clients
+      - sensor.pi_hole_dns_unique_domains
+      - sensor.pi_hole_domains_blocked
 #      - sensor.ads_blocked_today
 #      - sensor.ads_percentage_today
 #      - sensor.dns_queries_today
@@ -90,7 +91,7 @@ group:
 #      - sensor.queries_forwarded
 #      - sensor.queries_cached
       - sensor.pihole_dns
-      - sensor.pihole_blocking
+      - sensor.pi_hole_blocking
       - script.ad_blocker
       - script.pihole_on
       - script.pihole_off
@@ -185,6 +186,16 @@ sensor:
           {% else %}
             False
           {% endif %}
+          
+          
+          
+weblink:
+  entities:
+    - name: pi-hole_management
+      url: !secret pihole_url
+      icon: mdi:verified
+      
+
 ###############################################################################
 #  Switch
 ###############################################################################

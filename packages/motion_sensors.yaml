@@ -282,26 +282,26 @@ sensor:
 #          {{ states.sensor.upstairs_temperature.state | float - 1.5 }}
 
 
-  - platform: template
-    sensors:
-      dining_power_template:
-        value_template: "{{ (states.zwave.dining_sensor.attributes|default).battery_level|default|int('unknown') }}"
-        friendly_name: "Dining Sensor Battery Level"
-        unit_of_measurement: "%"
-        icon_template: >-
-          {% set battery_level = states('dining_power_template')|int('unknown')  %}
-            {% if battery_level == 'unknown' %}
-              mdi:battery-unknown
-            {% else %}
-              {% set battery_round = (battery_level|int / 10)|int * 10 %}
-              {% if battery_round >= 100 %}
-                mdi:battery
-              {% elif battery_round > 0 %}
-                mdi:battery-{{ battery_round }}
-              {% else %}
-                mdi:battery-alert
-              {% endif %}
-            {% endif %}
+#  - platform: template
+#    sensors:
+#      dining_power_template:
+#        value_template: "{{ (states.zwave.dining_sensor.attributes|default).battery_level|default|int('unknown') }}"
+#        friendly_name: "Dining Sensor Battery Level"
+#        unit_of_measurement: "%"
+#        icon_template: >-
+#          {% set battery_level = states('dining_power_template')|int('unknown')  %}
+#            {% if battery_level == 'unknown' %}
+#              mdi:battery-unknown
+#            {% else %}
+#              {% set battery_round = (battery_level|int / 10)|int * 10 %}
+#              {% if battery_round >= 100 %}
+#                mdi:battery
+#              {% elif battery_round > 0 %}
+#                mdi:battery-{{ battery_round }}
+#              {% else %}
+#                mdi:battery-alert
+#              {% endif %}
+#            {% endif %}
 
   - platform: template
     sensors:
@@ -750,7 +750,7 @@ automation:
           entity_id: sensor.upstairs_lux
           below: 5
         - condition: time
-          after: "06:30:00"
+          after: "08:00:00"
           before: "22:00:00"
     action:
       service: homeassistant.turn_on
@@ -780,7 +780,7 @@ automation:
       condition: and
       conditions:
         - condition: time
-          after: "06:30:00"
+          after: "08:00:00"
           before: "20:30:00"
         - condition: numeric_state
           entity_id: sensor.landing_lux
@@ -838,7 +838,7 @@ automation:
       condition: and
       conditions:
         - condition: time
-          after: "06:30:00"
+          after: "08:00:00"
           before: "20:30:00"
         - condition: state
           entity_id: binary_sensor.landing2_motion
@@ -879,7 +879,7 @@ automation:
       condition: and
       conditions:
         - condition: time
-          after: "06:30:00"
+          after: "08:00:00"
           before: "20:30:00"
         - condition: state
           entity_id: binary_sensor.downstairs_motion
@@ -931,7 +931,7 @@ automation:
       conditions:
         - condition: time
           after: "20:30:00"
-          before: "06:30:00"
+          before: "08:00:00"
         - condition: or
           conditions:
           - condition: state
@@ -997,7 +997,7 @@ automation:
       conditions:
         - condition: time
           after: "20:30:00"
-          before: "06:30:00"
+          before: "08:00:00"
         - condition: state
           entity_id: binary_sensor.downstairs_motion
           state: 'off'
@@ -1097,14 +1097,14 @@ automation:
         - condition: state
           entity_id: input_boolean.block_tv_lights
           state: 'off'
-        - condition: or
-          conditions:
-          - condition: state
-            entity_id: !secret tracker1
-            state: 'home'
-          - condition: state
-            entity_id: !secret tracker2
-            state: 'home'
+#        - condition: or
+#          conditions:
+#          - condition: state
+#            entity_id: !secret tracker1
+#            state: 'home'
+#          - condition: state
+#            entity_id: !secret tracker2
+#            state: 'home'
         - condition: or
           conditions:
             - condition: numeric_state

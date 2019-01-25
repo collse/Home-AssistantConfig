@@ -30,6 +30,7 @@ automation:
           - camera.kitchen
           - camera.landing
           - camera.hallway
+          - camera.spare
           
 #    - alias: Arlo - Activate cameras when leaving
 #      trigger:
@@ -94,6 +95,7 @@ group:
       - camera.landing
       - sensor.last_landing
       - sensor.signal_strength_landing
+      
       - sensor.battery_level_nursery
       - sensor.captured_today_nursery
       - camera.nursery
@@ -102,6 +104,12 @@ group:
       - sensor.temperature_nursery
       - sensor.air_quality_nursery
       - sensor.humidity_nursery
+      
+      - sensor.battery_level_spare
+      - sensor.captured_toda_spare
+      - camera.spare
+      - sensor.last_spare
+      - sensor.signal_strength_spare
 
 #####################################
 #
