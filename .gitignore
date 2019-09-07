@@ -42,3 +42,5 @@ ext
 conf
 disabled
 entity_registry.yaml
+cust_c_backup
+zwcfg_*
