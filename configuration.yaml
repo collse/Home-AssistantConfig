@@ -15,7 +15,7 @@ homeassistant:
   auth_providers:
    - type: homeassistant
    # uncomment this to enable backwards compatible API password support
-   - type: legacy_api_password
+#   - type: legacy_api_password
    
    
 panel_iframe:
@@ -23,10 +23,6 @@ panel_iframe:
     title: Configurator
     icon: mdi:wrench
     url: !secret configurator_url
-  editor:
-    title: Editor
-    url: !secret httpeditor_url #IP to your home assistant
-    icon: mdi:book-open
 # Show links to resources in log and frontend
 #introduction:
 
@@ -35,15 +31,18 @@ frontend:
   javascript_version: latest
 #frontend:
 
+system_health:
+
 # Enables configuration UI
 config:
 
-api:
-  api_password: !secret api_password
+
+#api:
+#  api_password: !secret api_password
 
 http:
   # Uncomment this to add a password (recommended!)
-  api_password: !secret api_password
+#  api_password: !secret api_password
   # Uncomment this if you are using SSL or running in Docker etc
   base_url: !secret httpbase_url
   ssl_certificate: !secret ssl_certificate
@@ -51,6 +50,8 @@ http:
   server_port: !secret server_port
 # Checks for available updates
 updater:
+
+zeroconf:
 
 # Discover some devices automatically
 discovery:
@@ -68,20 +69,31 @@ logbook:
 
 # Enables support for tracking state changes over time.
 recorder:
-  # Delete events and states older than 7 days
+  # Delete events and states older than 3 days
   purge_interval: 1
   purge_keep_days: 3
-  db_url: sqlite:///home/homeassistant/.homeassistant/home-assistant_v2.db
+  db_url: sqlite:////home/homeassistant/.homeassistant/home-assistant_v2.db
 #  db_url: !secret sql_url
 
 #logger:
 #  default: debug
+
+logger:
+    default: info
+    logs:
+      pyaarlo: debug
+      homeassistant.components.ecovacs: debug
+      homeassistant.components.vacuum.ecovacs: debug
+      sucks: debug
+# enable camera streaming
+stream:
 
 # Track the sun
 sun:
 
 # ios
 ios:
+
 
 # enable Z-Wave stick
 zwave:
@@ -96,16 +108,31 @@ zwave:
 
 script: !include scripts.yaml
 
-custom_updater:
-  show_installable: True
-  hide_sensor: True
-  track:
-    - components
-    - cards
-    - python_scripts
-#  track: both
-  
+# HACS config
+hacs:
+  token: !secret hacstoken
 
-alarm_control_panel:
-  - platform: arlo
-#    home_mode_name: "Armed_Home"
+#alexa_media:
+#  accounts:
+#    - email: !secret amazon_user
+#      password: !secret amazon_password
+#      url: amazon.co.uk
+#custom_updater:
+#  show_installable: True
+#  hide_sensor: True
+#  mode: storage
+#  track:
+#    - components
+#    - cards
+#    - python_scripts
+#  component_urls:
+## Dev build (unstable)
+#    - https://raw.githubusercontent.com/keatontaylor/alexa_media_player/next/custom_components.json
+## Released build
+#    - https://raw.githubusercontent.com/keatontaylor/alexa_media_player/master/custom_components.json
+##  track: both
+#  card_urls:
+#    - https://raw.githubusercontent.com/kalkih/mini-graph-card/master/tracker.json
+
+lovelace:
+  mode: yaml

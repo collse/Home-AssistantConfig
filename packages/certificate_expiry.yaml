@@ -19,7 +19,7 @@ group:
 sensor:
   - platform: command_line
     name: SSL Certificate Expiry
-    icon: mdi:certificate
+#    icon: mdi:certificate
     unit_of_measurement: days
     scan_interval: 120
     command: !secret certcheck

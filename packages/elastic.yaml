@@ -1,0 +1,3 @@
+elastic:
+    # URL should point to your Elasticsearch cluster
+    url: !secret elastic

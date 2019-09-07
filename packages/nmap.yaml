@@ -3,5 +3,5 @@ device_tracker:
     hosts: 
 #      - 192.168.1.250/32
       - 192.168.1.10/32
-      - 192.168.1.69/32
-    home_interval: 10
+      - 192.168.1.80/32
+    home_interval: 5

@@ -3,6 +3,32 @@ device_tracker:
     host: !secret unifi
     username: !secret unifitracker
     password: !secret unifipswd
+    detection_time: 120
     verify_ssl: false
     ssid_filter:
       - 'FASTZONE'
+      - 'MEDIAZONE'
+      - 'HOMEZONE'
+
+  - platform: unifi_direct
+    host: !secret unifiap1
+    username: !secret unifidirect
+    password: !secret unifidirectpsw
+
+  - platform: unifi_direct
+    host: !secret unifiap2
+    username: !secret unifidirect
+    password: !secret unifidirectpsw
+    
+sensor:
+  - platform: unifigateway
+    host: !secret unifi
+    username: !secret unifitracker
+    password: !secret unifipswd
+    monitored_conditions:
+      - www
+      - wlan
+      - alerts
+      - firmware
+      - lan
+      - wan

@@ -1,0 +1,257 @@
+input_boolean:
+  block_tv_lights:
+    name: Block TV Lights
+    initial: off
+  livingroom_tv:
+    name: Living Room TV
+    initial: off
+  livingroom_dark:
+    name: Livingroom Dark
+    initial: off
+
+automation:
+
+    ########################
+    ###
+    ### TV Light Automation
+    ###
+    ########################
+
+
+  - alias: Livingroom TV Is - Off
+    initial_state: true
+    trigger:
+      - platform: state
+        entity_id: sensor.livingroom_tv_outlet_consumption
+      - platform: state
+        entity_id: input_boolean.livingroom_dark
+      - platform: state
+        entity_id: input_boolean.block_tv_lights
+    condition:
+      condition: and
+      conditions:
+        - condition: numeric_state
+          entity_id: sensor.livingroom_tv_outlet_consumption
+          below: 60
+    action:
+      - service: homeassistant.turn_off
+        entity_id: 
+          - input_boolean.livingroom_tv
+
+
+  - alias: Livingroom TV Turned Off
+    initial_state: true
+    trigger:
+      - platform: state
+        entity_id: sensor.livingroom_tv_outlet_consumption
+      - platform: state
+        entity_id: input_boolean.livingroom_dark
+      - platform: state
+        entity_id: input_boolean.block_tv_lights
+      - platform: state
+        entity_id: input_boolean.livingroom_tv
+        to: 'off'
+    condition:
+      condition: and
+      conditions:
+        - condition: numeric_state
+          entity_id: sensor.livingroom_tv_outlet_consumption
+          below: 60
+    action:
+      - service: homeassistant.turn_on
+        entity_id: 
+          - switch.livingroom_front
+      - delay: 00:00:01
+      - service: homeassistant.turn_off
+        entity_id: 
+          - input_boolean.livingroom_tv
+          
+
+  - alias: Livingroom TV Is - On
+    initial_state: true
+    trigger:
+      - platform: state
+        entity_id: sensor.livingroom_tv_outlet_consumption
+      - platform: state
+        entity_id: input_boolean.livingroom_dark
+      - platform: state
+        entity_id: input_boolean.block_tv_lights
+    condition:
+      condition: and
+      conditions:
+        - condition: numeric_state
+          entity_id: sensor.livingroom_tv_outlet_consumption
+          above: 65
+    action:
+      - service: homeassistant.turn_on
+        entity_id: 
+          - input_boolean.livingroom_tv
+
+
+  - alias: Livingroom Is Bright
+    initial_state: true
+    trigger:
+      - platform: state
+        entity_id: sensor.livingroom_lux
+    condition:
+      condition: and
+      conditions:
+        - condition: numeric_state
+          entity_id: sensor.livingroom_lux
+          above: 5
+    action:
+      - service: homeassistant.turn_off
+        entity_id: 
+          - input_boolean.livingroom_dark
+
+
+  - alias: Livingroom Is Dark
+    initial_state: true
+    trigger:
+      - platform: state
+        entity_id: sensor.livingroom_lux
+    condition:
+      condition: and
+      conditions:
+        - condition: numeric_state
+          entity_id: sensor.livingroom_lux
+          below: 6
+    action:
+      - service: homeassistant.turn_on
+        entity_id: 
+          - input_boolean.livingroom_dark
+
+ 
+  - alias: Livingroom Enable Block TV Lights
+    initial_state: true
+    trigger:
+      - platform: state
+        entity_id: switch.livingroom_front
+        to: 'on'
+      - platform: state
+        entity_id: switch.livingroom_rear
+        to: 'on'
+      - platform: state
+        entity_id: sensor.livingroom_lux
+      - platform: state
+        entity_id: input_boolean.livingroom_dark
+      - platform: state
+        entity_id: input_boolean.block_tv_lights
+    condition:
+      condition: or
+      conditions:
+       - condition: numeric_state
+         entity_id: sensor.livingroom_lux
+         above: 6
+       - condition: state
+         entity_id: switch.livingroom_rear
+         state: 'on'
+       - condition: state
+         entity_id: switch.livingroom_front
+         state: 'on'
+    action:
+      - service: homeassistant.turn_on
+        entity_id: input_boolean.block_tv_lights
+
+
+  - alias: Livingroom Disable Block TV Lights
+    initial_state: true
+    trigger:
+      - platform: state
+        entity_id: switch.livingroom_front
+        to: 'off'
+      - platform: state
+        entity_id: switch.livingroom_rear
+        to: 'off'
+      - platform: state
+        entity_id: sensor.livingroom_lux
+      - platform: state
+        entity_id: input_boolean.livingroom_dark
+      - platform: state
+        entity_id: input_boolean.block_tv_lights
+    condition:
+      condition: and
+      conditions:
+       - condition: numeric_state
+         entity_id: sensor.livingroom_lux
+         below: 6
+       - condition: state
+         entity_id: switch.livingroom_rear
+         state: 'off'
+       - condition: state
+         entity_id: switch.livingroom_front
+         state: 'off'
+    action:
+      - service: homeassistant.turn_off
+        entity_id: input_boolean.block_tv_lights
+
+
+  - alias: Light - TV Lights - On
+    initial_state: true
+    trigger:
+      - platform: state
+        entity_id: sensor.livingroom_tv_outlet_consumption
+      - platform: state
+        entity_id: input_boolean.livingroom_dark
+      - platform: state
+        entity_id: input_boolean.block_tv_lights
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: input_boolean.livingroom_tv
+          state: 'on'
+        - condition: state
+          entity_id: input_boolean.livingroom_dark
+          state: 'on'
+        - condition: state
+          entity_id: input_boolean.block_tv_lights
+          state: 'off'
+    action:
+      - service: homeassistant.turn_on
+        entity_id: 
+          - light.corner_lamp_1
+          - light.corner_lamp_2
+          - light.corner_lamp_3
+          - light.hue_ambiance_candle_1
+          - light.hue_ambiance_candle_2
+        data:
+          brightness: 70
+          transition: 2
+      - service: homeassistant.turn_off
+        entity_id: 
+          - switch.livingroom_rear
+          - switch.livingroom_front
+
+
+  - alias: Light - TV Lights - Off
+    initial_state: true
+    trigger:
+      - platform: state
+        entity_id: sensor.livingroom_tv_outlet_consumption
+      - platform: state
+        entity_id: input_boolean.livingroom_dark
+      - platform: state
+        entity_id: input_boolean.block_tv_lights
+    condition:
+      condition: or
+      conditions:
+        - condition: numeric_state
+          entity_id: sensor.livingroom_lux
+          above: 5
+        - condition: state
+          entity_id: input_boolean.livingroom_dark
+          state: 'off'
+        - condition: state
+          entity_id: input_boolean.block_tv_lights
+          state: 'on'
+    action:
+      - service: homeassistant.turn_off
+        entity_id: 
+          - light.corner_lamp_1
+          - light.corner_lamp_2
+          - light.corner_lamp_3
+          - light.hue_ambiance_candle_1
+          - light.hue_ambiance_candle_2
+        data:
+          transition: 2

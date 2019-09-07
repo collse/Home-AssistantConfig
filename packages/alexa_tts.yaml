@@ -146,3 +146,10 @@ automation:
         data:
           entity_id: input_select.alexa
           option: None
+
+
+alexa_media:
+  accounts:
+    - email: !secret amazon_user
+      password: !secret amazon_password
+      url: amazon.co.uk

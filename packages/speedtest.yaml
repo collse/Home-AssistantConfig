@@ -14,21 +14,14 @@ group:
        - sensor.fast_com_download
        
 ### sensor
-sensor:
-  - platform: speedtest
-    hour:
-      - 0
-      - 6
-      - 12
-      - 18
-    monitored_conditions:
+speedtestdotnet:
+  scan_interval:
+    minutes: 30
+  monitored_conditions:
     - ping
     - download
     - upload
 
-  - platform: fastdotcom
-    hour:
-      - 1
-      - 7
-      - 13
-      - 19
+fastdotcom:
+  scan_interval:
+      minutes: 30

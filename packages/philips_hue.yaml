@@ -27,9 +27,11 @@ group:
     name: Floor Lamp
     view: no
     entities:
-      - light.color_temperature_light_1
-      - light.color_temperature_light_2
-      - light.color_temperature_light_3
+       - light.hue_ambiance_candle_1
+       - light.hue_ambiance_candle_2
+#      - light.color_temperature_light_1
+#      - light.color_temperature_light_2
+#      - light.color_temperature_light_3
 
   Landing_lights:
     name: Landing Lights

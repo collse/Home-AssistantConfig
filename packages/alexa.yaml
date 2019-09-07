@@ -1,5 +1,8 @@
-media_player:
-  - platform: alexa
-    email: !secret alexa_mail
-    password: !secret alexa_psw
-    url: !secret alexa_url
+alexa_media:
+  accounts:
+    - email: !secret alexa_mail
+      password: !secret alexa_psw
+      url: !secret alexa_url
+      exclude_devices:
+        - "This Device"
+        - Downstairs

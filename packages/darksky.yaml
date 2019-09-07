@@ -27,3 +27,8 @@ sensor:
       - wind_speed
       - apparent_temperature
       - wind_bearing
+
+weather:
+  - platform: darksky
+    api_key: !secret darksky
+    mode: daily

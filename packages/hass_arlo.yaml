@@ -1,0 +1,86 @@
+aarlo:
+  username: !secret arlo_hass
+  password: !secret arlo_pass
+  last_format: '%H:%M - %d %b, %Y'
+  packet_dump: True
+  db_motion_time: 30
+  db_ding_time: 10
+  recent_time: 10
+  conf_dir: /home/homeassistant/.homeassistant/.aarlo
+  no_media_upload: True
+  mode_api: auto
+  refresh_devices_every: 0
+  http_connections: 5
+  http_max_size: 10
+
+
+camera:
+  - platform: aarlo
+    ffmpeg_arguments: '-pred 1 -q:v 2'
+ 
+
+alarm_control_panel:
+  - platform: aarlo
+    home_mode_name: home
+    away_mode_name: armed
+    trigger_time: 30
+    alarm_volume: 8
+
+binary_sensor:
+  - platform: aarlo
+    monitored_conditions:
+    - motion
+    - sound
+    - ding
+
+sensor:
+  - platform: aarlo
+    monitored_conditions:
+    - last_capture
+    - total_cameras
+    - battery_level
+    - captured_today
+    - signal_strength
+    - air_quality
+    - humidity
+    - temperature
+
+
+automation:
+    - alias: Arlo enable upon HA start'
+      initial_state: 'on'
+      trigger:
+        platform: homeassistant
+        event: start
+      action:
+        - service: camera.enable_motion_detection
+          entity_id: 
+            - camera.aarlo_nursery
+            - camera.aarlo_kitchen
+            - camera.aarlo_landing
+            - camera.aarlo_hallway
+            - camera.aarlo_spare
+        - delay: 00:00:05
+        - service: alarm_control_panel.alarm_arm_home
+          entity_id: alarm_control_panel.aarlo_base
+        - delay: 00:00:05
+        - service: alarm_control_panel.alarm_arm_home
+          entity_id: alarm_control_panel.aarlo_nursery
+          
+    - alias: Arlo Camera Snapshot
+      trigger:
+      - entity_id: camera.aarlo_hallway,camera.aarlo_kitchen,camera.aarlo_landing,camera.aarlo_nursery,camera.aarlo_spare
+        for: 00:00:03
+        from: 'idle'
+        platform: state
+        to: 'recording'
+      - entity_id: camera.aarlo_hallway,camera.aarlo_kitchen,camera.aarlo_landing,camera.aarlo_nursery,camera.aarlo_spare
+        for: 00:00:03
+        from: 'recently active'
+        platform: state
+        to: 'recording'
+      condition: []
+      action:
+      - data_template:
+          entity_id: "{{ trigger.entity_id }}"
+        service: camera.aarlo_request_snapshot

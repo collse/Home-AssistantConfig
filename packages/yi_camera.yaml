@@ -2,17 +2,17 @@ camera:
   - platform: yi
     name: !secret yi_nursery_cam
     host: !secret yi_nursery
-    usert: root
+    username: root
     password: !secret yi_password
-    ffmpeg_bin: /usr/bin/ffmpeg
+#    ffmpeg_bin: /usr/bin/ffmpeg
     ffmpeg_arguments: '-vf scale=800:450'
 
 
   - platform: yi
     name: Yi Cam
     host: !secret yi_cam
-    user: root
+    username: root
     password: !secret yi_password
-    ffmpeg_bin: /usr/bin/ffmpeg
+#    ffmpeg_bin: /usr/bin/ffmpeg
     ffmpeg_arguments: '-vf scale=800:450'
 

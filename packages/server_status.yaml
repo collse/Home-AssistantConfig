@@ -164,9 +164,9 @@ sensor:
   - platform: command_line
     name: Internet
     command: ping -W 1 -c 1 8.8.8.8 > /dev/null 2>&1 && echo success || echo fail
-    device_class: connectivity
-    payload_on: "success"
-    payload_off: "fail"
+#    device_class: connectivity
+#    payload_on: "success"
+#    payload_off: "fail"
 
   - platform: rest
     name: ha_github_version
@@ -193,7 +193,7 @@ sensor:
 
   - platform: command_line
     name: Installed Version
-    hidden: true
+#    hidden: true
     command: /srv/homeassistant/bin/hass --version
 
 ### CUSTOM HA/Version

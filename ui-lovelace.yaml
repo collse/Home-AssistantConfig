@@ -1,0 +1,5501 @@
+resources:
+  - type: module
+    url: /customcards/github/custom-cards/tracker-card.js?track=true
+  - type: module
+    url: /local/mini-graph-card-bundle.js?v=0.3.2
+  - type: js
+    url: /community_plugin/lovelace-multiple-entity-row/multiple-entity-row.js
+  - type: module
+    url: /community_plugin/lovelace-hass-aarlo/hass-aarlo.js
+#  - type: module
+#    url: /local/aarlo-glance.js
+  - url: /community_plugin/lovelace-xiaomi-vacuum-card/xiaomi-vacuum-card.js
+    type: js
+  - type: module
+    url: >-
+      https://cdn.jsdelivr.net/gh/bramkragten/custom-ui@master/weather-card/weather-card.min.js
+  - type: module
+    url: /local/surveillance-card.js?v=0
+  - url: /community_plugin/vertical-stack-in-card/vertical-stack-in-card.js
+    type: js
+  - url: /community_plugin/button-card/button-card.js
+    type: module
+  - url: /community_plugin/group-card/group-card.js
+    type: module
+title: Home Assistant
+views:
+  - badges: []
+    cards:
+      - type: custom:vertical-stack-in-card
+        title: "Currently @Home"
+        cards:
+          - type: glance
+            show_header_toggle: false
+            entities:
+              - entity: device_tracker.iphone7plus
+              - entity: device_tracker.7c0191054d15
+          - aspect_ratio: 243
+            camera_image: camera.front_door
+            elements:
+              - entity: binary_sensor.ring_front_door_motion
+                style:
+                  '--paper-item-icon-color': white
+                  left: 20%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: lock.front_door
+                style:
+                  '--paper-item-icon-color': white
+                  left: 29%
+                  top: 91%
+                tap_action:
+                  action: toggle
+                type: state-icon
+              - entity: binary_sensor.entrance_door
+                style:
+                  '--paper-item-icon-color': white
+                  left: 39%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.front_door_lock_power_template
+                style:
+                  '--paper-item-icon-color': white
+                  left: 48%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.front_door_lock_power_template
+                style:
+                  color: white
+                  left: 54%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-label
+              - entity: camera.front_door
+                icon: 'mdi:video'
+                style:
+                  color: white
+                  left: 61%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: icon
+              - entity: switch.entrance_outside
+                style:
+                  '--paper-item-icon-color': white
+                  left: 95%
+                  top: 91%
+                tap_action:
+                  action: toggle
+                type: state-icon
+            type: picture-elements
+          - type: entities
+            entities:
+             - lock.front_door
+             - entity: sensor.front_door_status
+               icon: 'mdi:lock-question'
+             - sensor.front_door_lock_power_template
+             - binary_sensor.ring_front_door_motion
+             - entity: binary_sensor.ring_front_door_ding
+               icon: 'mdi:doorbell-video'
+             - binary_sensor.entrance_door
+             - sensor.door_contact_power_template
+             - entity: switch.entrance_outside
+               icon: 'mdi:coach-lamp'
+      - type: custom:vertical-stack-in-card
+        title: Hallway
+        cards:
+          - type: glance
+            entities:
+              - entity: binary_sensor.aarlo_motion_hallway
+                name: Arlo Motion
+              - entity: binary_sensor.hall_motion
+                name: Hall
+              - entity: binary_sensor.hall_motion
+                name: Hall 2
+              - entity: sensor.hall_temperature
+                name: Temperature
+              - entity: sensor.hall_lux
+                name: LUX
+          - type: 'custom:aarlo-glance'
+            entity: camera.aarlo_hallway
+            name: Hallway
+            show:
+              - motion
+              - sound
+              - snapshot
+              - battery_level
+              - signal_strength
+              - captured_today
+            top_title: false
+            top_status: false
+            top_date: false
+            image_click: play
+            door: binary_sensor.entrance_door
+            door_lock: lock.front_door
+            door_bell: binary_sensor.ring_front_door_ding
+          - type: entities
+            entities:
+             - entity: switch.entrance_inside
+               icon: 'mdi:ceiling-light'
+      - type: custom:vertical-stack-in-card
+        title: Livingroom
+        cards:
+          - type: glance
+            entities:
+              - entity: binary_sensor.livingroom_motion
+                name: Motion
+              - entity: sensor.livingroom_temperature
+                name: Temperature
+              - entity: sensor.livingroom_lux
+                name: LUX
+              - entity: sensor.livingroom_tv_outlet_consumption
+                name: Consumption
+          - aspec_ratio: 243
+            elements:
+              - entity: binary_sensor.livingroom_motion
+                style:
+                  '--paper-item-icon-color': white
+                  left: 10%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: group.corner_lamp
+                style:
+                  '--paper-item-icon-color': white
+                  left: 20%
+                  top: 91%
+                tap_action:
+                  action: toggle
+                type: state-icon
+              - entity: group.floor_lamp
+                style:
+                  '--paper-item-icon-color': white
+                  left: 29%
+                  top: 91%
+                tap_action:
+                  action: toggle
+                type: state-icon
+              - entity: sensor.livingroom_temperature
+                style:
+                  '--paper-item-icon-color': white
+                  left: 38%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.livingroom_temperature
+                style:
+                  color: white
+                  left: 45%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-label
+              - entity: sensor.livingroom_lux
+                style:
+                  '--paper-item-icon-color': white
+                  left: 54%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.livingroom_lux
+                style:
+                  color: white
+                  left: 62%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-label
+              - entity: sensor.livingroom_tv_outlet_consumption
+                style:
+                  '--paper-item-icon-color': white
+                  left: 72%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.livingroom_tv_outlet_consumption
+                style:
+                  color: white
+                  left: 79%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-label
+              - entity: switch.livingroom_front
+                style:
+                  '--paper-item-icon-color': white
+                  left: 90%
+                  top: 91%
+                tap_action:
+                  action: toggle
+                type: state-icon
+              - entity: switch.livingroom_rear
+                style:
+                  '--paper-item-icon-color': white
+                  left: 95%
+                  top: 91%
+                tap_action:
+                  action: toggle
+                type: state-icon
+            image: /local/icons/living.jpg
+            type: picture-elements
+          - entities:
+              - entity: input_boolean.livingroom_tv
+                icon: 'mdi:television'
+              - entity: input_boolean.block_tv_lights
+                icon: 'mdi:block-helper'
+              - entity: input_boolean.livingroom_dark
+                icon: 'mdi:brightness-4'
+            show_header_toggle: false
+            type: entities
+          - entities:
+              - entity: switch.livingroom_front
+              - entity: switch.livingroom_rear
+              - entity: group.corner_lamp
+                icon: 'mdi:floor-lamp'
+              - entity: group.floor_lamp
+                icon: 'mdi:floor-lamp'
+            show_header_toggle: false
+            type: entities
+      - type: custom:vertical-stack-in-card
+        title: Kitchen
+        cards:
+          - type: glance
+            entities:
+              - entity: sensor.aarlo_captured_today_kitchen
+                name: Captured
+              - entity: binary_sensor.aarlo_motion_kitchen
+                name: Motion
+              - entity: binary_sensor.aarlo_sound_kitchen
+                name: Sound
+              - entity: sensor.aarlo_signal_strength_kitchen
+                name: Signal
+              - entity: sensor.aarlo_battery_level_kitchen
+                name: Battery
+              - entity: binary_sensor.dining_motion
+                name: Motion
+              - entity: sensor.dining_temperature
+                name: Temperature
+              - entity: sensor.dining_humidity
+                name: Humidity
+              - entity: sensor.dining_lux
+                name: LUX
+              - entity: sensor.hot_tub_outlet_consumption
+                name: Consumption
+          - type: 'custom:aarlo-glance'
+            entity: camera.aarlo_kitchen
+            name: Kitchen
+            show:
+              - motion
+              - sound
+              - snapshot
+              - battery_level
+              - signal_strength
+              - captured_today
+            top_title: false
+            top_status: false
+            top_date: false
+            image_click: play
+            door: binary_sensor.patio_door
+          - entities:
+              - switch.kitchen_main
+              - entity: switch.kitchen_dining
+                icon: 'mdi:ceiling-light'
+              - binary_sensor.patio_door
+              - sensor.patio_contact_power_template
+            show_header_toggle: false
+            type: entities
+          - aspec_ratio: 243
+            camera_image: camera.backyard
+            elements:
+              - entity: binary_sensor.ring_backyard_motion
+                style:
+                  '--paper-item-icon-color': white
+                  left: 20%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.ring_backyard_last_activity
+                style:
+                  color: white
+                  left: 27%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-label
+              - entity: sensor.ring_backyard_battery
+                style:
+                  '--paper-item-icon-color': white
+                  left: 38%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.ring_backyard_battery
+                style:
+                  color: white
+                  left: 45%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-label
+              - entity: sensor.ring_backyard_wifi_signal_strength
+                style:
+                  '--paper-item-icon-color': white
+                  left: 54%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.ring_backyard_wifi_signal_strength
+                style:
+                  color: white
+                  left: 62%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-label
+              - entity: camera.backyard
+                icon: 'mdi:video'
+                style:
+                  color: white
+                  left: 90%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: icon
+            type: picture-elements
+          - aspec_ratio: 243
+            camera_image: camera.pathway_2
+            elements:
+              - entity: binary_sensor.ring_pathway_motion_2
+                style:
+                  '--paper-item-icon-color': white
+                  left: 20%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.ring_pathway_last_activity_2
+                style:
+                  color: white
+                  left: 27%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-label
+              - entity: sensor.ring_pathway_battery_2
+                style:
+                  '--paper-item-icon-color': white
+                  left: 38%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.ring_pathway_battery_2
+                style:
+                  color: white
+                  left: 45%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-label
+              - entity: sensor.ring_pathway_wifi_signal_strength_2
+                style:
+                  '--paper-item-icon-color': white
+                  left: 54%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.ring_pathway_wifi_signal_strength_2
+                style:
+                  color: white
+                  left: 62%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-label
+              - entity: camera.pathway_2
+                icon: 'mdi:video'
+                style:
+                  color: white
+                  left: 90%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: icon
+            type: picture-elements
+          - type: custom:xiaomi-vacuum-card
+            entity: vacuum.xiaomi_vacuum_cleaner
+            image: /local/icons/vacuum_xioami.png
+            name: Xiaomi Roborock S50
+            buttons: true
+            labels:
+              status: Status
+              battery: Battery
+              mode: Mode
+              main_brush: Main Brush
+              side_brush: Side Brush
+              filter: Filters
+              sensor: Sensor
+      - type: custom:vertical-stack-in-card
+        title: Landing & Upstairs
+        cards:
+          - type: glance
+            entities:
+              - entity: binary_sensor.aarlo_motion_landing
+                name: Arlo Motion
+              - entity: binary_sensor.landing_motion
+                name: Landing
+              - entity: sensor.landing_temperature
+                name: Landing
+              - entity: sensor.landing_lux
+                name: Landing
+              - entity: binary_sensor.landing2_motion
+                name: Landing 2
+              - entity: sensor.landing2_lux
+                name: Landing 2
+              - entity: binary_sensor.downstairs_motion
+                name: Stairs
+              - entity: sensor.downstairs_temperature
+                name: Stairs
+              - entity: sensor.downstairs_lux
+                name: Stairs
+              - entity: binary_sensor.upstairs_motion
+                name: Upstairs
+              - entity: sensor.upstairs_temperature
+                name: Upstairs
+              - entity: sensor.upstairs_lux
+                name: Upstairs
+          - type: 'custom:aarlo-glance'
+            entity: camera.aarlo_landing
+            name: Landing
+            show:
+              - motion
+              - sound
+              - snapshot
+              - battery_level
+              - signal_strength
+              - captured_today
+            top_title: false
+            top_status: false
+            top_date: false
+            image_click: play
+          - type: entities
+            entities:
+             - light.landing_spot_1
+             - light.landing_spot_2
+             - light.landing_spot_3
+             - light.landing_spot_4
+             - light.upstairs_light
+          - type: custom:xiaomi-vacuum-card
+            entity:  vacuum.deebotn79s
+            image: /local/icons/vacuum_deebot_n79s.png
+            name: Ecovacs Deebot N79s
+            buttons: true
+            labels:
+              status: Status
+              battery: Battery
+              mode: Mode
+              main_brush: Main Brush
+              side_brush: Side Brush
+              filter: Filters
+              sensor: Sensor
+      - type: custom:vertical-stack-in-card
+        title: Office
+        cards:
+          - type: glance
+            entities:
+              - entity: binary_sensor.office_motion
+                name: Motion
+              - entity: sensor.office_temperature
+                name: Temperature
+              - entity: sensor.office_humidity
+                name: Humidity
+              - entity: sensor.office_lux
+                name: LUX
+              - entity: sensor.office_monitor_outlet_consumption
+                name: Consumption
+          - aspec_ratio: 243
+            camera_image: camera.yi_cam
+            elements:
+              - entity: binary_sensor.office_motion
+                style:
+                  '--paper-item-icon-color': white
+                  left: 10%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.office_temperature
+                style:
+                  '--paper-item-icon-color': white
+                  left: 20%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.office_temperature
+                style:
+                  color: white
+                  left: 27%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-label
+              - entity: sensor.office_humidity
+                style:
+                  '--paper-item-icon-color': white
+                  left: 38%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.office_humidity
+                style:
+                  color: white
+                  left: 45%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-label
+              - entity: sensor.office_lux
+                style:
+                  '--paper-item-icon-color': white
+                  left: 54%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.office_lux
+                style:
+                  color: white
+                  left: 62%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-label
+              - entity: sensor.office_monitor_outlet_consumption
+                style:
+                  '--paper-item-icon-color': white
+                  left: 72%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.office_monitor_outlet_consumption
+                style:
+                  color: white
+                  left: 80%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-label
+              - entity: camera.yi_cam
+                icon: 'mdi:video'
+                style:
+                  color: white
+                  left: 90%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: icon
+              - entity: light.office_light
+                style:
+                  '--paper-item-icon-color': white
+                  left: 95%
+                  top: 91%
+                tap_action:
+                  action: toggle
+                type: state-icon
+            type: picture-elements
+          - entities:
+              - entity: light.office_light
+                icon: 'mdi:death-star'
+            show_header_toggle: false
+            type: entities
+          - entities:
+              - entity: switch.monitor_speakers
+                icon: 'mdi:speaker'
+              - sensor.monitor_speakers_consumption
+              - sensor.monitor_speakers_usage
+            show_header_toggle: false
+            type: entities
+      - type: custom:vertical-stack-in-card
+        title: Nursery
+        cards:
+          - type: 'custom:aarlo-glance'
+            entity: camera.aarlo_nursery
+            name: Nursery
+            show:
+              - motion
+              - sound
+              - snapshot
+              - battery_level
+              - signal_strength
+              - captured_today
+          - aspec_ratio: 243
+            camera_image: camera.yi_denzil
+            elements:
+              - entity: sensor.aarlo_temperature_nursery
+                style:
+                  '--paper-item-icon-color': white
+                  left: 20%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.aarlo_temperature_nursery
+                style:
+                  color: white
+                  left: 28%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-label
+              - entity: sensor.aarlo_humidity_nursery
+                style:
+                  '--paper-item-icon-color': white
+                  left: 38%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.aarlo_humidity_nursery
+                style:
+                  color: white
+                  left: 46%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-label
+              - entity: sensor.aarlo_air_quality_nursery
+                style:
+                  '--paper-item-icon-color': white
+                  left: 54%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.aarlo_air_quality_nursery
+                style:
+                  color: white
+                  left: 64%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-label
+              - entity: camera.yi_denzil
+                icon: 'mdi:video'
+                style:
+                  color: white
+                  left: 90%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: icon
+            type: picture-elements
+      - cards:
+          - content: |
+              ---
+            title: Active Media Players
+            type: markdown
+          - card:
+              entity: media_player.echo_spot_office_2
+              type: media-control
+            conditions:
+              - entity: sensor.media_players_active
+                state: playing
+            type: conditional
+          - card:
+              entity: media_player.echo_kitchen_2
+              type: media-control
+            conditions:
+              - entity: media_player.echo_kitchen_2
+                state: playing
+            type: conditional
+          - card:
+              entity: media_player.echo_kitchen_2
+              type: media-control
+            conditions:
+              - entity: media_player.echo_kitchen_2
+                state: playing
+            type: conditional
+          - card:
+              entity: media_player.echo_spot_office_2
+              type: media-control
+            conditions:
+              - entity: media_player.echo_spot_office_2
+                state: playing
+            type: conditional
+          - card:
+              entity: media_player.echo_spot_bedroom_2
+              type: media-control
+            conditions:
+              - entity: media_player.echo_spot_bedroom_2
+                state: playing
+            type: conditional
+          - card:
+              entity: media_player.office_fire_tv_stick_2
+              type: media-control
+            conditions:
+              - entity: media_player.office_fire_tv_stick_2
+                state: playing
+            type: conditional
+          - card:
+              entity: media_player.office_fire_tv_stick_spare_2
+              type: media-control
+            conditions:
+              - entity: media_player.office_fire_tv_stick_spare_2
+                state: playing
+            type: conditional
+          - card:
+              entity: media_player.shield
+              type: media-control
+            conditions:
+              - entity: media_player.shield
+                state: playing
+            type: conditional
+          - card:
+              entity: media_player.shield_3
+              type: media-control
+            conditions:
+              - entity: media_player.shield_3
+                state: playing
+            type: conditional
+          - card:
+              entity: media_player.this_device
+              type: media-control
+            conditions:
+              - entity: media_player.this_device
+                state: playing
+            type: conditional
+          - card:
+              entity: media_player.genius_2
+              type: media-control
+            conditions:
+              - entity: media_player.genius_2
+                state: playing
+            type: conditional
+          - card:
+              entity: media_player.safari
+              type: media-control
+            conditions:
+              - entity: media_player.safari
+                state: playing
+            type: conditional
+          - card:
+              entity: media_player.playstation_4
+              type: media-control
+            conditions:
+              - entity: media_player.playstation_4
+                state: playing
+            type: conditional
+        name: Active Media players
+        type: vertical-stack
+    icon: 'mdi:home'
+    path: mydefault_view
+    title: mydefault_view
+    
+
+
+
+
+
+
+  - badges: []
+    cards:
+      - entities:
+          - sensor.unifi_gateway_www
+          - sensor.unifi_gateway_wlan
+        show_header_toggle: false
+        title: Unifi
+        type: entities
+      - entities:
+          - sensor.internet
+          - sensor.external_ip
+          - sensor.glances_cpu_load
+          - sensor.glances_disk_overview
+          - sensor.glances_ram_overview
+          - sensor.server_uptime
+          - sensor.ha_uptime
+          - sensor.installed_version
+          - sensor.ha_github_version
+          - sensor.ha_pypi_version
+          - sensor.ha_version
+          - name: release_log
+            type: weblink
+            url: 'https://github.com/home-assistant/home-assistant/releases'
+          - icon: 'mdi:biohazard'
+            name: glances
+            type: weblink
+            url: 'http://collse.duckdns.org:61208/'
+          - sensor.glances_linux_distro
+        show_header_toggle: false
+        title: Server Status
+        type: entities
+      - entities:
+          - sensor.ssl_certificate_expiry
+        show_header_toggle: false
+        title: Certificate Validity
+        type: entities
+        
+      - entities:
+          - switch.pihole
+          - icon: 'mdi:shield-link-variant-outline'
+            name: pi-hole_management
+            type: weblink
+            url: 'http://collse.duckdns.org:9000/admin/'
+          - sensor.pi_hole_version
+          - sensor.pihole_version_latest
+          - sensor.pihole_version_current
+          - sensor.pi_hole_ads_blocked_today
+          - sensor.pi_hole_ads_percentage_blocked_today
+          - sensor.pi_hole_dns_queries_cached
+          - sensor.pi_hole_dns_queries_forwarded
+          - sensor.pi_hole_dns_queries_today
+          - sensor.pi_hole_dns_unique_clients
+          - sensor.pi_hole_seen_clients
+          - sensor.pi_hole_dns_unique_domains
+          - sensor.pi_hole_domains_blocked
+          - sensor.pihole_dns
+          - sensor.pihole_blocking
+          - script.ad_blocker
+          - script.pihole_on
+          - script.pihole_off
+          - sensor.pihole_status_raw
+          - sensor.pihole_status
+          - sensor.pihole_blocking
+        show_header_toggle: false
+        title: Ads Blocked
+        type: entities
+      - entities:
+          - sensor.speedtest_download
+          - sensor.speedtest_upload
+          - sensor.speedtest_ping
+          - sensor.fast_com_download
+        show_header_toggle: false
+        title: Speedtest
+        type: entities
+      - entities:
+          - sensor.speedtest_download
+          - sensor.speedtest_upload
+          - sensor.speedtest_ping
+          - sensor.fast_com_download
+        name: Speedtest
+        show:
+          graph: bar
+        type: 'custom:mini-graph-card'
+      - type: custom:group-card
+        card:
+          type: entities
+          title: Automations
+          show_header_toggle: false
+        group: group.all_automations
+      - entities:
+          - entity: zwave.aeotec_zstick_gen5_eu
+          - entity: zwave.bedroom_tv_outlet
+          - entity: zwave.dining_sensor
+          - entity: zwave.downstairs_sensor
+          - entity: zwave.entrance_door_sensor
+          - entity: zwave.entrace_switch
+          - entity: zwave.hall_sensor
+          - entity: zwave.hall_sensor2
+          - entity: zwave.hot_tub_outlet
+          - entity: zwave.internet_outlet
+          - entity: zwave.kitchen_switch
+          - entity: zwave.landing_sensor
+          - entity: zwave.landing_sensor2
+          - entity: zwave.livingroom_sensor
+          - entity: zwave.livingroom_switch
+          - entity: zwave.livingroom_tv_outlet
+          - entity: zwave.office_monitor_outlet
+          - entity: zwave.office_sensor
+          - entity: zwave.patio_door_sensor
+          - entity: zwave.upstairs_sensor
+          - entity: zwave.yale_conexis_l1_sdl1000ch
+        show_header_toggle: false
+        title: Z-Wave
+        type: entities
+      - type: entities
+        show_header_toggle: false
+        title: Motion Sensors
+        entities:
+          - type: section
+            label: Hall
+          - entity: binary_sensor.hall_motion
+            type: 'custom:multiple-entity-row'
+            primary:
+              entity: sensor.hall_temperature
+              name: Temp
+            secondary:
+              entity: sensor.hall_lux
+              name: LUX
+            info:
+              entity: zwave.hall_sensor
+              attribute: battery_level
+              name: Battery
+              unit: '%'
+          - entity: binary_sensor.hall2_motion
+            type: 'custom:multiple-entity-row'
+            primary:
+              entity: sensor.hall2_temperature
+              name: Temp
+            secondary:
+              entity: sensor.hall2_lux
+              name: LUX
+            info:
+              entity: zwave.hall2_sensor
+              attribute: battery_level
+              name: Battery
+              unit: '%'
+          - type: section
+            label: Living Room
+          - entity: binary_sensor.livingroom_motion
+            type: 'custom:multiple-entity-row'
+            primary:
+              entity: sensor.livingroom_temperature
+              name: Temp
+            secondary:
+              entity: sensor.livingroom_lux
+              name: LUX
+            info:
+              entity: zwave.livingroom_sensor
+              attribute: battery_level
+              name: Battery
+              unit: '%'
+          - type: section
+            label: Dining Room
+          - entity: binary_sensor.dining_motion
+            type: 'custom:multiple-entity-row'
+            primary:
+              entity: sensor.dining_temperature
+              name: Temp
+            secondary:
+              entity: sensor.dining_lux
+              name: LUX
+            info:
+              entity: zwave.dining_sensor
+              attribute: battery_level
+              name: Battery
+              unit: '%'
+          - type: section
+            label: Downstairs
+          - entity: binary_sensor.downstairs_motion
+            type: 'custom:multiple-entity-row'
+            primary:
+              entity: sensor.downstairs_temperature
+              name: Temp
+            secondary:
+              entity: sensor.downstairs_lux
+              name: LUX
+            info:
+              entity: zwave.downstairs_sensor
+              attribute: battery_level
+              name: Battery
+              unit: '%'
+          - type: section
+            label: Landing
+          - entity: binary_sensor.landing_motion
+            type: 'custom:multiple-entity-row'
+            primary:
+              entity: sensor.landing_temperature
+              name: Temp
+            secondary:
+              entity: sensor.landing_lux
+              name: LUX
+            info:
+              entity: zwave.landing_sensor
+              attribute: battery_level
+              name: Battery
+              unit: '%'
+          - entity: binary_sensor.landing2_motion
+            type: 'custom:multiple-entity-row'
+            primary:
+              entity: sensor.landing2_temperature
+              name: Temp
+            secondary:
+              entity: sensor.landing2_lux
+              name: LUX
+            info:
+              entity: zwave.landing2_sensor
+              attribute: battery_level
+              name: Battery
+              unit: '%'
+          - type: section
+            label: Upstairs
+          - entity: binary_sensor.upstairs_motion
+            type: 'custom:multiple-entity-row'
+            primary:
+              entity: sensor.upstairs_temperature
+              name: Temp
+            secondary:
+              entity: sensor.upstairs_lux
+              name: LUX
+            info:
+              entity: zwave.upstairs_sensor
+              attribute: battery_level
+              name: Battery
+              unit: '%'
+      - entities:
+          - entity: sensor.door_contact_power_template
+          - entity: sensor.front_door_lock_power_template
+          - entity: sensor.hall_power_template
+          - entity: sensor.hall2_power_template
+          - entity: sensor.patio_contact_power_template
+          - entity: sensor.livingroom_power_template
+          - entity: sensor.downstairs_power_template
+          - entity: sensor.landing_power_template
+          - entity: sensor.landing2_power_template
+          - entity: sensor.office_power_template
+          - entity: sensor.upstairs_power_template
+          - entity: sensor.ring_pathway_battery_2
+          - entity: sensor.aarlo_battery_level_kitchen
+          - entity: sensor.aarlo_battery_level_hallway
+          - entity: sensor.aarlo_battery_level_landing
+          - entity: sensor.aarlo_battery_level_spare
+          - entity: sensor.aarlo_battery_level_nursery
+        show_header_toggle: false
+        title: Battery Status
+        type: entities
+    icon: 'mdi:home-automation'
+    path: homeautomation
+    
+    
+
+
+
+
+
+  - badges: []
+    cards:
+      - entity: weather.dark_sky
+        name: '@MK'
+        type: 'custom:weather-card'
+      - entity: weather.dark_sky
+        name: Milton Keynes
+        type: weather-forecast
+      - aspect_ratio: 90%
+        title: Local Weather
+        type: iframe
+        url: 'https://embed.windy.com/embed2.html?rain,51.266,-0.759,7'
+      - entities:
+          - entity: sensor.hall_temperature
+          - entity: sensor.livingroom_temperature
+          - entity: sensor.dining_temperature
+          - entity: sensor.downstairs_temperature
+          - entity: sensor.landing_temperature
+          - entity: sensor.aarlo_temperature_nursery
+          - entity: sensor.office_temperature
+          - entity: sensor.upstairs_temperature
+        name: Room Temperatures
+        show:
+          graph: line
+        type: 'custom:mini-graph-card'
+    icon: 'mdi:weather-cloudy'
+    path: weather
+    
+    
+
+
+  - badges: []
+    cards:
+      - entities:
+          - sensor.aarlo_arlo_cameras
+          - sensor.aarlo_battery_level_kitchen
+          - sensor.aarlo_captured_today_kitchen
+          - sensor.aarlo_last_kitchen
+          - binary_sensor.aarlo_motion_kitchen
+          - binary_sensor.aarlo_sound_kitchen
+          - sensor.aarlo_signal_strength_kitchen
+          - sensor.aarlo_battery_level_hallway
+          - sensor.aarlo_captured_today_hallway
+          - sensor.aarlo_last_hallway
+          - binary_sensor.aarlo_motion_hallway
+          - binary_sensor.aarlo_sound_hallway
+          - sensor.aarlo_signal_strength_hallway
+          - sensor.aarlo_battery_level_landing
+          - sensor.aarlo_captured_today_landing
+          - sensor.aarlo_last_landing
+          - binary_sensor.aarlo_motion_landing
+          - binary_sensor.aarlo_sound_landing
+          - sensor.aarlo_signal_strength_landing
+          - sensor.aarlo_battery_level_nursery
+          - sensor.aarlo_captured_today_nursery
+          - sensor.aarlo_last_nursery
+          - binary_sensor.aarlo_motion_nursery
+          - binary_sensor.aarlo_sound_nursery
+          - sensor.aarlo_signal_strength_nursery
+          - sensor.aarlo_temperature_nursery
+          - sensor.aarlo_air_quality_nursery
+          - sensor.aarlo_humidity_nursery
+          - sensor.aarlo_battery_level_spare
+          - sensor.aarlo_captured_today_spare
+          - sensor.aarlo_last_spare
+          - binary_sensor.aarlo_motion_spare
+          - binary_sensor.aarlo_sound_spare
+          - sensor.aarlo_signal_strength_spare
+        show_header_toggle: false
+        title: Arlo
+        type: entities
+      - entity: alarm_control_panel.aarlo_base
+        name: Arlo Motion Detection
+        states:
+          - arm_home
+          - arm_away
+        type: alarm-panel
+      - entity: alarm_control_panel.aarlo_nursery
+        name: Nursery Motion Detection
+        states:
+          - arm_home
+          - arm_away
+        type: alarm-panel
+      - entities:
+          - binary_sensor.ring_front_door_ding
+          - binary_sensor.ring_front_door_motion
+          - sensor.ring_front_door_battery
+          - sensor.ring_front_door_volume
+          - sensor.ring_front_door_wifi_signal_category
+          - sensor.ring_front_door_wifi_signal_strength
+          - sensor.ring_front_door_last_ding
+          - sensor.ring_front_door_last_motion
+          - sensor.ring_front_door_last_activity
+          - binary_sensor.ring_backyard_motion
+          - sensor.ring_backyard_battery
+          - sensor.ring_backyard_volume
+          - sensor.ring_backyard_last_motion
+          - sensor.ring_backyard_last_activity
+          - sensor.ring_backyard_wifi_signal_category
+          - sensor.ring_backyard_wifi_signal_strength
+          - binary_sensor.ring_pathway_motion_2
+          - sensor.ring_pathway_battery_2
+          - sensor.ring_pathway_volume_2
+          - sensor.ring_pathway_last_motion_2
+          - sensor.ring_pathway_last_activity_2
+          - sensor.ring_pathway_wifi_signal_category_2
+          - sensor.ring_pathway_wifi_signal_strength_2
+          - sensor.ring_hallway_volume
+          - sensor.ring_hallway_wifi_signal_category
+          - sensor.ring_hallway_wifi_signal_strength
+        show_header_toggle: false
+        title: Ring Security Systems
+        type: entities
+      - aspec_ratio: 243
+        camera_image: camera.aarlo_kitchen
+        elements:
+          - entity: binary_sensor.dining_motion
+            style:
+              '--paper-item-icon-color': white
+              left: 10%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.dining_temperature
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.dining_temperature
+            style:
+              color: white
+              left: 27%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.dining_humidity
+            style:
+              '--paper-item-icon-color': white
+              left: 38%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.dining_humidity
+            style:
+              color: white
+              left: 45%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.dining_lux
+            style:
+              '--paper-item-icon-color': white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.dining_lux
+            style:
+              color: white
+              left: 62%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.hot_tub_outlet_consumption
+            style:
+              '--paper-item-icon-color': white
+              left: 72%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.hot_tub_outlet_consumption
+            style:
+              color: white
+              left: 79%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: switch.kitchen_main
+            style:
+              '--paper-item-icon-color': white
+              left: 90%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: switch.kitchen_dining
+            style:
+              '--paper-item-icon-color': white
+              left: 95%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+        type: picture-elements
+      - aspec_ratio: 243
+        camera_image: camera.aarlo_hallway
+        elements:
+          - entity: binary_sensor.hall_motion
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: binary_sensor.hall2_motion
+            style:
+              '--paper-item-icon-color': white
+              left: 29%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: binary_sensor.downstairs_motion
+            style:
+              '--paper-item-icon-color': white
+              left: 38%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.hall_temperature
+            style:
+              '--paper-item-icon-color': white
+              left: 47%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.hall_temperature
+            style:
+              color: white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.hall_lux
+            style:
+              '--paper-item-icon-color': white
+              left: 64%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.hall_lux
+            style:
+              color: white
+              left: 72%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: camera.aarlo_hallway
+            icon: 'mdi:video'
+            style:
+              color: white
+              left: 83%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: icon
+          - entity: switch.entrance_inside
+            style:
+              '--paper-item-icon-color': white
+              left: 95%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+        type: picture-elements
+      - aspec_ratio: 243
+        camera_image: camera.aarlo_landing
+        elements:
+          - entity: binary_sensor.landing_motion
+            style:
+              '--paper-item-icon-color': white
+              left: 10%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: binary_sensor.landing2_motion
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: group.landing_lights
+            style:
+              '--paper-item-icon-color': white
+              left: 29%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: sensor.landing_temperature
+            style:
+              '--paper-item-icon-color': white
+              left: 38%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.landing_temperature
+            style:
+              color: white
+              left: 45%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.landing_lux
+            style:
+              '--paper-item-icon-color': white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.landing_lux
+            style:
+              color: white
+              left: 62%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.livingroom_tv_outlet_consumption
+            style:
+              '--paper-item-icon-color': white
+              left: 72%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.livingroom_tv_outlet_consumption
+            style:
+              color: white
+              left: 79%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: switch.livingroom_front
+            style:
+              '--paper-item-icon-color': white
+              left: 90%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: group.landing_lights
+            style:
+              '--paper-item-icon-color': white
+              left: 95%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+        type: picture-elements
+      - aspec_ratio: 243
+        elements:
+          - entity: binary_sensor.livingroom_motion
+            style:
+              '--paper-item-icon-color': white
+              left: 10%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: group.corner_lamp
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: group.floor_lamp
+            style:
+              '--paper-item-icon-color': white
+              left: 29%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: sensor.livingroom_temperature
+            style:
+              '--paper-item-icon-color': white
+              left: 38%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.livingroom_temperature
+            style:
+              color: white
+              left: 45%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.livingroom_lux
+            style:
+              '--paper-item-icon-color': white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.livingroom_lux
+            style:
+              color: white
+              left: 62%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.livingroom_tv_outlet_consumption
+            style:
+              '--paper-item-icon-color': white
+              left: 72%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.livingroom_tv_outlet_consumption
+            style:
+              color: white
+              left: 79%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: switch.livingroom_front
+            style:
+              '--paper-item-icon-color': white
+              left: 90%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: switch.livingroom_rear
+            style:
+              '--paper-item-icon-color': white
+              left: 95%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+        image: /local/icons/living.jpg
+        type: picture-elements
+      - aspec_ratio: 243
+        camera_image: camera.aarlo_spare
+        elements:
+          - entity: binary_sensor.aarlo_motion_spare
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: binary_sensor.aarlo_motion_spare
+            style:
+              color: white
+              left: 28%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: binary_sensor.aarlo_sound_spare
+            style:
+              '--paper-item-icon-color': white
+              left: 38%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: binary_sensor.aarlo_sound_spare
+            style:
+              color: white
+              left: 45%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.aarlo_battery_level_spare
+            style:
+              '--paper-item-icon-color': white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.aarlo_battery_level_spare
+            style:
+              color: white
+              left: 62%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.aarlo_signal_strength_spare
+            style:
+              '--paper-item-icon-color': white
+              left: 70%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.aarlo_signal_strength_spare
+            style:
+              color: white
+              left: 76%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: camera.aarlo_spare
+            icon: 'mdi:video'
+            style:
+              color: white
+              left: 95%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: icon
+        type: picture-elements
+      - aspec_ratio: 243
+        camera_image: camera.pathway_2
+        elements:
+          - entity: binary_sensor.ring_pathway_motion_2
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.ring_pathway_last_activity_2
+            style:
+              color: white
+              left: 27%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.ring_pathway_battery_2
+            style:
+              '--paper-item-icon-color': white
+              left: 38%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.ring_pathway_battery_2
+            style:
+              color: white
+              left: 45%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.ring_pathway_wifi_signal_strength_2
+            style:
+              '--paper-item-icon-color': white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.ring_pathway_wifi_signal_strength_2
+            style:
+              color: white
+              left: 62%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: camera.pathway_2
+            icon: 'mdi:video'
+            style:
+              color: white
+              left: 90%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: icon
+        type: picture-elements
+      - aspec_ratio: 243
+        camera_image: camera.aarlo_nursery
+        elements:
+          - entity: binary_sensor.aarlo_sound_nursery
+            style:
+              '--paper-item-icon-color': white
+              left: 10%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.aarlo_temperature_nursery
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.aarlo_temperature_nursery
+            style:
+              color: white
+              left: 27%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.aarlo_humidity_nursery
+            style:
+              '--paper-item-icon-color': white
+              left: 38%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.aarlo_humidity_nursery
+            style:
+              color: white
+              left: 45%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.aarlo_air_quality_nursery
+            style:
+              '--paper-item-icon-color': white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.aarlo_air_quality_nursery
+            style:
+              color: white
+              left: 64%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: binary_sensor.aarlo_motion_nursery
+            style:
+              '--paper-item-icon-color': white
+              left: 74%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: camera.aarlo_nursery
+            icon: 'mdi:video'
+            style:
+              color: white
+              left: 90%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: icon
+        type: picture-elements
+      - aspect_ratio: 243
+        camera_image: camera.front_door
+        elements:
+          - entity: binary_sensor.ring_front_door_motion
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: lock.front_door
+            style:
+              '--paper-item-icon-color': white
+              left: 29%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: binary_sensor.entrance_door
+            style:
+              '--paper-item-icon-color': white
+              left: 39%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.front_door_lock_power_template
+            style:
+              '--paper-item-icon-color': white
+              left: 48%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.front_door_lock_power_template
+            style:
+              color: white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: camera.front_door
+            icon: 'mdi:video'
+            style:
+              color: white
+              left: 61%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: icon
+          - entity: switch.entrance_outside
+            icon: 'mdi:coach-lamp'
+            style:
+              '--paper-item-icon-color': white
+              left: 95%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+        type: picture-elements
+      - aspec_ratio: 243
+        camera_image: camera.backyard
+        elements:
+          - entity: binary_sensor.ring_backyard_motion
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.ring_backyard_last_activity
+            style:
+              color: white
+              left: 27%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.ring_backyard_battery
+            style:
+              '--paper-item-icon-color': white
+              left: 38%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.ring_backyard_battery
+            style:
+              color: white
+              left: 45%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.ring_backyard_wifi_signal_strength
+            style:
+              '--paper-item-icon-color': white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.ring_backyard_wifi_signal_strength
+            style:
+              color: white
+              left: 62%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: camera.backyard
+            icon: 'mdi:video'
+            style:
+              color: white
+              left: 90%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: icon
+        type: picture-elements
+      - aspec_ratio: 243
+        camera_image: camera.yi_denzil
+        elements:
+          - entity: sensor.aarlo_temperature_nursery
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.aarlo_temperature_nursery
+            style:
+              color: white
+              left: 28%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.aarlo_humidity_nursery
+            style:
+              '--paper-item-icon-color': white
+              left: 38%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.aarlo_humidity_nursery
+            style:
+              color: white
+              left: 46%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.aarlo_air_quality_nursery
+            style:
+              '--paper-item-icon-color': white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.aarlo_air_quality_nursery
+            style:
+              color: white
+              left: 64%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: camera.yi_denzil
+            icon: 'mdi:video'
+            style:
+              color: white
+              left: 90%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: icon
+        type: picture-elements
+    path: view_arlo
+    title: Arlo Ring
+  - badges: []
+    cards:
+      - entities:
+          - binary_sensor.entrance_door
+          - binary_sensor.hall_motion
+          - sensor.hall_temperature
+          - sensor.hall_lux
+          - sensor.hall_humidity
+          - sensor.hall_uv
+          - sensor.hall_power_template
+          - binary_sensor.hall2_motion
+          - sensor.hall2_lux
+          - sensor.hall2_power_template
+        show_header_toggle: false
+        title: Hall
+        type: entities
+      - entities:
+          - binary_sensor.landing_motion
+          - sensor.landing_temperature
+          - sensor.landing_lux
+          - sensor.landing_power_template
+          - binary_sensor.landing2_motion
+          - sensor.landing2_lux
+          - sensor.landing2_power_template
+          - binary_sensor.upstairs_motion
+          - sensor.upstairs_temperature
+          - sensor.upstairs_lux
+          - sensor.upstairs_power_template
+        show_header_toggle: false
+        title: Landing
+        type: entities
+      - entities:
+          - binary_sensor.downstairs_motion
+          - sensor.downstairs_temperature
+          - sensor.downstairs_lux
+          - sensor.downstairs_power_template
+        show_header_toggle: false
+        title: Downstairs
+        type: entities
+      - aspec_ratio: 243
+        camera_image: camera.aarlo_hallway
+        elements:
+          - entity: binary_sensor.hall_motion
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: binary_sensor.hall2_motion
+            style:
+              '--paper-item-icon-color': white
+              left: 29%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: binary_sensor.downstairs_motion
+            style:
+              '--paper-item-icon-color': white
+              left: 38%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.hall_temperature
+            style:
+              '--paper-item-icon-color': white
+              left: 47%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.hall_temperature
+            style:
+              color: white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.hall_lux
+            style:
+              '--paper-item-icon-color': white
+              left: 64%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.hall_lux
+            style:
+              color: white
+              left: 72%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: camera.aarlo_hallway
+            icon: 'mdi:video'
+            style:
+              color: white
+              left: 83%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: icon
+          - entity: switch.entrance_inside
+            style:
+              '--paper-item-icon-color': white
+              left: 95%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+        type: picture-elements
+      - aspec_ratio: 243
+        camera_image: camera.aarlo_landing
+        elements:
+          - entity: binary_sensor.landing_motion
+            style:
+              '--paper-item-icon-color': white
+              left: 10%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: binary_sensor.landing2_motion
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: group.landing_lights
+            style:
+              '--paper-item-icon-color': white
+              left: 29%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: sensor.landing_temperature
+            style:
+              '--paper-item-icon-color': white
+              left: 38%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.landing_temperature
+            style:
+              color: white
+              left: 45%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.landing_lux
+            style:
+              '--paper-item-icon-color': white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.landing_lux
+            style:
+              color: white
+              left: 62%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.livingroom_tv_outlet_consumption
+            style:
+              '--paper-item-icon-color': white
+              left: 72%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.livingroom_tv_outlet_consumption
+            style:
+              color: white
+              left: 79%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: switch.livingroom_front
+            style:
+              '--paper-item-icon-color': white
+              left: 90%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: group.landing_lights
+            style:
+              '--paper-item-icon-color': white
+              left: 95%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+        type: picture-elements
+      - entities:
+          - light.upstairs_light
+          - light.landing_spot_1
+          - light.landing_spot_2
+          - light.landing_spot_3
+          - light.landing_spot_4
+        title: Light
+        type: entities
+      - entities:
+          - switch.entrance_outside
+          - switch.entrance_inside
+        show_header_toggle: false
+        title: Switch
+        type: entities
+      - camera_image: camera.aarlo_hallway
+        entities:
+          - camera.aarlo_hallway
+        title: Hallway
+        type: picture-glance
+    path: view_hall
+    title: Hall
+  - badges: []
+    cards:
+      - aspec_ratio: 243
+        camera_image: camera.aarlo_kitchen
+        elements:
+          - entity: binary_sensor.dining_motion
+            style:
+              '--paper-item-icon-color': white
+              left: 10%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.dining_temperature
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.dining_temperature
+            style:
+              color: white
+              left: 27%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.dining_humidity
+            style:
+              '--paper-item-icon-color': white
+              left: 38%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.dining_humidity
+            style:
+              color: white
+              left: 45%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.dining_lux
+            style:
+              '--paper-item-icon-color': white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.dining_lux
+            style:
+              color: white
+              left: 62%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.hot_tub_outlet_consumption
+            style:
+              '--paper-item-icon-color': white
+              left: 72%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.hot_tub_outlet_consumption
+            style:
+              color: white
+              left: 79%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: switch.kitchen_main
+            style:
+              '--paper-item-icon-color': white
+              left: 90%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: switch.kitchen_dining
+            style:
+              '--paper-item-icon-color': white
+              left: 95%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+        type: picture-elements
+      - entities:
+          - switch.hot_tub_outlet
+          - sensor.hot_tub_outlet_consumption
+          - sensor.hot_tub_outlet_usage
+          - sensor.hot_tub_outlet_voltage_2
+        show_header_toggle: false
+        title: Hot Tub Outlet
+        type: entities
+      - entities:
+          - switch.kitchen_main
+          - switch.kitchen_dining
+        title: Switch
+        type: entities
+      - entities:
+          - entity: binary_sensor.patio_door
+          - entity: binary_sensor.dining_motion
+          - entity: sensor.dining_temperature
+          - entity: sensor.dining_lux
+          - entity: sensor.dining_humidity
+          - entity: sensor.dining_uv
+        show_header_toggle: false
+        title: Dining
+        type: entities
+      - entities:
+          - entity: vacuum.xiaomi_vacuum_cleaner
+          - entity: vacuum.deebotn79s
+        show_header_toggle: false
+        title: Vacuum
+        type: entities
+    path: view_kitchen
+    title: Kitchen
+  - badges: []
+    cards:
+      - aspec_ratio: 243
+        elements:
+          - entity: binary_sensor.livingroom_motion
+            style:
+              '--paper-item-icon-color': white
+              left: 10%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: group.corner_lamp
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: group.floor_lamp
+            style:
+              '--paper-item-icon-color': white
+              left: 29%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: sensor.livingroom_temperature
+            style:
+              '--paper-item-icon-color': white
+              left: 38%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.livingroom_temperature
+            style:
+              color: white
+              left: 45%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.livingroom_lux
+            style:
+              '--paper-item-icon-color': white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.livingroom_lux
+            style:
+              color: white
+              left: 62%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.livingroom_tv_outlet_consumption
+            style:
+              '--paper-item-icon-color': white
+              left: 72%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.livingroom_tv_outlet_consumption
+            style:
+              color: white
+              left: 79%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: switch.livingroom_front
+            style:
+              '--paper-item-icon-color': white
+              left: 90%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: switch.livingroom_rear
+            style:
+              '--paper-item-icon-color': white
+              left: 95%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+        image: /local/icons/living.jpg
+        type: picture-elements
+      - entities:
+          - light.corner_lamp_1
+          - light.corner_lamp_2
+          - light.corner_lamp_3
+          - light.color_temperature_light_1
+          - light.color_temperature_light_2
+          - light.color_temperature_light_3
+        title: Light
+        type: entities
+      - entities:
+          - switch.livingroom_tv_outlet
+          - sensor.livingroom_tv_outlet_consumption
+          - sensor.livingroom_tv_outlet_usage
+        show_header_toggle: false
+        title: Livingroom Outlets
+        type: entities
+      - entities:
+          - switch.fan_dyson_desk_power
+          - switch.fan_dyson_desk_rotation
+          - switch.fan_dyson_desk_speed
+          - switch.fan_dyson_desk_timer
+          - switch.livingroom_front
+          - switch.livingroom_rear
+        show_header_toggle: false
+        title: Switch
+        type: entities
+      - entities:
+          - binary_sensor.livingroom_motion
+          - sensor.livingroom_temperature
+          - sensor.livingroom_lux
+          - sensor.livingroom_power_template
+        show_header_toggle: false
+        title: Livingroom
+        type: entities
+    path: view_livingroom
+    title: Livingroom
+  - badges: []
+    cards:
+      - aspec_ratio: 243
+        camera_image: camera.yi_cam
+        elements:
+          - entity: binary_sensor.office_motion
+            style:
+              '--paper-item-icon-color': white
+              left: 10%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.office_temperature
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.office_temperature
+            style:
+              color: white
+              left: 27%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.office_humidity
+            style:
+              '--paper-item-icon-color': white
+              left: 38%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.office_humidity
+            style:
+              color: white
+              left: 45%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.office_lux
+            style:
+              '--paper-item-icon-color': white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.office_lux
+            style:
+              color: white
+              left: 62%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.office_monitor_outlet_consumption
+            style:
+              '--paper-item-icon-color': white
+              left: 72%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.office_monitor_outlet_consumption
+            style:
+              color: white
+              left: 80%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: camera.yi_cam
+            icon: 'mdi:video'
+            style:
+              color: white
+              left: 90%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: icon
+          - entity: light.office_light
+            style:
+              '--paper-item-icon-color': white
+              left: 95%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+        type: picture-elements
+      - entities:
+          - switch.office_monitor_outlet
+          - sensor.office_monitor_outlet_consumption
+          - sensor.office_monitor_outlet_usage
+        show_header_toggle: false
+        title: Office Monitor Outlet
+        type: entities
+      - entities:
+          - light.office_light
+        show_header_toggle: false
+        title: Light
+        type: entities
+      - entities:
+          - binary_sensor.office_motion
+          - sensor.office_temperature
+          - sensor.office_lux
+          - sensor.office_humidity
+          - sensor.office_uv
+          - sensor.office_power_template
+        show_header_toggle: false
+        title: Office
+        type: entities
+    path: view_office
+    title: Office
+
+
+
+  - badges: []
+    cards:
+      - aspec_ratio: 243
+        camera_image: camera.aarlo_nursery
+        elements:
+          - entity: binary_sensor.aarlo_sound_nursery
+            style:
+              '--paper-item-icon-color': white
+              left: 10%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.aarlo_temperature_nursery
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.aarlo_temperature_nursery
+            style:
+              color: white
+              left: 27%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.aarlo_humidity_nursery
+            style:
+              '--paper-item-icon-color': white
+              left: 38%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.aarlo_humidity_nursery
+            style:
+              color: white
+              left: 45%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.aarlo_air_quality_nursery
+            style:
+              '--paper-item-icon-color': white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.aarlo_air_quality_nursery
+            style:
+              color: white
+              left: 62%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.office_monitor_outlet_consumption
+            style:
+              '--paper-item-icon-color': white
+              left: 72%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.office_monitor_outlet_consumption
+            style:
+              color: white
+              left: 80%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: camera.aarlo_nursery
+            icon: 'mdi:video'
+            style:
+              color: white
+              left: 90%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: icon
+        type: picture-elements
+      - aspec_ratio: 243
+        camera_image: camera.yi_denzil
+        elements:
+          - entity: sensor.aarlo_temperature_nursery
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.aarlo_temperature_nursery
+            style:
+              color: white
+              left: 27%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.aarlo_humidity_nursery
+            style:
+              '--paper-item-icon-color': white
+              left: 38%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.aarlo_humidity_nursery
+            style:
+              color: white
+              left: 45%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.aarlo_air_quality_nursery
+            style:
+              '--paper-item-icon-color': white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.aarlo_air_quality_nursery
+            style:
+              color: white
+              left: 62%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: camera.yi_denzil
+            icon: 'mdi:video'
+            style:
+              color: white
+              left: 90%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: icon
+        type: picture-elements
+    title: Nursery
+  - badges: []
+    cards:
+      - entities:
+          - switch.bedroom_tv_outlet
+          - sensor.bedroom_tv_outlet_consumption
+          - sensor.bedroom_tv_outlet_usage
+        show_header_toggle: false
+        title: Bedroom Outlets
+        type: entities
+      - entities:
+          - light.bedroom_bloom_k
+          - light.bedroom_bloom_s
+          - light.bedroom_lightstrip
+        title: Light
+        type: entities
+    path: view_bedroom
+    title: Bedroom
+  - badges: []
+    cards:
+      - entities:
+          - input_number.alexa_volume
+          - input_text.alexa_tts
+          - input_select.alexa
+        show_header_toggle: false
+        title: Alexa TTS
+        type: entities
+      - entity: media_player.echo_show_livingroom
+        type: media-control
+      - entity: media_player.echo_spot_bedroom
+        type: media-control
+      - entity: media_player.echo_kitchen
+        type: media-control
+      - entity: media_player.echo_show_dining
+        type: media-control
+      - entity: media_player.echo_spot_office
+        type: media-control
+      - entity: media_player.bedroom_fire_tv_stick
+        type: media-control
+      - entity: media_player.office_fire_tv_stick
+        type: media-control
+      - entity: media_player.office_fire_tv_stick_spare
+        type: media-control
+      - entity: media_player.downstairs
+        type: media-control
+      - entity: media_player.severins_alexa_apps
+        type: media-control
+      - entity: media_player.severins_fire
+        type: media-control
+      - entity: media_player.this_device
+        type: media-control
+    path: view_samsung_media
+    title: Multiroom
+  - badges: []
+    cards:
+      - entities:
+          - sensor.ender_3_pro_current_state
+          - binary_sensor.ender_3_pro_printing
+          - binary_sensor.ender_3_pro_printing_error
+          - sensor.ender_3_pro_target_tool0_temp
+          - sensor.ender_3_pro_actual_tool0_temp
+          - sensor.ender_3_pro_target_bed_temp
+          - sensor.ender_3_pro_actual_bed_temp
+          - sensor.ender_3_pro_job_percentage
+          - sensor.ender_3_pro_time_elapsed
+          - sensor.ender_3_pro_time_remaining
+        show_header_toggle: false
+        title: OctoPrint Ender 3 Pro
+        type: entities
+      - entity: camera.octoprint
+        tap_action:
+          action: more-info
+        type: picture-entity
+    path: view_octoprint
+    title: Octoprint
+  - badges: []
+    cards:
+      - entities:
+          - sensor.qnap470pro_status
+          - sensor.qnap470pro_system_temperature
+          - sensor.qnap470pro_cpu_temperature
+          - sensor.qnap470pro_cpu_usage
+          - sensor.qnap470pro_memory_usage
+          - sensor.qnap470pro_volume_used_datavol1
+          - sensor.qnap470pro_network_up_eth0
+          - sensor.qnap470pro_network_down_eth0
+          - sensor.qnap470pro_network_up_eth1
+          - sensor.qnap470pro_network_down_eth1
+        show_header_toggle: false
+        title: QNAP 470 Pro Stats
+        type: entities
+      - entities:
+          - sensor.qnap419pii_status
+          - sensor.qnap419pii_system_temperature
+          - sensor.qnap419pii_cpu_temperature
+          - sensor.qnap419pii_cpu_usage
+          - sensor.qnap419pii_memory_usage
+          - sensor.qnap419pii_volume_used_volume_1
+          - sensor.qnap419pii_network_up_eth0
+          - sensor.qnap419pii_network_down_eth0
+          - sensor.qnap419pii_network_up_eth1
+          - sensor.qnap419pii_network_down_eth1
+        show_header_toggle: false
+        title: QNAP 419 Pii Stats
+        type: entities
+    path: qnap_view
+    title: QNAP Stats
+  - badges: []
+    cards:
+      - type: custom:group-card
+        card:
+          type: entities
+          title: Automations
+          show_header_toggle: false
+        group: group.all_automations
+    title: Automations
+
+
+#home_old
+  - badges: []
+    cards:
+      - entities:
+          - device_tracker.iphone7plus
+          - device_tracker.7c0191054d15
+        show_header_toggle: false
+        title: Currently @Home
+        type: entities
+      - type: custom:vertical-stack-in-card
+        title: Hallway
+        cards:
+          - type: glance
+            entities:
+              - entity: binary_sensor.aarlo_motion_hallway
+                name: Arlo Motion
+              - entity: binary_sensor.hall_motion
+                name: Hall
+              - entity: binary_sensor.hall_motion
+                name: Hall 2
+              - entity: sensor.hall_temperature
+                name: Temperature
+              - entity: sensor.hall_lux
+                name: LUX
+          - aspec_ratio: 243
+            camera_image: camera.aarlo_hallway
+            elements:
+              - entity: binary_sensor.hall_motion
+                style:
+                  '--paper-item-icon-color': white
+                  left: 20%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: binary_sensor.hall2_motion
+                style:
+                  '--paper-item-icon-color': white
+                  left: 29%
+                  top: 91%
+                tap_action:
+                  action: toggle
+                type: state-icon
+              - entity: binary_sensor.downstairs_motion
+                style:
+                  '--paper-item-icon-color': white
+                  left: 38%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.hall_temperature
+                style:
+                  '--paper-item-icon-color': white
+                  left: 47%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.hall_temperature
+                style:
+                  color: white
+                  left: 54%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-label
+              - entity: sensor.hall_lux
+                style:
+                  '--paper-item-icon-color': white
+                  left: 64%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.hall_lux
+                style:
+                  color: white
+                  left: 72%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-label
+              - entity: camera.aarlo_hallway
+                icon: 'mdi:video'
+                style:
+                  color: white
+                  left: 83%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: icon
+              - entity: switch.entrance_inside
+                style:
+                  '--paper-item-icon-color': white
+                  left: 95%
+                  top: 91%
+                tap_action:
+                  action: toggle
+                type: state-icon
+            type: picture-elements
+          - type: entities
+            entities:
+             - lock.front_door
+             - sensor.front_door_status
+             - sensor.front_door_lock_power_template
+             - binary_sensor.ring_front_door_motion
+             - binary_sensor.ring_front_door_ding
+             - binary_sensor.entrance_door
+             - sensor.door_contact_power_template
+             - switch.entrance_outside
+             - switch.entrance_inside
+      - type: custom:vertical-stack-in-card
+        title: Kitchen
+        cards:
+          - type: glance
+            entities:
+              - entity: sensor.aarlo_captured_today_kitchen
+                name: Captured
+              - entity: binary_sensor.aarlo_motion_kitchen
+                name: Motion
+              - entity: binary_sensor.aarlo_sound_kitchen
+                name: Sound
+              - entity: sensor.aarlo_signal_strength_kitchen
+                name: Signal
+              - entity: sensor.aarlo_battery_level_kitchen
+                name: Battery
+          - aspec_ratio: 243
+            camera_image: camera.aarlo_kitchen
+            elements:
+              - entity: binary_sensor.dining_motion
+                style:
+                  '--paper-item-icon-color': white
+                  left: 10%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.dining_temperature
+                style:
+                  '--paper-item-icon-color': white
+                  left: 20%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.dining_temperature
+                style:
+                  color: white
+                  left: 27%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-label
+              - entity: sensor.dining_humidity
+                style:
+                  '--paper-item-icon-color': white
+                  left: 38%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.dining_humidity
+                style:
+                  color: white
+                  left: 45%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-label
+              - entity: sensor.dining_lux
+                style:
+                  '--paper-item-icon-color': white
+                  left: 54%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.dining_lux
+                style:
+                  color: white
+                  left: 62%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-label
+              - entity: sensor.hot_tub_outlet_consumption
+                style:
+                  '--paper-item-icon-color': white
+                  left: 72%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.hot_tub_outlet_consumption
+                style:
+                  color: white
+                  left: 79%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-label
+              - entity: switch.kitchen_main
+                style:
+                  '--paper-item-icon-color': white
+                  left: 90%
+                  top: 91%
+                tap_action:
+                  action: toggle
+                type: state-icon
+              - entity: switch.kitchen_dining
+                style:
+                  '--paper-item-icon-color': white
+                  left: 95%
+                  top: 91%
+                tap_action:
+                  action: toggle
+                type: state-icon
+            type: picture-elements
+          - entities:
+              - binary_sensor.patio_door
+              - sensor.patio_contact_power_template
+              - switch.kitchen_main
+              - switch.kitchen_dining
+            show_header_toggle: false
+            type: entities
+      - type: custom:vertical-stack-in-card
+        title: Landing
+        cards:
+          - type: glance
+            entities:
+              - entity: binary_sensor.aarlo_motion_landing
+                name: Arlo Motion
+              - entity: binary_sensor.landing_motion
+                name: Landing
+              - entity: binary_sensor.landing2_motion
+                name: Landing 2
+              - entity: binary_sensor.downstairs_motion
+                name: Downstairs
+              - entity: sensor.landing_temperature
+                name: Temperature
+              - entity: sensor.landing_lux
+                name: LUX
+              - entity: sensor.landing2_lux
+                name: LUX
+          - aspec_ratio: 243
+            camera_image: camera.aarlo_landing
+            elements:
+              - entity: binary_sensor.landing_motion
+                style:
+                  '--paper-item-icon-color': white
+                  left: 10%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: binary_sensor.landing2_motion
+                style:
+                  '--paper-item-icon-color': white
+                  left: 20%
+                  top: 91%
+                tap_action:
+                  action: toggle
+                type: state-icon
+              - entity: binary_sensor.aarlo_motion_landing
+                style:
+                  '--paper-item-icon-color': white
+                  left: 29%
+                  top: 91%
+                tap_action:
+                  action: toggle
+                type: state-icon
+              - entity: group.landing_lights
+                style:
+                  '--paper-item-icon-color': white
+                  left: 38%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.landing_temperature
+                style:
+                  '--paper-item-icon-color': white
+                  left: 47%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.landing_temperature
+                style:
+                  color: white
+                  left: 56%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-label
+              - entity: sensor.landing_lux
+                style:
+                  '--paper-item-icon-color': white
+                  left: 66%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-icon
+              - entity: sensor.landing_lux
+                style:
+                  color: white
+                  left: 75%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: state-label
+              - entity: group.landing_lights
+                style:
+                  '--paper-item-icon-color': white
+                  left: 95%
+                  top: 91%
+                tap_action:
+                  action: toggle
+                type: state-icon
+              - entity: camera.aarlo_landing
+                icon: 'mdi:video'
+                style:
+                  color: white
+                  left: 87%
+                  top: 91%
+                tap_action:
+                  action: more-info
+                type: icon
+            type: picture-elements
+          - type: entities
+            entities:
+             - light.landing_spot_1
+             - light.landing_spot_2
+             - light.landing_spot_3
+             - light.landing_spot_4
+      - entities:
+          - switch.pihole
+          - icon: 'mdi:shield-link-variant-outline'
+            name: pi-hole_management
+            type: weblink
+            url: 'http://collse.duckdns.org:9000/admin/'
+          - sensor.pi_hole_version
+          - sensor.pihole_version_latest
+          - sensor.pihole_version_current
+          - sensor.pi_hole_ads_blocked_today
+          - sensor.pi_hole_ads_percentage_blocked_today
+          - sensor.pi_hole_dns_queries_cached
+          - sensor.pi_hole_dns_queries_forwarded
+          - sensor.pi_hole_dns_queries_today
+          - sensor.pi_hole_dns_unique_clients
+          - sensor.pi_hole_seen_clients
+          - sensor.pi_hole_dns_unique_domains
+          - sensor.pi_hole_domains_blocked
+          - sensor.pihole_dns
+          - sensor.pihole_blocking
+          - script.ad_blocker
+          - script.pihole_on
+          - script.pihole_off
+          - sensor.pihole_status_raw
+          - sensor.pihole_status
+          - sensor.pihole_blocking
+        show_header_toggle: false
+        title: Ads Blocked
+        type: entities
+      - entities:
+          - sensor.speedtest_download
+          - sensor.speedtest_upload
+          - sensor.speedtest_ping
+          - sensor.fast_com_download
+        show_header_toggle: false
+        title: Speedtest
+        type: entities
+      - entities:
+          - binary_sensor.hall_motion
+          - binary_sensor.hall2_motion
+          - binary_sensor.aarlo_motion_hallway
+          - binary_sensor.livingroom_motion
+          - binary_sensor.dining_motion
+          - binary_sensor.aarlo_motion_kitchen
+          - binary_sensor.downstairs_motion
+          - binary_sensor.landing_motion
+          - binary_sensor.landing2_motion
+          - binary_sensor.aarlo_motion_landing
+          - binary_sensor.office_motion
+          - binary_sensor.aarlo_motion_spare
+          - binary_sensor.upstairs_motion
+        show_header_toggle: false
+        title: Motion Sensors
+        type: entities
+      - entities:
+          - entity: sensor.hall_temperature
+          - entity: sensor.livingroom_temperature
+          - entity: sensor.dining_temperature
+          - entity: sensor.downstairs_temperature
+          - entity: sensor.landing_temperature
+          - entity: sensor.aarlo_temperature_nursery
+          - entity: sensor.office_temperature
+          - entity: sensor.upstairs_temperature
+        show_header_toggle: false
+        title: Room Temperatures
+        type: entities
+      - entities:
+          - sensor.hall_lux
+          - sensor.hall2_lux
+          - sensor.livingroom_lux
+          - sensor.dining_lux
+          - sensor.downstairs_lux
+          - sensor.landing_lux
+          - sensor.landing2_lux
+          - sensor.office_lux
+          - sensor.upstairs_lux
+        show_header_toggle: false
+        title: Room Light Levels
+        type: entities
+      - entities:
+          - lock.front_door
+          - sensor.front_door_status
+          - sensor.front_door_lock_power_template
+          - binary_sensor.ring_front_door_motion
+          - binary_sensor.ring_front_door_ding
+          - binary_sensor.entrance_door
+          - sensor.door_contact_power_template
+          - binary_sensor.patio_door
+          - sensor.patio_contact_power_template
+        show_header_toggle: false
+        title: Door Sensor
+        type: entities
+      - entities:
+          - switch.entrance_outside
+          - switch.entrance_inside
+          - switch.livingroom_front
+          - switch.livingroom_rear
+          - switch.kitchen_main
+          - switch.kitchen_dining
+        show_header_toggle: false
+        title: Z-Wave Switches
+        type: entities
+      - entities:
+          - sensor.media_players_active
+        show_header_toggle: false
+        title: Active Media Players
+        type: entities
+      - entities:
+          - sensor.internet
+          - sensor.external_ip
+          - sensor.glances_cpu_load
+          - sensor.glances_disk_overview
+          - sensor.glances_ram_overview
+          - sensor.server_uptime
+          - sensor.ha_uptime
+          - sensor.installed_version
+          - sensor.ha_github_version
+          - sensor.ha_pypi_version
+          - sensor.ha_version
+          - name: release_log
+            type: weblink
+            url: 'https://github.com/home-assistant/home-assistant/releases'
+          - icon: 'mdi:biohazard'
+            name: glances
+            type: weblink
+            url: 'http://collse.duckdns.org:61208/'
+          - sensor.glances_linux_distro
+        show_header_toggle: false
+        title: Server Status
+        type: entities
+      - entities:
+          - sensor.ssl_certificate_expiry
+        show_header_toggle: false
+        title: Certificate Validity
+        type: entities
+      - entities:
+          - sensor.dark_sky_summary
+          - sensor.dark_sky_icon
+          - sensor.dark_sky_apparent_temperature
+          - sensor.dark_sky_temperature
+          - sensor.dark_sky_wind_speed
+          - sensor.dark_sky_wind_bearing
+          - sensor.dark_sky_nearest_storm_distance
+        show_header_toggle: false
+        title: Darksky Weather
+        type: entities
+      - entities:
+          - entity: vacuum.xiaomi_vacuum_cleaner
+          - entity: vacuum.deebotn79s
+        show_header_toggle: false
+        title: Vacuum
+        type: entities
+      - cards:
+          - content: |
+              ---
+            title: Active Media Players
+            type: markdown
+          - card:
+              entity: media_player.echo_spot_office_2
+              type: media-control
+            conditions:
+              - entity: sensor.media_players_active
+                state: playing
+            type: conditional
+          - card:
+              entity: media_player.echo_kitchen_2
+              type: media-control
+            conditions:
+              - entity: media_player.echo_kitchen_2
+                state: playing
+            type: conditional
+          - card:
+              entity: media_player.echo_kitchen_2
+              type: media-control
+            conditions:
+              - entity: media_player.echo_kitchen_2
+                state: playing
+            type: conditional
+          - card:
+              entity: media_player.echo_spot_office_2
+              type: media-control
+            conditions:
+              - entity: media_player.echo_spot_office_2
+                state: playing
+            type: conditional
+          - card:
+              entity: media_player.echo_spot_bedroom_2
+              type: media-control
+            conditions:
+              - entity: media_player.echo_spot_bedroom_2
+                state: playing
+            type: conditional
+          - card:
+              entity: media_player.office_fire_tv_stick_2
+              type: media-control
+            conditions:
+              - entity: media_player.office_fire_tv_stick_2
+                state: playing
+            type: conditional
+          - card:
+              entity: media_player.office_fire_tv_stick_spare_2
+              type: media-control
+            conditions:
+              - entity: media_player.office_fire_tv_stick_spare_2
+                state: playing
+            type: conditional
+          - card:
+              entity: media_player.shield
+              type: media-control
+            conditions:
+              - entity: media_player.shield
+                state: playing
+            type: conditional
+          - card:
+              entity: media_player.shield_3
+              type: media-control
+            conditions:
+              - entity: media_player.shield_3
+                state: playing
+            type: conditional
+          - card:
+              entity: media_player.this_device
+              type: media-control
+            conditions:
+              - entity: media_player.this_device
+                state: playing
+            type: conditional
+          - card:
+              entity: media_player.genius_2
+              type: media-control
+            conditions:
+              - entity: media_player.genius_2
+                state: playing
+            type: conditional
+          - card:
+              entity: media_player.safari
+              type: media-control
+            conditions:
+              - entity: media_player.safari
+                state: playing
+            type: conditional
+          - card:
+              entity: media_player.playstation_4
+              type: media-control
+            conditions:
+              - entity: media_player.playstation_4
+                state: playing
+            type: conditional
+        name: Active Media players
+        type: vertical-stack
+      - entities:
+          - entity: zwave.aeotec_zstick_gen5_eu
+          - entity: zwave.bedroom_tv_outlet
+          - entity: zwave.dining_sensor
+          - entity: zwave.downstairs_sensor
+          - entity: zwave.entrance_door_sensor
+          - entity: zwave.entrace_switch
+          - entity: zwave.hall_sensor
+          - entity: zwave.hall_sensor2
+          - entity: zwave.hot_tub_outlet
+          - entity: zwave.internet_outlet
+          - entity: zwave.kitchen_switch
+          - entity: zwave.landing_sensor
+          - entity: zwave.landing_sensor2
+          - entity: zwave.livingroom_sensor
+          - entity: zwave.livingroom_switch
+          - entity: zwave.livingroom_tv_outlet
+          - entity: zwave.office_monitor_outlet
+          - entity: zwave.office_sensor
+          - entity: zwave.patio_door_sensor
+          - entity: zwave.upstairs_sensor
+          - entity: zwave.yale_conexis_l1_sdl1000ch
+        show_header_toggle: false
+        title: Z-Wave
+        type: entities
+      - entities:
+          - entity: input_boolean.livingroom_tv
+          - entity: input_boolean.block_tv_lights
+        show_header_toggle: false
+        title: TV Automations
+        type: entities
+      - entities:
+          - entity: sensor.door_contact_power_template
+          - entity: sensor.front_door_lock_power_template
+          - entity: sensor.hall_power_template
+          - entity: sensor.hall2_power_template
+          - entity: sensor.patio_contact_power_template
+          - entity: sensor.livingroom_power_template
+          - entity: sensor.downstairs_power_template
+          - entity: sensor.landing_power_template
+          - entity: sensor.landing2_power_template
+          - entity: sensor.office_power_template
+          - entity: sensor.upstairs_power_template
+          - entity: sensor.ring_pathway_battery_2
+          - entity: sensor.aarlo_battery_level_kitchen
+          - entity: sensor.aarlo_battery_level_hallway
+          - entity: sensor.aarlo_battery_level_landing
+          - entity: sensor.aarlo_battery_level_spare
+          - entity: sensor.aarlo_battery_level_nursery
+        show_header_toggle: false
+        title: Battery Status
+        type: entities
+      - door: binary_switch.front_door
+        door_lock: lock.front_door_lock
+        entity: camera.aarlo_hallway
+        name: Hallway
+        show:
+          - motion
+          - sound
+          - snapshot
+          - battery_level
+          - signal_strength
+          - captured_today
+        top_status: false
+        top_title: false
+        type: 'custom:aarlo-glance'
+      - entities:
+          - sensor.speedtest_download
+          - sensor.speedtest_upload
+          - sensor.speedtest_ping
+          - sensor.fast_com_download
+        name: Speedtest
+        show:
+          graph: bar
+        type: 'custom:mini-graph-card'
+      - entities:
+          - entity: sensor.hall_temperature
+          - entity: sensor.livingroom_temperature
+          - entity: sensor.dining_temperature
+          - entity: sensor.downstairs_temperature
+          - entity: sensor.landing_temperature
+          - entity: sensor.aarlo_temperature_nursery
+          - entity: sensor.office_temperature
+          - entity: sensor.upstairs_temperature
+        name: Room Temperatures
+        show:
+          graph: line
+        type: 'custom:mini-graph-card'
+      - entity: weather.dark_sky
+        name: Milton Keynes
+        type: weather-forecast
+      - entity: weather.dark_sky
+        name: '@MK'
+        type: 'custom:weather-card'
+      - entity: camera.aarlo_landing
+        name: Landing
+        show:
+          - motion
+          - sound
+          - snapshot
+          - battery_level
+          - signal_strength
+          - captured_today
+        top_status: true
+        top_title: true
+        type: 'custom:aarlo-glance'
+      - door: sensor.patio_door
+        entity: camera.aarlo_kitchen
+        name: Kitchen
+        show:
+          - motion
+          - sound
+          - snapshot
+          - battery_level
+          - signal_strength
+          - captured_today
+        top_status: true
+        top_title: true
+        type: 'custom:aarlo-glance'
+      - door: binary_sensor.entrance_door
+        door_lock: lock.front_door
+        entity: camera.aarlo_hallway
+        name: Hallway
+        show:
+          - motion
+          - sound
+          - snapshot
+          - battery_level
+          - signal_strength
+          - captured_today
+        top_status: true
+        top_title: true
+        type: 'custom:aarlo-glance'
+      - entity: camera.aarlo_nursery
+        name: Nursery
+        show:
+          - motion
+          - sound
+          - snapshot
+          - battery_level
+          - signal_strength
+          - captured_today
+        top_status: true
+        top_title: true
+        type: 'custom:aarlo-glance'
+      - type: entities
+        title: Motion Sensors
+        entities:
+          - type: section
+            label: Hall
+          - entity: binary_sensor.hall_motion
+            type: 'custom:multiple-entity-row'
+            primary:
+              entity: sensor.hall_temperature
+              name: Temp
+            secondary:
+              entity: sensor.hall_lux
+              name: LUX
+            info:
+              entity: zwave.hall_sensor
+              attribute: battery_level
+              name: Battery
+              unit: '%'
+          - type: section
+            label: Hall 2
+          - entity: binary_sensor.hall2_motion
+            type: 'custom:multiple-entity-row'
+            primary:
+              entity: sensor.hall2_temperature
+              name: Temp
+            secondary:
+              entity: sensor.hall2_lux
+              name: LUX
+            info:
+              entity: zwave.hall2_sensor
+              attribute: battery_level
+              name: Battery
+              unit: '%'
+          - type: section
+            label: Living Room
+          - entity: binary_sensor.livingroom_motion
+            type: 'custom:multiple-entity-row'
+            primary:
+              entity: sensor.livingroom_temperature
+              name: Temp
+            secondary:
+              entity: sensor.livingroom_lux
+              name: LUX
+            info:
+              entity: zwave.livingroom_sensor
+              attribute: battery_level
+              name: Battery
+              unit: '%'
+          - type: section
+            label: Dining Room
+          - entity: binary_sensor.dining_motion
+            type: 'custom:multiple-entity-row'
+            primary:
+              entity: sensor.dining_temperature
+              name: Temp
+            secondary:
+              entity: sensor.dining_lux
+              name: LUX
+            info:
+              entity: zwave.dining_sensor
+              attribute: battery_level
+              name: Battery
+              unit: '%'
+          - type: section
+            label: Downstairs
+          - entity: binary_sensor.downstairs_motion
+            type: 'custom:multiple-entity-row'
+            primary:
+              entity: sensor.downstairs_temperature
+              name: Temp
+            secondary:
+              entity: sensor.downstairs_lux
+              name: LUX
+            info:
+              entity: zwave.downstairs_sensor
+              attribute: battery_level
+              name: Battery
+              unit: '%'
+          - type: section
+            label: Landing
+          - entity: binary_sensor.landing_motion
+            type: 'custom:multiple-entity-row'
+            primary:
+              entity: sensor.landing_temperature
+              name: Temp
+            secondary:
+              entity: sensor.landing_lux
+              name: LUX
+            info:
+              entity: zwave.landing_sensor
+              attribute: battery_level
+              name: Battery
+              unit: '%'
+          - type: section
+            label: Landing 2
+          - entity: binary_sensor.landing2_motion
+            type: 'custom:multiple-entity-row'
+            primary:
+              entity: sensor.landing2_temperature
+              name: Temp
+            secondary:
+              entity: sensor.landing2_lux
+              name: LUX
+            info:
+              entity: zwave.landing2_sensor
+              attribute: battery_level
+              name: Battery
+              unit: '%'
+          - type: section
+            label: Upstairs
+          - entity: binary_sensor.upstairs_motion
+            type: 'custom:multiple-entity-row'
+            primary:
+              entity: sensor.upstairs_temperature
+              name: Temp
+            secondary:
+              entity: sensor.upstairs_lux
+              name: LUX
+            info:
+              entity: zwave.upstairs_sensor
+              attribute: battery_level
+              name: Battery
+              unit: '%'
+      - type: custom:xiaomi-vacuum-card
+        entity: vacuum.xiaomi_vacuum_cleaner
+        image: /local/icons/vacuum_xioami.png
+        name: Xiaomi Roborock S50
+        buttons: true
+        labels:
+          status: Status
+          battery: Battery
+          mode: Mode
+          main_brush: Main Brush
+          side_brush: Side Brush
+          filter: Filters
+          sensor: Sensor
+      - type: custom:xiaomi-vacuum-card
+        entity:  vacuum.deebotn79s
+        image: /local/icons/vacuum_deebot_n79s.png
+        name: Ecovacs Deebot N79s
+        buttons: true
+        labels:
+          status: Status
+          battery: Battery
+          mode: Mode
+          main_brush: Main Brush
+          side_brush: Side Brush
+          filter: Filters
+          sensor: Sensor
+    path: home_old
+    title: home_old
+  - badges: []
+    cards:
+      - aspect_ratio: 243
+        camera_image: camera.front_door
+        elements:
+          - entity: binary_sensor.ring_front_door_motion
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: lock.front_door
+            style:
+              '--paper-item-icon-color': white
+              left: 29%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: binary_sensor.entrance_door
+            style:
+              '--paper-item-icon-color': white
+              left: 39%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.front_door_lock_power_template
+            style:
+              '--paper-item-icon-color': white
+              left: 48%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.front_door_lock_power_template
+            style:
+              color: white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: camera.front_door
+            icon: 'mdi:video'
+            style:
+              color: white
+              left: 61%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: icon
+          - entity: switch.entrance_outside
+            style:
+              '--paper-item-icon-color': white
+              left: 95%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+        type: picture-elements
+      - cards:
+          - cards:
+              - entity: sensor.dining_temperature
+                graph: line
+                name: Dining
+                type: sensor
+              - entity: sensor.hall_temperature
+                graph: line
+                name: Hall
+                type: sensor
+            type: horizontal-stack
+        type: vertical-stack
+      - aspec_ratio: 243
+        camera_image: camera.aarlo_kitchen
+        elements:
+          - entity: binary_sensor.dining_motion
+            style:
+              '--paper-item-icon-color': white
+              left: 10%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.dining_temperature
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.dining_temperature
+            style:
+              color: white
+              left: 27%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.dining_humidity
+            style:
+              '--paper-item-icon-color': white
+              left: 38%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.dining_humidity
+            style:
+              color: white
+              left: 45%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.dining_lux
+            style:
+              '--paper-item-icon-color': white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.dining_lux
+            style:
+              color: white
+              left: 62%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.hot_tub_outlet_consumption
+            style:
+              '--paper-item-icon-color': white
+              left: 72%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.hot_tub_outlet_consumption
+            style:
+              color: white
+              left: 79%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: switch.kitchen_main
+            style:
+              '--paper-item-icon-color': white
+              left: 90%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: switch.kitchen_dining
+            style:
+              '--paper-item-icon-color': white
+              left: 95%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+        type: picture-elements
+      - cards:
+          - cards:
+              - entity: sensor.landing_temperature
+                graph: line
+                name: Landing
+                type: sensor
+              - entity: sensor.office_temperature
+                graph: line
+                name: Office
+                type: sensor
+            type: horizontal-stack
+        type: vertical-stack
+      - aspec_ratio: 243
+        elements:
+          - entity: binary_sensor.livingroom_motion
+            style:
+              '--paper-item-icon-color': white
+              left: 10%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: group.corner_lamp
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: group.floor_lamp
+            style:
+              '--paper-item-icon-color': white
+              left: 29%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: sensor.livingroom_temperature
+            style:
+              '--paper-item-icon-color': white
+              left: 38%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.livingroom_temperature
+            style:
+              color: white
+              left: 45%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.livingroom_lux
+            style:
+              '--paper-item-icon-color': white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.livingroom_lux
+            style:
+              color: white
+              left: 62%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.livingroom_tv_outlet_consumption
+            style:
+              '--paper-item-icon-color': white
+              left: 72%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.livingroom_tv_outlet_consumption
+            style:
+              color: white
+              left: 79%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: switch.livingroom_front
+            style:
+              '--paper-item-icon-color': white
+              left: 90%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: switch.livingroom_rear
+            style:
+              '--paper-item-icon-color': white
+              left: 95%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+        image: /local/icons/living.jpg
+        type: picture-elements
+      - cards:
+          - cards:
+              - entity: sensor.aarlo_temperature_nursery
+                graph: line
+                name: Nursery
+                type: sensor
+              - entity: sensor.upstairs_temperature
+                graph: line
+                name: Upstairs
+                type: sensor
+            type: horizontal-stack
+        type: vertical-stack
+      - aspec_ratio: 243
+        camera_image: camera.aarlo_landing
+        elements:
+          - entity: binary_sensor.landing_motion
+            style:
+              '--paper-item-icon-color': white
+              left: 10%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: binary_sensor.landing2_motion
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: binary_sensor.aarlo_motion_landing
+            style:
+              '--paper-item-icon-color': white
+              left: 29%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: group.landing_lights
+            style:
+              '--paper-item-icon-color': white
+              left: 38%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.landing_temperature
+            style:
+              '--paper-item-icon-color': white
+              left: 47%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.landing_temperature
+            style:
+              color: white
+              left: 56%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.landing_lux
+            style:
+              '--paper-item-icon-color': white
+              left: 66%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.landing_lux
+            style:
+              color: white
+              left: 75%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: group.landing_lights
+            style:
+              '--paper-item-icon-color': white
+              left: 95%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: camera.aarlo_landing
+            icon: 'mdi:video'
+            style:
+              color: white
+              left: 87%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: icon
+        type: picture-elements
+      - aspec_ratio: 243
+        camera_image: camera.yi_cam
+        elements:
+          - entity: binary_sensor.office_motion
+            style:
+              '--paper-item-icon-color': white
+              left: 10%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.office_temperature
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.office_temperature
+            style:
+              color: white
+              left: 27%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.office_humidity
+            style:
+              '--paper-item-icon-color': white
+              left: 38%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.office_humidity
+            style:
+              color: white
+              left: 45%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.office_lux
+            style:
+              '--paper-item-icon-color': white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.office_lux
+            style:
+              color: white
+              left: 62%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.office_monitor_outlet_consumption
+            style:
+              '--paper-item-icon-color': white
+              left: 72%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.office_monitor_outlet_consumption
+            style:
+              color: white
+              left: 80%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: camera.yi_cam
+            icon: 'mdi:video'
+            style:
+              color: white
+              left: 90%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: icon
+          - entity: light.office_light
+            style:
+              '--paper-item-icon-color': white
+              left: 95%
+              top: 91%
+            tap_action:
+              action: toggle
+            type: state-icon
+        type: picture-elements
+      - aspec_ratio: 243
+        camera_image: camera.aarlo_nursery
+        elements:
+          - entity: binary_sensor.aarlo_sound_nursery
+            style:
+              '--paper-item-icon-color': white
+              left: 10%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.aarlo_temperature_nursery
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.aarlo_temperature_nursery
+            style:
+              color: white
+              left: 27%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.aarlo_humidity_nursery
+            style:
+              '--paper-item-icon-color': white
+              left: 38%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.aarlo_humidity_nursery
+            style:
+              color: white
+              left: 45%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.aarlo_air_quality_nursery
+            style:
+              '--paper-item-icon-color': white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.aarlo_air_quality_nursery
+            style:
+              color: white
+              left: 64%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: binary_sensor.aarlo_motion_nursery
+            style:
+              '--paper-item-icon-color': white
+              left: 74%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: camera.aarlo_nursery
+            icon: 'mdi:video'
+            style:
+              color: white
+              left: 90%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: icon
+        type: picture-elements
+      - aspec_ratio: 243
+        camera_image: camera.yi_denzil
+        elements:
+          - entity: sensor.aarlo_temperature_nursery
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.aarlo_temperature_nursery
+            style:
+              color: white
+              left: 28%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.aarlo_humidity_nursery
+            style:
+              '--paper-item-icon-color': white
+              left: 38%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.aarlo_humidity_nursery
+            style:
+              color: white
+              left: 46%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.aarlo_air_quality_nursery
+            style:
+              '--paper-item-icon-color': white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.aarlo_air_quality_nursery
+            style:
+              color: white
+              left: 64%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: camera.yi_denzil
+            icon: 'mdi:video'
+            style:
+              color: white
+              left: 90%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: icon
+        type: picture-elements
+      - aspec_ratio: 243
+        camera_image: camera.backyard
+        elements:
+          - entity: binary_sensor.ring_backyard_motion
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.ring_backyard_last_activity
+            style:
+              color: white
+              left: 27%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.ring_backyard_battery
+            style:
+              '--paper-item-icon-color': white
+              left: 38%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.ring_backyard_battery
+            style:
+              color: white
+              left: 45%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.ring_backyard_wifi_signal_strength
+            style:
+              '--paper-item-icon-color': white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.ring_backyard_wifi_signal_strength
+            style:
+              color: white
+              left: 62%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: camera.backyard
+            icon: 'mdi:video'
+            style:
+              color: white
+              left: 90%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: icon
+        type: picture-elements
+      - aspec_ratio: 243
+        camera_image: camera.pathway_2
+        elements:
+          - entity: binary_sensor.ring_pathway_motion_2
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.ring_pathway_last_activity_2
+            style:
+              color: white
+              left: 27%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.ring_pathway_battery_2
+            style:
+              '--paper-item-icon-color': white
+              left: 38%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.ring_pathway_battery_2
+            style:
+              color: white
+              left: 45%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.ring_pathway_wifi_signal_strength_2
+            style:
+              '--paper-item-icon-color': white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.ring_pathway_wifi_signal_strength_2
+            style:
+              color: white
+              left: 62%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: camera.pathway_2
+            icon: 'mdi:video'
+            style:
+              color: white
+              left: 90%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: icon
+        type: picture-elements
+      - aspec_ratio: 243
+        camera_image: camera.octoprint
+        elements:
+          - entity: sensor.ender_3_pro_current_state
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.ender_3_pro_current_state
+            style:
+              color: white
+              left: 27%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.ender_3_pro_actual_tool0_temp
+            style:
+              '--paper-item-icon-color': white
+              left: 38%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.ender_3_pro_actual_tool0_temp
+            style:
+              color: white
+              left: 45%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.ender_3_pro_job_percentage
+            style:
+              '--paper-item-icon-color': white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.ender_3_pro_job_percentage
+            style:
+              color: white
+              left: 62%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.ender_3_pro_time_remaining
+            style:
+              '--paper-item-icon-color': white
+              left: 72%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.ender_3_pro_time_remaining
+            style:
+              color: white
+              left: 80%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: camera.octoprint
+            icon: 'mdi:video'
+            style:
+              color: white
+              left: 90%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: icon
+        type: picture-elements
+      - aspec_ratio: 243
+        camera_image: camera.aarlo_spare
+        elements:
+          - entity: binary_sensor.aarlo_motion_spare
+            style:
+              '--paper-item-icon-color': white
+              left: 20%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: binary_sensor.aarlo_motion_spare
+            style:
+              color: white
+              left: 28%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: binary_sensor.aarlo_sound_spare
+            style:
+              '--paper-item-icon-color': white
+              left: 38%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: binary_sensor.aarlo_sound_spare
+            style:
+              color: white
+              left: 45%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.aarlo_battery_level_spare
+            style:
+              '--paper-item-icon-color': white
+              left: 54%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.aarlo_battery_level_spare
+            style:
+              color: white
+              left: 62%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: sensor.aarlo_signal_strength_spare
+            style:
+              '--paper-item-icon-color': white
+              left: 70%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-icon
+          - entity: sensor.aarlo_signal_strength_spare
+            style:
+              color: white
+              left: 76%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: state-label
+          - entity: camera.aarlo_spare
+            icon: 'mdi:video'
+            style:
+              color: white
+              left: 95%
+              top: 91%
+            tap_action:
+              action: more-info
+            type: icon
+        type: picture-elements
+    title: Home
+
+
+# home2
+  - badges: []
+    cards:
+      - entities:
+          - sensor.dark_sky_summary
+          - sensor.dark_sky_icon
+          - sensor.dark_sky_apparent_temperature
+          - sensor.dark_sky_temperature
+          - sensor.dark_sky_wind_speed
+          - sensor.dark_sky_wind_bearing
+          - sensor.dark_sky_nearest_storm_distance
+        show_header_toggle: false
+        title: Darksky Weather
+        type: entities
+      - entities:
+          - sensor.aarlo_arlo_cameras
+          - sensor.aarlo_battery_level_kitchen
+          - sensor.aarlo_captured_today_kitchen
+          - sensor.aarlo_last_kitchen
+          - binary_sensor.aarlo_motion_kitchen
+          - binary_sensor.aarlo_sound_kitchen
+          - sensor.aarlo_signal_strength_kitchen
+          - sensor.aarlo_battery_level_hallway
+          - sensor.aarlo_captured_today_hallway
+          - sensor.aarlo_last_hallway
+          - binary_sensor.aarlo_motion_hallway
+          - binary_sensor.aarlo_sound_hallway
+          - sensor.aarlo_signal_strength_hallway
+          - sensor.aarlo_battery_level_landing
+          - sensor.aarlo_captured_today_landing
+          - sensor.aarlo_last_landing
+          - binary_sensor.aarlo_motion_landing
+          - binary_sensor.aarlo_sound_landing
+          - sensor.aarlo_signal_strength_landing
+          - sensor.aarlo_battery_level_nursery
+          - sensor.aarlo_captured_today_nursery
+          - sensor.aarlo_last_nursery
+          - binary_sensor.aarlo_motion_nursery
+          - binary_sensor.aarlo_sound_nursery
+          - sensor.aarlo_signal_strength_nursery
+          - sensor.aarlo_temperature_nursery
+          - sensor.aarlo_air_quality_nursery
+          - sensor.aarlo_humidity_nursery
+          - sensor.aarlo_battery_level_spare
+          - sensor.aarlo_captured_today_spare
+          - sensor.aarlo_last_spare
+          - binary_sensor.aarlo_motion_spare
+          - binary_sensor.aarlo_sound_spare
+          - sensor.aarlo_signal_strength_spare
+        show_header_toggle: false
+        title: Arlo
+        type: entities
+      - entity: alarm_control_panel.aarlo_base
+        name: Arlo Motion Detection
+        states:
+          - arm_home
+          - arm_away
+        type: alarm-panel
+      - entity: alarm_control_panel.aarlo_nursery
+        name: Nursery Motion Detection
+        states:
+          - arm_home
+          - arm_away
+        type: alarm-panel
+      - entity: camera.aarlo_kitchen
+        type: picture-entity
+      - entity: camera.aarlo_hallway
+        type: picture-entity
+      - entity: camera.aarlo_nursery
+        type: picture-entity
+      - entity: camera.aarlo_landing
+        type: picture-entity
+      - entity: camera.aarlo_spare
+        type: picture-entity
+      - entities:
+          - device_tracker.iphone7plus
+          - device_tracker.7c0191054d15
+        show_header_toggle: false
+        title: Currently @Home
+        type: entities
+      - entities:
+          - sensor.internet
+          - sensor.external_ip
+          - sensor.glances_cpu_load
+          - sensor.glances_disk_overview
+          - sensor.glances_ram_overview
+          - sensor.server_uptime
+          - sensor.ha_uptime
+          - sensor.ha_github_version
+          - sensor.ha_pypi_version
+          - sensor.ha_version
+          - name: release_log
+            type: weblink
+            url: 'https://github.com/home-assistant/home-assistant/releases'
+          - icon: 'mdi:biohazard'
+            name: glances
+            type: weblink
+            url: 'http://collse.duckdns.org:61208/'
+          - sensor.glances_linux_distro
+        show_header_toggle: false
+        title: Server Status
+        type: entities
+      - entities:
+          - sensor.speedtest_download
+          - sensor.speedtest_upload
+          - sensor.speedtest_ping
+          - sensor.fast_com_download
+        show_header_toggle: false
+        title: Speedtest
+        type: entities
+      - entities:
+          - sensor.ssl_certificate_expiry
+        show_header_toggle: false
+        title: Certificate Validity
+        type: entities
+      - entities:
+          - switch.pihole
+          - icon: 'mdi:verified'
+            name: pi-hole_management
+            type: weblink
+            url: 'http://collse.duckdns.org:9000/admin/'
+          - sensor.pi_hole_version
+          - sensor.pihole_version_latest
+          - sensor.pihole_version_current
+          - sensor.pi_hole_ads_blocked_today
+          - sensor.pi_hole_ads_percentage_blocked_today
+          - sensor.pi_hole_dns_queries_cached
+          - sensor.pi_hole_dns_queries_forwarded
+          - sensor.pi_hole_dns_queries_today
+          - sensor.pi_hole_dns_unique_clients
+          - sensor.pi_hole_seen_clients
+          - sensor.pi_hole_dns_unique_domains
+          - sensor.pi_hole_domains_blocked
+          - sensor.pihole_dns
+          - sensor.pihole_blocking
+          - script.ad_blocker
+          - script.pihole_on
+          - script.pihole_off
+          - sensor.pihole_status_raw
+          - sensor.pihole_status
+          - sensor.pihole_blocking
+        show_header_toggle: false
+        title: Ads Blocked
+        type: entities
+      - entities:
+          - binary_sensor.hall_motion
+          - binary_sensor.hall2_motion
+          - binary_sensor.livingroom_motion
+          - binary_sensor.dining_motion
+          - binary_sensor.downstairs_motion
+          - binary_sensor.landing_motion
+          - binary_sensor.landing2_motion
+          - binary_sensor.office_motion
+          - binary_sensor.upstairs_motion
+        show_header_toggle: false
+        title: Motion Sensors
+        type: entities
+      - entities:
+          - entity: sensor.hall_temperature
+          - entity: sensor.livingroom_temperature
+          - entity: sensor.dining_temperature
+          - entity: sensor.downstairs_temperature
+          - entity: sensor.landing_temperature
+          - entity: sensor.office_temperature
+          - entity: sensor.upstairs_temperature
+          - entity: sensor.aarlo_temperature_nursery
+        show_header_toggle: false
+        title: Room Temperatures
+        type: entities
+      - entities:
+          - sensor.hall_lux
+          - sensor.hall2_lux
+          - sensor.livingroom_lux
+          - sensor.dining_lux
+          - sensor.downstairs_lux
+          - sensor.landing_lux
+          - sensor.landing2_lux
+          - sensor.office_lux
+          - sensor.upstairs_lux
+        show_header_toggle: true
+        title: Room Light Levels
+        type: entities
+      - entities:
+          - input_number.alexa_volume
+          - input_text.alexa_tts
+          - input_select.alexa
+        show_header_toggle: false
+        title: Alexa TTS
+        type: entities
+      - entity: media_player.echo_show_livingroom
+        type: media-control
+      - entity: media_player.echo_spot_bedroom
+        type: media-control
+      - entity: media_player.echo_kitchen
+        type: media-control
+      - entity: media_player.echo_show_dining
+        type: media-control
+      - entity: media_player.echo_spot_office
+        type: media-control
+      - entity: media_player.bedroom_fire_tv_stick
+        type: media-control
+      - entity: media_player.office_fire_tv_stick
+        type: media-control
+      - entity: media_player.office_fire_tv_stick_spare
+        type: media-control
+      - entity: media_player.downstairs
+        type: media-control
+      - entity: media_player.severins_alexa_apps
+        type: media-control
+      - entity: media_player.severins_fire
+        type: media-control
+      - entity: media_player.this_device
+        type: media-control
+      - entities:
+          - binary_sensor.ring_front_door_ding
+          - binary_sensor.ring_front_door_motion
+          - sensor.ring_front_door_battery
+          - sensor.ring_front_door_volume
+          - sensor.ring_front_door_wifi_signal_category
+          - sensor.ring_front_door_wifi_signal_strength
+          - sensor.ring_front_door_last_ding
+          - sensor.ring_front_door_last_motion
+          - sensor.ring_front_door_last_activity
+          - binary_sensor.ring_backyard_motion
+          - sensor.ring_backyard_battery
+          - sensor.ring_backyard_volume
+          - sensor.ring_backyard_last_motion
+          - sensor.ring_backyard_last_activity
+          - sensor.ring_backyard_wifi_signal_category
+          - sensor.ring_backyard_wifi_signal_strength
+          - binary_sensor.ring_pathway_motion_2
+          - sensor.ring_pathway_battery_2
+          - sensor.ring_pathway_volume_2
+          - sensor.ring_pathway_last_motion_2
+          - sensor.ring_pathway_last_activity_2
+          - sensor.ring_pathway_wifi_signal_category_2
+          - sensor.ring_pathway_wifi_signal_strength_2
+          - sensor.ring_hallway_volume
+          - sensor.ring_hallway_wifi_signal_category
+          - sensor.ring_hallway_wifi_signal_strength
+        show_header_toggle: false
+        title: Ring Security Systems
+        type: entities
+      - entity: camera.front_door
+        type: picture-entity
+      - entity: camera.pathway_2
+        type: picture-entity
+      - entity: camera.backyard
+        type: picture-entity
+      - entities:
+          - switch.hot_tub_outlet
+          - sensor.hot_tub_outlet_consumption
+          - sensor.hot_tub_outlet_usage
+          - sensor.hot_tub_outlet_voltage_2
+        show_header_toggle: false
+        title: Hot Tub Outlet
+        type: entities
+      - entities:
+          - lock.front_door
+          - sensor.front_door_status
+          - sensor.front_door_lock_power_template
+          - binary_sensor.ring_front_door_motion
+          - binary_sensor.ring_front_door_ding
+          - binary_sensor.entrance_door
+          - sensor.door_contact_power_template
+          - binary_sensor.patio_door
+          - sensor.patio_contact_power_template
+        show_header_toggle: false
+        title: Door Sensor
+        type: entities
+      - entities:
+          - binary_sensor.entrance_door
+          - binary_sensor.hall_motion
+          - sensor.hall_temperature
+          - sensor.hall_lux
+          - sensor.hall_humidity
+          - sensor.hall_uv
+          - sensor.hall_power_template
+          - binary_sensor.hall2_motion
+          - sensor.hall2_lux
+          - sensor.hall2_power_template
+        show_header_toggle: false
+        title: Hall
+        type: entities
+      - entities:
+          - switch.office_monitor_outlet
+          - sensor.office_monitor_outlet_consumption
+          - sensor.office_monitor_outlet_usage
+        show_header_toggle: false
+        title: Office Monitor Outlet
+        type: entities
+      - entities:
+          - binary_sensor.downstairs_motion
+          - sensor.downstairs_temperature
+          - sensor.downstairs_lux
+          - sensor.downstairs_power_template
+        show_header_toggle: false
+        title: Downstairs
+        type: entities
+      - entities:
+          - switch.internet_outlet
+          - sensor.internet_outlet_consumption
+          - sensor.internet_outlet_usage
+        show_header_toggle: false
+        title: Internet Outlet
+        type: entities
+      - entities:
+          - binary_sensor.livingroom_motion
+          - sensor.livingroom_temperature
+          - sensor.livingroom_lux
+          - sensor.livingroom_power_template
+        show_header_toggle: false
+        title: Livingroom
+        type: entities
+      - entities:
+          - switch.livingroom_tv_outlet
+          - sensor.livingroom_tv_outlet_consumption
+          - sensor.livingroom_tv_outlet_usage
+        show_header_toggle: false
+        title: Livingroom Outlets
+        type: entities
+      - entities:
+          - entity: binary_sensor.patio_door
+          - entity: binary_sensor.dining_motion
+          - entity: sensor.dining_temperature
+          - entity: sensor.dining_lux
+          - entity: sensor.dining_humidity
+          - entity: sensor.dining_uv
+        show_header_toggle: false
+        title: Dining
+        type: entities
+      - entities:
+          - binary_sensor.landing_motion
+          - sensor.landing_temperature
+          - sensor.landing_lux
+          - sensor.landing_power_template
+          - binary_sensor.landing2_motion
+          - sensor.landing2_lux
+          - sensor.landing2_power_template
+          - binary_sensor.upstairs_motion
+          - sensor.upstairs_temperature
+          - sensor.upstairs_lux
+          - sensor.upstairs_power_template
+        show_header_toggle: false
+        title: Landing
+        type: entities
+      - entities:
+          - binary_sensor.office_motion
+          - sensor.office_temperature
+          - sensor.office_lux
+          - sensor.office_humidity
+          - sensor.office_uv
+          - sensor.office_power_template
+        show_header_toggle: false
+        title: Office
+        type: entities
+      - entities:
+          - switch.bedroom_tv_outlet
+          - sensor.bedroom_tv_outlet_consumption
+          - sensor.bedroom_tv_outlet_usage
+        show_header_toggle: false
+        title: Bedroom Outlets
+        type: entities
+      - entities:
+          - sensor.ender_3_pro_current_state
+          - binary_sensor.ender_3_pro_printing
+          - binary_sensor.ender_3_pro_printing_error
+          - sensor.ender_3_pro_target_tool0_temp
+          - sensor.ender_3_pro_actual_tool0_temp
+          - sensor.ender_3_pro_target_bed_temp
+          - sensor.ender_3_pro_actual_bed_temp
+          - sensor.ender_3_pro_job_percentage
+          - sensor.ender_3_pro_time_elapsed
+          - sensor.ender_3_pro_time_remaining
+        show_header_toggle: false
+        title: OctoPrint Ender 3 Pro
+        type: entities
+      - entity: camera.octoprint
+        type: picture-entity
+      - entities:
+          - light.bedroom_bloom_k
+          - light.bedroom_bloom_s
+          - light.bedroom_lightstrip
+          - switch.bedroom_tv_outlet
+          - sensor.bedroom_tv_outlet_consumption
+          - sensor.bedroom_tv_outlet_usage
+        show_header_toggle: false
+        title: Bedroom
+        type: entities
+      - entities:
+          - sun.sun
+          - sensor.pws_temp_high_record_c
+          - sensor.pws_temp_high_1d_c
+          - sensor.pws_temp_c
+          - sensor.pws_temp_low_1d_c
+          - sensor.pws_precip_1d
+          - sensor.pws_precip_1d_mm
+          - sensor.pws_wind_kph
+          - sensor.pws_wind_1d_kph
+          - sensor.pws_temp_low_record_c
+          - sensor.pws_alerts
+        show_header_toggle: false
+        title: Weather Conditions
+        type: entities
+      - entities:
+          - switch.entrance_outside
+          - switch.entrance_inside
+          - switch.livingroom_front
+          - switch.livingroom_rear
+          - switch.kitchen_main
+          - switch.kitchen_dining
+        show_header_toggle: true
+        title: Z-Wave Switches
+        type: entities
+      - entities:
+          - sensor.media_players_active
+        show_header_toggle: false
+        title: Active Media Players
+        type: entities
+      - entities:
+          - device_tracker.iphone7plus
+          - device_tracker.scollins_iphone7plus
+          - sensor.iphone_7_plus_battery_state
+          - sensor.iphone_7_plus_battery_level
+          - sensor.ipad_mini_2_battery_state
+          - sensor.ipad_mini_2_battery_level
+          - device_tracker.7c0191054d15
+        show_header_toggle: false
+        title: Device Monitoring
+        type: entities
+      - entities:
+          - light.corner_lamp_1
+          - light.corner_lamp_2
+          - light.corner_lamp_3
+        show_header_toggle: true
+        title: Corner Lamp
+        type: entities
+      - entities:
+          - light.color_temperature_light_1
+          - light.color_temperature_light_2
+          - light.color_temperature_light_3
+        show_header_toggle: true
+        title: Floor Lamp
+        type: entities
+      - entities:
+          - light.landing_spot_1
+          - light.landing_spot_2
+          - light.landing_spot_3
+          - light.landing_spot_4
+        show_header_toggle: true
+        title: Landing Lights
+        type: entities
+      - entities:
+          - light.bedroom_bloom_k
+          - light.bedroom_bloom_s
+          - light.corner_lamp_1
+          - light.corner_lamp_2
+          - light.corner_lamp_3
+          - light.landing_spot_1
+          - light.landing_spot_2
+          - light.landing_spot_3
+          - light.landing_spot_4
+          - light.color_temperature_light_1
+          - light.color_temperature_light_2
+          - light.color_temperature_light_3
+          - light.office_light
+          - light.upstairs_light
+        show_header_toggle: true
+        title: Lights
+        type: entities
+      - entities:
+          - light.corner_lamp_1
+          - light.corner_lamp_2
+          - light.corner_lamp_3
+          - group.floor_lamp
+          - switch.kitchen_main
+          - switch.kitchen_dining
+          - switch.entrance_inside
+          - switch.entrance_outside
+          - switch.livingroom_rear
+          - switch.livingroom_front
+        show_header_toggle: true
+        title: All Ground Floor Lights
+        type: entities
+      - entities:
+          - light.landing_spot_1
+          - light.landing_spot_2
+          - light.landing_spot_3
+          - light.landing_spot_4
+          - light.office_light
+          - light.upstairs_light
+        show_header_toggle: true
+        title: All 1st Floor Lights
+        type: entities
+      - entities:
+          - light.bedroom_bloom_k
+          - light.bedroom_bloom_s
+          - light.upstairs_light
+        show_header_toggle: true
+        title: All 2nd Floor Lights
+        type: entities
+      - entities:
+          - sensor.qnap470pro_status
+          - sensor.qnap470pro_system_temperature
+          - sensor.qnap470pro_cpu_temperature
+          - sensor.qnap470pro_cpu_usage
+          - sensor.qnap470pro_memory_usage
+          - sensor.qnap470pro_volume_used_datavol1
+          - sensor.qnap470pro_network_up_eth0
+          - sensor.qnap470pro_network_down_eth0
+          - sensor.qnap470pro_network_up_eth1
+          - sensor.qnap470pro_network_down_eth1
+        show_header_toggle: false
+        title: QNAP 470 Pro Stats
+        type: entities
+      - entities:
+          - sensor.qnap419pii_status
+          - sensor.qnap419pii_system_temperature
+          - sensor.qnap419pii_cpu_temperature
+          - sensor.qnap419pii_cpu_usage
+          - sensor.qnap419pii_memory_usage
+          - sensor.qnap419pii_volume_used_volume_1
+          - sensor.qnap419pii_network_up_eth0
+          - sensor.qnap419pii_network_down_eth0
+          - sensor.qnap419pii_network_up_eth1
+          - sensor.qnap419pii_network_down_eth1
+        show_header_toggle: false
+        title: QNAP 419 Pii Stats
+        type: entities
+      - type: custom:group-card
+        card:
+          type: entities
+          title: Automations
+          show_header_toggle: false
+        group: group.all_automations
+      - entity: camera.yi_denzil
+        type: picture-entity
+      - entity: camera.yi_cam
+        type: picture-entity
+      - entities:
+          - input_boolean.block_tv_lights
+          - input_boolean.livingroom_tv
+        show_header_toggle: false
+        title: Input boolean
+        type: entities
+      - entity: media_player.shield
+        type: media-control
+      - entities:
+          - switch.fan_dyson_desk_power
+          - switch.fan_dyson_desk_speed
+          - switch.fan_dyson_desk_timer
+          - switch.fan_dyson_desk_rotation
+          - switch.kitchen
+          - switch.entrance
+          - switch.livingroom
+        show_header_toggle: false
+        title: Switch
+        type: entities
+      - entities:
+          - vacuum.xiaomi_vacuum_cleaner
+        show_header_toggle: false
+        title: Vacuum
+        type: entities
+      - entities:
+          - zwave.aeotec_zstick_gen5_eu
+          - zwave.internet_outlet
+          - zwave.landing_sensor
+          - zwave.upstairs_sensor
+          - zwave.livingroom_sensor
+          - zwave.livingroom_tv_outlet
+          - zwave.dining_sensor
+          - zwave.hot_tub_outlet
+          - zwave.bedroom_tv_outlet
+          - zwave.kitchen_switch
+          - zwave.entrace_switch
+          - zwave.livingroom_switch
+          - zwave.office_sensor
+          - zwave.landing_sensor2
+          - zwave.hall_sensor2
+          - zwave.patio_door_sensor
+          - zwave.entrance_door_sensor
+          - zwave.office_monitor_outlet
+          - zwave.downstairs_sensor
+          - zwave.yale_conexis_l1_sdl1000ch
+          - zwave.hall_sensor
+        show_header_toggle: false
+        title: Z-Wave
+        type: entities
+      - aspect_ratio: 90%
+        title: Local Weather
+        type: iframe
+        url: 'https://embed.windy.com/embed2.html?rain,51.266,-0.759,7'
+    path: default_view
+    title: Home2
+  - badges: []
+    cards:
+      - elements:
+          - service: homeassistant.turn_off
+            service_data:
+              entity_id: group.all_ground_floor_lights
+            style:
+              left: 90%
+              padding: 0px
+              top: 97%
+            title: Lights Off
+            type: service-button
+          - entity: camera.backyard
+            style:
+              left: 71%
+              top: 23%
+            tap_action: toggle
+            type: state-badge
+          - entity: camera.pathway_2
+            style:
+              left: 93%
+              top: 28%
+            tap_action: toggle
+            type: state-badge
+          - entity: camera.front_door
+            style:
+              left: 40%
+              top: 97%
+            tap_action: toggle
+            type: state-badge
+          - entity: binary_sensor.ring_front_door_motion
+            style:
+              left: 47%
+              top: 97%
+            type: state-icon
+          - entity: switch.entrance_outside
+            image: /local/icons/light_off.png
+            state_filter:
+              'off': brightness(80%) saturate(0.8)
+              'on': brightness(130%) saturate(1.5) drop-shadow(0px 0px 10px gold)
+            state_image:
+              'on': /local/icons/light_on.png
+            style:
+              left: 33%
+              padding: 10px
+              top: 97%
+              width: 7%
+            type: image
+          - entity: binary_sensor.livingroom_motion
+            style:
+              left: 68%
+              top: 68%
+            type: state-icon
+          - entity: sensor.livingroom_temperature
+            style:
+              left: 68%
+              top: 66%
+            type: state-label
+          - entity: binary_sensor.downstairs_motion
+            style:
+              left: 19%
+              top: 67%
+            type: state-icon
+          - entity: group.corner_lamp
+            image: /local/icons/light_bulb_off.png
+            state_filter:
+              'off': brightness(80%) saturate(0.8)
+              'on': brightness(130%) saturate(1.5) drop-shadow(0px 0px 10px gold)
+            state_image:
+              'on': /local/icons/light_bulb_on.png
+            style:
+              left: 84%
+              padding: 10px
+              top: 52%
+              width: 7%
+            type: image
+          - entity: group.floor_lamp
+            image: /local/icons/light_bulb_off.png
+            state_filter:
+              'off': brightness(80%) saturate(0.8)
+              'on': brightness(130%) saturate(1.5) drop-shadow(0px 0px 10px gold)
+            state_image:
+              'on': /local/icons/light_bulb_on.png
+            style:
+              left: 53%
+              padding: 10px
+              top: 86%
+              width: 7%
+            type: image
+          - entity: sensor.dining_temperature
+            style:
+              left: 50%
+              top: 40%
+            type: state-label
+          - entity: switch.kitchen_main
+            image: /local/icons/light_bulb_off.png
+            state_filter:
+              'off': brightness(80%) saturate(0.8)
+              'on': brightness(130%) saturate(1.5) drop-shadow(0px 0px 10px gold)
+            state_image:
+              'on': /local/icons/light_bulb_on.png
+            style:
+              left: 32%
+              top: 27%
+              width: 7%
+            type: image
+          - entity: switch.kitchen_dining
+            image: /local/icons/light_bulb_off.png
+            state_filter:
+              'off': brightness(80%) saturate(0.8)
+              'on': brightness(130%) saturate(1.5) drop-shadow(0px 0px 10px gold)
+            state_image:
+              'on': /local/icons/light_bulb_on.png
+            style:
+              left: 69.5%
+              top: 38.5%
+              width: 7%
+            type: image
+          - entity: binary_sensor.dining_motion
+            style:
+              left: 50%
+              top: 35%
+            type: state-icon
+          - entity: binary_sensor.hall_motion
+            style:
+              left: 39%
+              top: 80%
+            type: state-icon
+          - entity: switch.entrance_inside
+            image: /local/icons/light_bulb_off.png
+            state_filter:
+              'off': brightness(80%) saturate(0.8)
+              'on': brightness(130%) saturate(1.5) drop-shadow(0px 0px 10px gold)
+            state_image:
+              'on': /local/icons/light_bulb_on.png
+            style:
+              left: 39%
+              padding: 10px
+              top: 68%
+              width: 7%
+            type: image
+          - entity: sensor.hall_temperature
+            style:
+              left: 39%
+              top: 72%
+            type: state-label
+          - entity: binary_sensor.hall2_motion
+            style:
+              left: 39%
+              top: 60%
+            type: state-icon
+          - entity: camera.hallway
+            image: /local/icons/camera_5oclock.png
+            state_image:
+              recording: /local/icons/camera_5oclock.png
+            style:
+              left: 27%
+              top: 50.5%
+              transform: none
+              width: 7%
+            type: image
+        image: /local/floorplans/Ground_Floor.jpg
+        type: picture-elements
+      - cards:
+          - camera_image: camera.landing
+            entities:
+              - binary_sensor.landing_motion
+              - sensor.landing_temperature
+              - sensor.landing_lux
+              - binary_sensor.landing2_motion
+              - sensor.landing2_lux
+              - binary_sensor.downstairs_motion
+              - sensor.downstairs_lux
+              - group.landing_lights
+              - camera.landing
+            title: Landing
+            type: picture-glance
+        type: vertical-stack
+      - cards:
+          - camera_image: camera.yi_cam
+            entities:
+              - binary_sensor.office_motion
+              - sensor.office_temperature
+              - sensor.office_lux
+              - sensor.office_humidity
+              - sensor.office_monitor_outlet_consumption
+              - camera.yi_cam
+              - switch.office_monitor_outlet
+              - light.office_light
+            title: Office
+            type: picture-glance
+        type: vertical-stack
+      - cards:
+          - camera_image: camera.nursery
+            entities:
+              - sensor.temperature_nursery
+              - sensor.humidity_nursery
+              - sensor.air_quality_nursery
+              - camera.nursery
+              - camera.yi_denzil
+            title: Nursery
+            type: picture-glance
+        type: vertical-stack
+      - cards:
+          - camera_image: camera.pathway_2
+            entities:
+              - binary_sensor.ring_pathway_motion_2
+              - sensor.ring_pathway_wifi_signal_category_2
+              - sensor.ring_pathway_wifi_signal_strength_2
+              - camera.pathway_2
+            title: Pathway
+            type: picture-glance
+        type: vertical-stack
+      - cards:
+          - camera_image: camera.yi_denzil
+            entities:
+              - camera.yi_denzil
+            title: Nursery 2
+            type: picture-glance
+        type: vertical-stack
+      - cards:
+          - camera_image: camera.backyard
+            entities:
+              - binary_sensor.ring_backyard_motion
+              - sensor.ring_backyard_wifi_signal_category
+              - sensor.ring_backyard_wifi_signal_strength
+              - camera.backyard
+            title: Backyard
+            type: picture-glance
+        type: vertical-stack
+      - cards:
+          - camera_image: camera.pathway_2
+            entities:
+              - binary_sensor.ring_pathway_motion_2
+              - sensor.ring_pathway_wifi_signal_category_2
+              - sensor.ring_pathway_wifi_signal_strength_2
+              - camera.pathway_2
+            title: Pathway
+            type: picture-glance
+          - camera_image: camera.hallway
+            entities:
+              - binary_sensor.hall_motion
+              - binary_sensor.hall2_motion
+              - binary_sensor.downstairs_motion
+              - sensor.hall_temperature
+              - sensor.hall_lux
+              - camera.hallway
+              - switch.entrance_inside
+            title: Hallway
+            type: picture-glance
+          - camera_image: camera.nursery
+            entities:
+              - sensor.temperature_nursery
+              - sensor.humidity_nursery
+              - sensor.air_quality_nursery
+              - camera.nursery
+              - camera.yi_denzil
+            title: Nursery
+            type: picture-glance
+        type: vertical-stack
+      - cards:
+          - camera_image: camera.backyard
+            entities:
+              - binary_sensor.ring_backyard_motion
+              - sensor.ring_backyard_wifi_signal_category
+              - sensor.ring_backyard_wifi_signal_strength
+              - camera.backyard
+            title: Backyard
+            type: picture-glance
+          - camera_image: camera.kitchen
+            entities:
+              - binary_sensor.dining_motion
+              - binary_sensor.patio_door
+              - sensor.dining_temperature
+              - sensor.dining_lux
+              - sensor.dining_humidity
+              - camera.kitchen
+              - switch.kitchen_main
+              - switch.kitchen_dining
+            title: Kitchen
+            type: picture-glance
+          - camera_image: camera.yi_denzil
+            entities:
+              - camera.yi_denzil
+            title: Nursery 2
+            type: picture-glance
+        type: vertical-stack
+      - cards:
+          - camera_image: camera.front_door
+            entities:
+              - binary_sensor.ring_front_door_motion
+              - lock.front_door
+              - binary_sensor.entrance_door
+              - binary_sensor.front_door_sensor
+              - sensor.front_door_lock_power_template
+              - camera.front_door
+              - switch.entrance_outside
+            title: Entrance
+            type: picture-glance
+          - camera_image: camera.landing
+            entities:
+              - binary_sensor.landing_motion
+              - sensor.landing_temperature
+              - sensor.landing_lux
+              - binary_sensor.landing2_motion
+              - sensor.landing2_lux
+              - binary_sensor.downstairs_motion
+              - sensor.downstairs_lux
+              - group.landing_lights
+              - camera.landing
+            title: Landing
+            type: picture-glance
+          - camera_image: camera.yi_cam
+            entities:
+              - binary_sensor.office_motion
+              - sensor.office_temperature
+              - sensor.office_lux
+              - sensor.office_humidity
+              - sensor.office_monitor_outlet_consumption
+              - camera.yi_cam
+              - switch.office_monitor_outlet
+              - light.office_light
+            title: Office
+            type: picture-glance
+        type: vertical-stack
+    title: Testing2
+

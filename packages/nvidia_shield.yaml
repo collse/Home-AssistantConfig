@@ -1,0 +1,5 @@
+### Nvidia Shield/Chromecast
+cast:
+  media_player:
+    - host: !secret shield_tv
+    - host: !secret shield_tv2

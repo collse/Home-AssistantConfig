@@ -651,6 +651,9 @@ automation:
       - platform: state
         entity_id: binary_sensor.entrance_door
         to: 'on'
+      - platform: state
+        entity_id: binary_sensor.aarlo_motion_hallway
+        to: 'on'
     condition:
       condition: and
       conditions:
@@ -694,6 +697,10 @@ automation:
         to: 'off'
         for:
           seconds: 30
+      - platform: state
+        entity_id: binary_sensor.aarlo_motion_hallway
+        from: 'on'
+        to: 'off'
     condition:
       condition: and
       conditions:
@@ -775,6 +782,7 @@ automation:
           - binary_sensor.landing_motion
           - binary_sensor.landing2_motion
           - binary_sensor.downstairs_motion
+          - binary_sensor.aarlo_motion_landing
         to: 'on'
     condition:
       condition: and
@@ -875,6 +883,10 @@ automation:
         to: 'off'
         for:
           seconds: 30
+      - platform: state
+        entity_id: binary_sensor.aarlo_motion_landing
+        from: 'on'
+        to: 'off'
     condition:
       condition: and
       conditions:
@@ -890,18 +902,27 @@ automation:
         - condition: state
           entity_id: binary_sensor.landing2_motion
           state: 'off'
+        - condition: state
+          entity_id: binary_sensor.aarlo_motion_landing
+          state: 'off'
     action:
       - service: homeassistant.turn_off
         entity_id:
-          - group.landing_lights
-#          - light.landing_spot_2
-#          - light.landing_spot_3
-#      - delay: 00:00:05
-#      - service: homeassistant.turn_off
-#        entity_id: 
-#          - light.landing_spot_1
-#          - light.landing_spot_4
-#      - delay: 00:00:05
+#          - group.landing_lights
+          - light.landing_spot_1
+      - delay: 00:00:02
+      - service: homeassistant.turn_off
+        entity_id: 
+          - light.landing_spot_4
+      - delay: 00:00:02
+      - service: homeassistant.turn_off
+        entity_id:
+#          - group.landing_lights
+          - light.landing_spot_2
+      - delay: 00:00:02
+      - service: homeassistant.turn_off
+        entity_id: 
+          - light.landing_spot_3
 
 
     ########################
@@ -925,6 +946,9 @@ automation:
         to: 'on'
       - platform: state
         entity_id: binary_sensor.upstairs_motion
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.aarlo_motion_landing
         to: 'on'
     condition:
       condition: and
@@ -992,6 +1016,10 @@ automation:
         to: 'off'
         for:
           seconds: 30
+      - platform: state
+        entity_id: binary_sensor.aarlo_motion_landing
+        from: 'on'
+        to: 'off'
     condition:
       condition: and
       conditions:
@@ -1012,274 +1040,40 @@ automation:
           state: 'off'
     action:
       - service: homeassistant.turn_off
+      - service: homeassistant.turn_off
         entity_id:
-          - group.landing_lights
-#          - light.landing_spot_2
-#          - light.landing_spot_3
-#      - delay: 00:00:10
-#      - service: homeassistant.turn_off
-#       entity_id: 
-#         - light.landing_spot_1
-#         - light.landing_spot_4
-      - delay: 00:00:10
+#          - group.landing_lights
+          - light.landing_spot_1
+      - delay: 00:00:02
+      - service: homeassistant.turn_off
+        entity_id: 
+          - light.landing_spot_4
+      - delay: 00:00:02
+      - service: homeassistant.turn_off
+        entity_id:
+#          - group.landing_lights
+          - light.landing_spot_2
+      - delay: 00:00:02
+      - service: homeassistant.turn_off
+        entity_id: 
+          - light.landing_spot_3
+      - delay: 00:00:02
       - service: homeassistant.turn_off
         entity_id: 
           - light.upstairs_light
 
 
-    ########################
-    ###
-    ### TV Light Automation
-    ###
-    ########################
-
-  - alias: TV Light Override On
-    initial_state: true
-    trigger:
-      - platform: state
-        entity_id: switch.livingroom_front
-        to: 'on'
-      - platform: state
-        entity_id: switch.livingroom_rear
-        to: 'on'
-    action:
-      - service: homeassistant.turn_on
-        entity_id: input_boolean.block_tv_lights
 
 
-  - alias: TV Light Override Off
-    initial_state: true
-    trigger:
-      - platform: state
-        entity_id: switch.livingroom_front
-        to: 'off'
-      - platform: state
-        entity_id: switch.livingroom_rear
-        to: 'off'
-    condition:
-      condition: and
-      conditions:
-        - condition: state
-          entity_id: input_boolean.livingroom_tv
-          state: 'on'
-        - condition: state
-          entity_id: input_boolean.block_tv_lights
-          state: 'on'
-    action:
-      - service: homeassistant.turn_off
-        entity_id: input_boolean.block_tv_lights
-        
-  - alias: Light Override Off
-    initial_state: true
-    trigger:
-      - platform: state
-        entity_id: switch.livingroom_front
-        to: 'off'
-      - platform: state
-        entity_id: switch.livingroom_rear
-        to: 'off'
-    action:
-      - service: homeassistant.turn_off
-        entity_id: input_boolean.block_tv_lights
 
 
-  - alias: Light - TV - Is - On
-    initial_state: true
-    trigger:
-      - platform: state
-        entity_id: sensor.livingroom_tv_outlet_consumption
-    condition:
-      condition: and
-      conditions:
-        - condition: numeric_state
-          entity_id: sensor.livingroom_tv_outlet_consumption
-          above: 65
-        - condition: state
-          entity_id: input_boolean.block_tv_lights
-          state: 'off'
-#        - condition: or
-#          conditions:
-#          - condition: state
-#            entity_id: !secret tracker1
-#            state: 'home'
-#          - condition: state
-#            entity_id: !secret tracker2
-#            state: 'home'
-        - condition: or
-          conditions:
-            - condition: numeric_state
-              entity_id: sensor.livingroom_lux
-              below: 5
-            - condition: state
-              entity_id: switch.livingroom_rear
-              state: 'on'
-            - condition: state
-              entity_id: switch.livingroom_front
-              state: 'on'
-    action:
-      - service: homeassistant.turn_on
-        entity_id: 
-          - light.corner_lamp_1
-          - light.corner_lamp_2
-          - light.corner_lamp_3
-          - light.color_temperature_light_1
-          - light.color_temperature_light_2
-          - light.color_temperature_light_3
-        data:
-          brightness: 50
-          transition: 2
-      - service: homeassistant.turn_off
-        entity_id: 
-          - switch.livingroom_rear
-          - switch.livingroom_front
-      - service: homeassistant.turn_on
-        entity_id: 
-          - input_boolean.livingroom_tv
-          
-
-  - alias: Light - TV - Is - Off
-    initial_state: true
-    trigger:
-      - platform: numeric_state
-        entity_id: sensor.livingroom_tv_outlet_consumption
-        below: 60
-        for:
-          seconds: 10
-      - platform: state
-        entity_id: switch.livingroom_rear
-        to: 'on'
-      - platform: state
-        entity_id: switch.livingroom_front
-        to: 'on'
-    condition:
-      condition: and
-      conditions:
-        - condition: state
-          entity_id: light.corner_lamp_1
-          state: 'on'
-        - condition: state
-          entity_id: light.corner_lamp_2
-          state: 'on'
-        - condition: state
-          entity_id: light.corner_lamp_3
-          state: 'on'
-        - condition: state
-          entity_id: light.color_temperature_light_1
-          state: 'on'
-        - condition: state
-          entity_id: light.color_temperature_light_2
-          state: 'on'
-        - condition: state
-          entity_id: light.color_temperature_light_3
-          state: 'on'
-        - condition: state
-          entity_id: input_boolean.livingroom_tv
-          state: 'on'
-        - condition: state
-          entity_id: input_boolean.block_tv_lights
-          state: 'off'
-        - condition: state
-          entity_id: switch.livingroom_rear
-          state: 'off'
-        - condition: state
-          entity_id: switch.livingroom_front
-          state: 'off'
-        - condition: or
-          conditions:
-            - condition: numeric_state
-              entity_id: sensor.livingroom_tv_outlet_consumption
-              below: '30'
-            - condition: numeric_state
-              entity_id: sensor.livingroom_lux
-              above: 8
-    action:
-      - service: homeassistant.turn_off
-        entity_id: 
-          - light.corner_lamp_1
-          - light.corner_lamp_2
-          - light.corner_lamp_3
-          - light.color_temperature_light_1
-          - light.color_temperature_light_2
-          - light.color_temperature_light_3
-        data:
-          transition: 5
-      - service: homeassistant.turn_on
-        entity_id:
-          - switch.livingroom_front
-      - delay: 00:00:01
-      - service: homeassistant.turn_off
-        entity_id: 
-          - input_boolean.livingroom_tv
-      - delay: 00:02:00
-      - service: homeassistant.turn_off
-        entity_id: 
-          - switch.livingroom_front
 
 
-  - alias: Light - TV - Lights - Off
-    initial_state: true
-    trigger:
-      - platform: state
-        entity_id: input_boolean.block_tv_lights
-        to: 'on'
-      - platform: state
-        entity_id: sensor.livingroom_motion
-        to: 'off'
-        for:
-          minutes: 90
-    action:
-      - service: homeassistant.turn_off
-        entity_id: 
-          - light.corner_lamp_1
-          - light.corner_lamp_2
-          - light.corner_lamp_3
-          - light.color_temperature_light_1
-          - light.color_temperature_light_2
-          - light.color_temperature_light_3
-        data:
-          transition: 2
-
-  - alias: Light - Livingroom - Lights - Off
-    initial_state: true
-    trigger:
-      - platform: numeric_state
-        entity_id: sensor.livingroom_lux
-        above: 20
-        for:
-          seconds: 10
-      - platform: state
-        entity_id: sensor.livingroom_motion
-        to: 'off'
-        for:
-          minutes: 60
-    condition:
-      condition: and
-      conditions:
-        - condition: numeric_state
-          entity_id: sensor.livingroom_lux
-          above: 20
-        - condition: state
-          entity_id: input_boolean.block_tv_lights
-          state: 'off'
-    action:
-      - service: homeassistant.turn_off
-        entity_id: 
-          - switch.livingroom_front
-          - switch.livingroom_rear
-          - light.corner_lamp_1
-          - light.corner_lamp_2
-          - light.corner_lamp_3
-          - light.color_temperature_light_1
-          - light.color_temperature_light_2
-          - light.color_temperature_light_3
 
 
-input_boolean:
-  block_tv_lights:
-    name: Block TV Lights
-    initial: off
-  livingroom_tv:
-    name: Living Room TV
-    initial: off
+
+
+
+
 
 
